@@ -1,6 +1,5 @@
 /build/
 /dist/
-/lib/
 /tempgen/
 /branch/
 .metadata
@@ -11,6 +10,4 @@ build.xml.bkp
 /bin/
 .idea/
 /src.zip
-/buildfiles/dev.properties
-
-buildfiles/prod.properties.bak
+buildfiles/prod.properties
