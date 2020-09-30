@@ -1,0 +1,88 @@
+<div class='panel-main-content'>
+  <alert-panel content='feedback'></alert-panel>
+
+
+  <div class='panel-main-content'>
+
+    <loading size='big' ng-if='loading' />
+
+    <div ng-if='!loading'>
+
+
+      <div class='div-table div-table-small' role="table" ng-if="paziente.elencoContattiA.length>0">
+        <div class="div-table-row div-table-header" role="rowgroup">
+
+          <!-- idContatto -->
+          <div class="div-table-cell first" role="columnheader">
+            <a href="" ng-click="predicate  = 'idContatto'; reverse=!reverse">
+              <span translate-cloak translate>CONTATTO_id_contatto</span>&nbsp;
+              <span ng-show="predicate=='idContatto' && !reverse" class="fa fa-angle-up small"></span>
+              <span ng-show="predicate=='idContatto' && reverse" class="fa fa-angle-down  small"></span>
+            </a>
+          </div>
+          
+          <!-- idSoggetoDa -->
+          <div class="div-table-cell first" role="columnheader">
+            <a href="" ng-click="predicate  = 'idSoggettoDa'; reverse=!reverse">
+              <span translate-cloak translate>CONTATTO_id_soggetto_da</span>&nbsp;
+              <span ng-show="predicate=='idSoggettoDa' && !reverse" class="fa fa-angle-up small"></span>
+              <span ng-show="predicate=='idSoggettoDa' && reverse" class="fa fa-angle-down  small"></span>
+            </a>
+          </div>
+          
+          <!-- idSoggetoA -->
+          <div class="div-table-cell first" role="columnheader">
+            <a href="" ng-click="predicate  = 'idSoggettoA'; reverse=!reverse">
+              <span translate-cloak translate>CONTATTO_id_soggetto_a</span>&nbsp;
+              <span ng-show="predicate=='idSoggettoA' && !reverse" class="fa fa-angle-up small"></span>
+              <span ng-show="predicate=='idSoggettoA' && reverse" class="fa fa-angle-down  small"></span>
+            </a>
+          </div>
+          
+          <!-- note -->
+          <div class="div-table-cell first" role="columnheader">
+            <a href="" ng-click="predicate  = 'note'; reverse=!reverse">
+              <span translate-cloak translate>CONTATTO_note</span>&nbsp;
+              <span ng-show="predicate=='note' && !reverse" class="fa fa-angle-up small"></span>
+              <span ng-show="predicate=='note' && reverse" class="fa fa-angle-down  small"></span>
+            </a>
+          </div>
+          
+          <!-- contattoTipoId -->
+          <div class="div-table-cell first" role="columnheader">
+            <a href="" ng-click="predicate  = 'contattoTipoId'; reverse=!reverse">
+              <span translate-cloak translate>CONTATTO_tipo</span>&nbsp;
+              <span ng-show="predicate=='contattoTipoId' && !reverse" class="fa fa-angle-up small"></span>
+              <span ng-show="predicate=='contattoTipoId' && reverse" class="fa fa-angle-down  small"></span>
+            </a>
+          </div>
+          
+          </div>
+          
+          
+          <div class="div-table-row div-table-row-linkable" role="rowgroup" ng-repeat="c in filtered.contatti = (paziente.elencoContattiA | orderBy:predicate:reverse) | 
+                      startFrom:(filtered.currentPage-1)*pageSize | limitTo:pageSize">
+          
+            <div class="div-table-cell first" role="cell">{{c.idSoggettoContatti}}</div>
+            <a class="div-table-cell" role="cell" ng-click="showPaziente(c.idSoggettoDa)">{{c.idSoggettoDa}}<br>{{c.nomeSoggettoDa}}<br>
+              {{c.cognomeSoggettoDa}}<br>{{c.codiceFiscaleSoggettoDa}}</a>
+            <div class="div-table-cell" role="cell">{{c.idSoggettoA}}<br>{{c.nomeSoggettoA}}<br>
+              {{c.cognomeSoggettoA}}<br>{{c.codiceFiscaleSoggettoA}}</div>
+            <div class="div-table-cell" role="cell">{{c.noteContatto }}</div>
+            <div class="div-table-cell" role="cell">{{c.contattoTipoDescrizione }}</div>
+          
+          </div>
+          </div>
+      <div class='pagination-container' ng-if="filtered.contatti.length>0">
+        <ul uib-pagination total-items="filtered.contatti.length" ng-model="filtered.currentPage" items-per-page="pageSize"
+          class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+          boundary-links="true" force-ellipses="true"></ul>
+      </div>
+
+
+      <alert-panel message='PAZIENTI_CONTATTI_A_NO_CONTATTI' type='info' closable='false'
+        ng-if="paziente.elencoContattiA.length==0"></alert-panel>
+    </div>
+  </div>
+
+</div>

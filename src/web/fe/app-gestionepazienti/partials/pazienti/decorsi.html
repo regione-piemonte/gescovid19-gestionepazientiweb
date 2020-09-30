@@ -1,0 +1,150 @@
+<div class='panel-main-content'>
+	<alert-panel content='feedback'></alert-panel>	
+	
+	
+	<div class='panel-main-content'>
+		
+		<loading size='big'ng-if='loading' />
+			
+		<div ng-if='!loading' >
+			
+			
+			<div class='div-table div-table-small' role="table" ng-if="paziente.elencoDecorso.length>0">
+				<div class="div-table-row div-table-header" role="rowgroup">
+					<div class="div-table-cell first" role="columnheader">
+						<a href="" ng-click="predicate  = 'idDecorso'; reverse=!reverse">
+							<span translate-cloak translate>DECORSO_id_decorso</span>&nbsp;
+							<span ng-show="predicate=='idDecorso' && !reverse" class="fa fa-angle-up small"></span>
+							<span ng-show="predicate=='idDecorso' && reverse" class="fa fa-angle-down  small"></span>
+						</a>
+					</div>
+					<div class="div-table-cell first" role="columnheader">
+						<a href="" ng-click="predicate  = 'decodeTipoEvento.descTipoEvento'; reverse=!reverse">
+							<span translate-cloak translate>DECORSO_id_dimiss</span>&nbsp;
+							<span ng-show="predicate=='decodeTipoEvento.descTipoEvento' && !reverse" class="fa fa-angle-up small"></span>
+							<span ng-show="predicate=='decodeTipoEvento.descTipoEvento' && reverse" class="fa fa-angle-down  small"></span>
+						</a>
+					</div>
+					<div class="div-table-cell first" role="columnheader">
+						<a href="" ng-click="predicate  = 'dataDimissioni'; reverse=!reverse">
+							<span translate-cloak translate>DECORSO_data_evento</span>&nbsp;
+							<span ng-show="predicate=='dataDimissioni' && !reverse" class="fa fa-angle-up small"></span>
+							<span ng-show="predicate=='dataDimissioni' && reverse" class="fa fa-angle-down  small"></span>
+						</a>
+					</div>
+					<div class="div-table-cell first" role="columnheader">
+						<a href="" ng-click="predicate  = 'dataPrevFineEvento'; reverse=!reverse">
+							<span translate-cloak translate>DECORSO_data_prev_fine_evento</span>&nbsp;
+							<span ng-show="predicate=='dataPrevFineEvento' && !reverse" class="fa fa-angle-up small"></span>
+							<span ng-show="predicate=='dataPrevFineEvento' && reverse" class="fa fa-angle-down  small"></span>
+						</a>
+					</div>
+					<div class="div-table-cell first" role="columnheader">
+						<a href="" ng-click="predicate  = 'comuneRicovero.nomeComune'; reverse=!reverse">
+							<span translate-cloak translate>DECORSO_domicilio</span>&nbsp;
+							<span ng-show="predicate=='comuneRicovero.nomeComune' && !reverse" class="fa fa-angle-up small"></span>
+							<span ng-show="predicate=='comuneRicovero.nomeComune' && reverse" class="fa fa-angle-down  small"></span>
+						</a>
+					</div>
+					<div class="div-table-cell first" role="columnheader">
+						<a href="" ng-click="predicate  = 'struttura.nome'; reverse=!reverse">
+							<span translate-cloak translate>DECORSO_struttura</span>&nbsp;
+							<span ng-show="predicate=='struttura.nome' && !reverse" class="fa fa-angle-up small"></span>
+							<span ng-show="predicate=='struttura.nome' && reverse" class="fa fa-angle-down  small"></span>
+						</a>
+					</div>
+					<div class="div-table-cell first" role="columnheader">
+						<a href="" ng-click="predicate  = 'area.nome'; reverse=!reverse">
+							<span translate-cloak translate>DECORSO_area</span>&nbsp;
+							<span ng-show="predicate=='area.nome' && !reverse" class="fa fa-angle-up small"></span>
+							<span ng-show="predicate=='area.nome' && reverse" class="fa fa-angle-down  small"></span>
+						</a>
+					</div>
+					<!-- <div class="div-table-cell first" role="columnheader">
+						<a href="" ng-click="predicate  = 'ospedaleRicovero'; reverse=!reverse">
+							<span translate-cloak translate>DECORSO_ospedale_ricovero</span>&nbsp;
+							<span ng-show="predicate=='ospedaleRicovero' && !reverse" class="fa fa-angle-up small"></span>
+							<span ng-show="predicate=='ospedaleRicovero' && reverse" class="fa fa-angle-down  small"></span>
+						</a>
+					</div>
+					<div class="div-table-cell first" role="columnheader">
+						<a href="" ng-click="predicate  = 'repartoRicovero.repartoRicovero'; reverse=!reverse">
+							<span translate-cloak translate>DECORSO_id_rep_ricovero</span>&nbsp;
+							<span ng-show="predicate=='repartoRicovero.repartoRicovero' && !reverse" class="fa fa-angle-up small"></span>
+							<span ng-show="predicate=='repartoRicovero.repartoRicovero' && reverse" class="fa fa-angle-down  small"></span>
+						</a>
+					</div> -->
+					<div class="div-table-cell first" role="columnheader">
+						<a href="" ng-click="predicate  = 'condizioniCliniche'; reverse=!reverse">
+							<span translate-cloak translate>DECORSO_condizioni_cliniche</span>&nbsp;
+							<span ng-show="predicate=='condizioniCliniche' && !reverse" class="fa fa-angle-up small"></span>
+							<span ng-show="predicate=='condizioniCliniche' && reverse" class="fa fa-angle-down  small"></span>
+						</a>
+					</div>
+
+					<div class="div-table-cell first" role="columnheader">
+						<a href="" ng-click="predicate  = 'sintomi'; reverse=!reverse">
+							<span translate-cloak translate>DECORSO_sintomi </span>&nbsp;
+							<span ng-show="predicate=='sintomi' && !reverse" class="fa fa-angle-up small"></span>
+							<span ng-show="predicate=='sintomi' && reverse" class="fa fa-angle-down  small"></span>
+						</a>
+					</div>
+					<div class="div-table-cell first" role="columnheader">
+						<a href="" ng-click="predicate  = 'dataInizioSint'; reverse=!reverse">
+							<span translate-cloak translate>DECORSO_data_inizio_sint </span>&nbsp;
+							<span ng-show="predicate=='dataInizioSint' && !reverse" class="fa fa-angle-up small"></span>
+							<span ng-show="predicate=='dataInizioSint' && reverse" class="fa fa-angle-down  small"></span>
+						</a>
+					</div>
+					<div class="div-table-cell first" role="columnheader">
+						<a href="" ng-click="predicate  = 'note'; reverse=!reverse">
+							<span translate-cloak translate>DECORSO_note </span>&nbsp;
+							<span ng-show="predicate=='note' && !reverse" class="fa fa-angle-up small"></span>
+							<span ng-show="predicate=='note' && reverse" class="fa fa-angle-down  small"></span>
+						</a>
+					</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="">
+								<span translate-cloak translate>DECORSO_cancella</span>&nbsp;
+							</a>
+						</div>
+				</div>
+				<div class="div-table-row div-table-row-linkable" role="rowgroup"
+					ng-repeat="d in filtered.decorsi = (paziente.elencoDecorso | orderBy:predicate:reverse) | 
+						startFrom:(filtered.currentPage-1)*pageSize | limitTo:pageSize">
+					<div class="div-table-cell first" role="cell" >{{d.idDecorso}}</div>	
+					<div class="div-table-cell" role="cell" >{{d.decodeTipoEvento.descTipoEvento}}</div>	
+					<div class="div-table-cell" role="cell"  >{{d.dataDimissioni | date:'dd/MM/yyyy'}}</div>
+					<div class="div-table-cell" role="cell"  >{{d.dataPrevFineEvento | date:'dd/MM/yyyy'}}</div>
+					<div class="div-table-cell" role="cell" >{{d.comuneRicovero.nomeComune}} {{d.indirizzoDecorso }} {{d.decorsoPresso }} </div>
+					<div class="div-table-cell" role="cell" ng-if = 'd.struttura.nome != null'>{{d.struttura.nome }}</div>	
+					<div class="div-table-cell" role="cell" ng-if = 'd.area.nome != null' >{{d.area.nome}}</div>
+					<div class="div-table-cell" role="cell"  ng-if = 'd.struttura.nome == null' >{{d.ospedaleRicovero}}</div>		
+					<div class="div-table-cell" role="cell"  ng-if = 'd.area.nome == null'>{{d.repartoRicovero.repartoRicovero}}</div>	 	
+					<div class="div-table-cell" role="cell" >{{d.condizioniCliniche}}</div>		
+					<!-- <div class="div-table-cell" role="cell"  ng-if = 'd.dataEvento != null'>{{d.dataEvento | date:'dd/MM/yyyy'}}</div>-->
+					<div class="div-table-cell" role="cell" >{{d.sintomi}}</div>		
+					<div class="div-table-cell" role="cell" >{{d.dataInizioSint | date:'dd/MM/yyyy'}}</div>
+					<div class="div-table-cell" role="cell" >{{d.note}}</div>
+					<div class="div-table-cell" role="cell">
+						<a class="fa fa-trash" aria-hidden="true" ng-if="d.decodeTipoEvento.idTipoEvento != 11 && d.decodeTipoEvento.idTipoEvento != 12 && d.decodeTipoEvento.idTipoEvento != 14 " ng-click='deleteDecorso(d.idDecorso)'></a>
+					</div>
+					<div class="div-table-cell text-right" role="cell" ng-if = 'd.idTipoEvento == Constants.ID_SEGNALAZIONE'>
+							<a class='btn btn-default btn-xs' ng-if = 'd.idDecorso != paziente.elencoDecorso[0].idDecorso' ng-click='showSintomiFromDecorsoModal(paziente, d, d.sintomo)' translate >DECORSI_VIEW_SINTOMI</a>
+							<a class='btn btn-default btn-xs' ng-if = 'd.idDecorso == paziente.elencoDecorso[0].idDecorso' ng-click='showSintomiFromDecorsoModal(paziente, d, d.sintomo)' translate >SEGNALAZIONE_PRENDI_IN_CARICO</a>
+					</div>
+					<div class="div-table-cell" role="cell" ng-if = 'd.idTipoEvento != Constants.ID_SEGNALAZIONE'>&nbsp;</div>
+
+				</div>
+			</div>
+			<div class='pagination-container' ng-if="filtered.decorsi.length>0">
+			 	<ul uib-pagination total-items="filtered.decorsi.length" ng-model="filtered.currentPage" items-per-page="pageSize" class="pagination-sm"
+			 	 	previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" boundary-links="true" force-ellipses="true"></ul>
+			</div>
+			
+	  		<alert-panel message='PAZIENTI_DECORSI_NO_DECORSI' type='info' closable='false' ng-if="paziente.elencoDecorso.length==0"></alert-panel>
+		</div>
+	</div>
+	
+</div>
+

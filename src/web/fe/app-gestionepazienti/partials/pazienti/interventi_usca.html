@@ -1,0 +1,71 @@
+<div class='panel-main-content'>
+	<alert-panel content='feedback'></alert-panel>	
+	
+	
+	<div class='panel-main-content'>
+		
+		<loading size='big'ng-if='loading' />
+			
+		<div ng-if='!loading' >
+			
+			<div class='div-table' role="table" ng-if="interventiUsca.length>0">
+				<div class="div-table-row div-table-header" role="rowgroup">
+					<div class="div-table-cell first" role="columnheader">
+						<a href="" ng-click="predicate  = 'medico.cognome'; reverse=!reverse">
+							<span translate-cloak translate>INTERVENTO_USCA_medico_richiesta</span>&nbsp;
+							<span ng-show="predicate=='medico.cognome' && !reverse" class="fa fa-angle-up small"></span>
+							<span ng-show="predicate=='medico.cognome' && reverse" class="fa fa-angle-down  small"></span>
+						</a>
+					</div>
+					<div class="div-table-cell first" role="columnheader">
+						<a href="" ng-click="predicate  = 'data'; reverse=!reverse">
+							<span translate-cloak translate>INTERVENTO_USCA_data_richiesta</span>&nbsp;
+							<span ng-show="predicate=='data' && !reverse" class="fa fa-angle-up small"></span>
+							<span ng-show="predicate=='data' && reverse" class="fa fa-angle-down  small"></span>
+						</a>
+					</div>
+					<div class="div-table-cell first" role="columnheader">
+						<a href="" ng-click="predicate  = 'stato.nome'; reverse=!reverse">
+							<span translate-cloak translate>INTERVENTO_USCA_stato</span>&nbsp;
+							<span ng-show="predicate=='stato.nome' && !reverse" class="fa fa-angle-up small"></span>
+							<span ng-show="predicate=='stato.nome' && reverse" class="fa fa-angle-down  small"></span>
+						</a>
+					</div>
+					<div class="div-table-cell first" role="columnheader">
+						<a href="" ng-click="predicate  = 'usca.nome'; reverse=!reverse">
+							<span translate-cloak translate>INTERVENTO_USCA_destinatario</span>&nbsp;
+							<span ng-show="predicate=='usca.nome' && !reverse" class="fa fa-angle-up small"></span>
+							<span ng-show="predicate=='usca.nome' && reverse" class="fa fa-angle-down  small"></span>
+						</a>
+					</div>
+					<div class="div-table-cell" role="columnheader" translate>&nbsp;</div>
+				</div>
+				<div class="div-table-row div-table-row-linkable" role="rowgroup"
+					ng-repeat="iu in (interventiUsca | orderBy:predicate:reverse) | 
+						startFrom:(filtered.currentPage-1)*pageSize | limitTo:pageSize">
+					<div class="div-table-cell first" role="cell" >
+						<span class='cell-row'>{{iu.medico.nome}} {{iu.medico.cognome}}</span>
+                        <span class='cell-row'><span translate>INTERVENTO_USCA_telefono</span>: {{iu.medico.telefono}}</span>
+					</div>	
+					<div class="div-table-cell" role="cell"  >{{iu.data | date:'dd/MM/yyyy HH:mm'}}</div>
+					<div class="div-table-cell" role="cell"  >
+					  <span class='cell-row'>{{'STATO_INTERVENTO_USCA_' + iu.stato.codice|translate}}</span>
+                      <span ng-bind-html='getAutoreCambioStatoInterventoUsca(iu)'></span>
+					</div>
+					<div class="div-table-cell" role="cell" >{{iu.usca.nome}} </div>
+					<div class="div-table-cell text-right" role="cell">
+						<a class='btn btn-default btn-xs' ng-click='openDettaglioInterventoUsca(iu)' translate >INTERVENTO_USCA_DETTAGLIO_BTN</a>
+					</div>
+				</div>
+			</div>
+			<div class='pagination-container' ng-if="filtered.decorsi.length>0">
+			 	<ul uib-pagination total-items="interventiUsca.length" ng-model="filtered.currentPage" items-per-page="pageSize" class="pagination-sm"
+			 	 	previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" boundary-links="true" force-ellipses="true"></ul>
+			</div>
+			
+	  		<alert-panel message='PAZIENTI_INTERVENTI_USCA_NO_INTERVENTI_USCA' type='info' closable='false' ng-if="interventiUsca.length==0"></alert-panel>
+		</div>
+	</div>
+	
+</div>
+

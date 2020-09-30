@@ -1,0 +1,45 @@
+<div class='modal-compact' id="edit-paziente-modal">
+	<div class='modal-header' ng-click='debugCollection()'>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+		<h4 ><span translate>AURA_SEARCH_MODAL_TITLE</span></h4>
+	</div>
+	<div class="modal-body">
+		<table class='table table-condensed'>
+			<thead><tr><th>&nbsp</th>
+				<th translate>SOGGETTO_AURA_CODICEFISCALE</th>
+				<th translate>SOGGETTO_AURA_COGNOME</th>
+				<th translate>SOGGETTO_AURA_NOME</th>
+				<th translate>SOGGETTO_AURA_SESSO</th>
+				<th translate>SOGGETTO_AURA_DATANASCITA</th>
+				<th translate>SOGGETTO_AURA_LUOGONASCITA</th>
+				<th translate>SOGGETTO_AURA_DATADECESSO</th>
+				<th>&nbsp;</th>
+			</tr></thead>
+			<tbody><tr ng-repeat='s in soggettiAura track by $index;'>
+				<td>
+					<div class="radio inline-radio">
+						<label><input name='radioSoggetto' id='radioSoggetto' type="radio" ng-model='selected.indexSoggetto'  value='{{$index}}'/>
+						<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span></label>
+					</div>
+				</td>
+				<td>{{s.codiceFiscale}}</td>
+				<td>{{s.cognome}}</td>
+				<td>{{s.nome}}</td>
+				<td>{{s.sesso}}</td>
+				<td>{{s.dataNascita}}</td>
+				<td>{{s.comuneNascita}} ({{s.provinciaNascita}}) - {{s.statoNascita}}</td>
+				<td>{{s.dataDecesso|date:'dd/MM/yyyy'}}</td>
+				<td><a class='btn btn-default btn-xs' ng-click='selectSoggetto($index)' translate>AURA_SEARCH_SELECT_SINGLE_BTN</a></td>
+			</tr></tbody>
+		</table>
+	</div>
+	<div class='modal-footer '>
+		<div class='toolbar-left'>
+			<a href ng-click='cancel()' class='btn btn-default' translate>CANCEL</a>
+		</div>
+		<div class='toolbar-right'>
+			<a href ng-click='selectSoggetto()' class='btn btn-primary'  ng-disabled='!selected.indexSoggetto' translate>AURA_SEARCH_SELECT_BTN</a>
+		</div>
+	</div>
+	
+</div>

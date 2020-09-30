@@ -1,0 +1,225 @@
+<div class='modal-compact' id="edit-paziente-modal">
+	<div class='modal-header' ng-click='debugCollection()'>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+		<h4 ><span>{{'DECORSO_NEW_TITLE_'+azioneDecorso|translate}}</span></h4>
+	</div>
+	
+	<div class='modal-intro-data'>
+		<div class="detail-row">
+	    	<div class="detail-label"  translate>PAZIENTI_id_soggetto</div>
+			<div class="detail-content">
+				{{paziente.idSoggetto}}
+			</div>
+  		</div>	
+		<div class="detail-row">
+	    	<div class="detail-label"  translate>PAZIENTI_codice_fiscale</div>
+			<div class="detail-content">
+				{{paziente.codiceFiscale}}
+			</div>
+  		</div>	
+	    <div class="detail-row">
+	    	<div class="detail-label" translate>PAZIENTI_cognome</div>
+			<div class="detail-content">
+					{{paziente.cognome}}
+			</div>
+  		</div>	
+	    <div class="detail-row">
+	    	<div class="detail-label "translate>PAZIENTI_nome</div>
+			<div class="detail-content">
+					{{paziente.nome}}
+			</div>
+  		</div>	
+  		<div class="detail-row">
+	    	<div class="detail-label  "  for="pazienteDatanascita" translate>PAZIENTI_data_nascita</div>
+			<div class="detail-content">
+					{{paziente.dataNascita|date:'dd/MM/yyyy'}}
+			</div>
+  		</div>
+  	</div>
+	<div class="modal-body">
+		<!-- 
+			<p class='edit-intro' translate ng-if='!paziente.codice_fiscale'>PAZIENTE_NEW_INTRO</p>
+			<p class='edit-intro' translate ng-if='paziente.codice_fiscale'>PAZIENTE_EDIT_INTRO</p>
+		 -->
+
+		<alert-panel content='feedback'></alert-panel>
+		<alert-panel content='feedbackNonAbilitato'></alert-panel>
+		
+		<loading size='big'ng-if='loading' />
+				
+		
+		<form class='form-horizontal' ng-if='!loading && utenteAbilitato'  >
+			<div class="form-group">
+		    	<label class="col-sm-3  control-label"  for="decorsoidTipoEvento" translate >DECORSO_id_dimiss</label>
+				<div class="col-sm-6">
+
+					<select ng-model="decorso.idTipoEvento" class="form-control " id="decorsoidTipoEvento"  ng-change='selectTipoEvento()'
+						ng-options="ev.idTipoEvento as ev.descTipoEvento for ev in eventi | orderBy:'descTipoEvento'"  
+						ng-disabled='azioneDecorso=="inTrasferimento" || decorso.isolamentoDomiciliare'>
+					</select>
+				</div>
+	  		</div>	
+	  		<div class="form-group">
+		    	<label class="col-sm-3  control-label"  for="decorsoDataDimissioni" translate>DECORSO_data_evento</label>
+				<div class="col-sm-6">
+					<input type="date" class="form-control " id="decorsoDataDimissioni" 
+						ng-model="decorso.dataDimissioni">
+				</div>
+			</div>
+			<div ng-if='decorso.idTipoEvento != idEsiti.ID_DECEDUTO && decorso.idTipoEvento != idEsiti.ID_GUARITO && decorso.idTipoEvento != idEsiti.ID_USCITO'>
+		  		<div class="form-group" ng-if='azioneDecorso=="inQuarantena"'>
+			    	<label class="col-sm-3  control-label"  for="decorsoDataPrevFineEvento" translate ng-if='azioneDecorso!="inQuarantena"'>DECORSO_data_prev_fine_evento</label>
+			    	<label class="col-sm-3  control-label"  for="decorsoDataPrevFineEvento" translate ng-if='azioneDecorso=="inQuarantena"'>DECORSO_data_fine_quarantena</label>
+					<div class="col-sm-6">
+						<input type="date" class="form-control " id="decorsoDataPrevFineEvento" 
+							ng-model="decorso.dataPrevFineEvento">
+					</div>
+				</div>
+				<div class='form-group-divider' ng-if='tipoDecorso'></div>
+				<div class='form-group-intro' ng-if='tipoDecorso'><span>{{tipoDecorso + '_INTRO'|translate}}</span></div>
+		  		<div class="form-group" ng-if='tipoDecorso=="ISOLAMENTO_DOMICILIARE" || tipoDecorso=="DISPOSTA_QUARANTENA_DOMIC"'>
+			    	<label class="col-sm-3  control-label"  for="decorsoPresso" translate>DECORSO_decorso_presso</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control " id="decorsoPresso" placeholder="{{'DECORSO_decorso_presso'|translate}}" 
+							ng-model="decorso.decorsoPresso">
+					</div>
+					<div class='col-sm-5'>
+						<a href ng-click='copiaIndirizzoDaDomicilio()' class='btn btn-default' title='{{"COPIA_INDIRIZZO_DA_DOMICILIO_HINT"|translate}}'>
+							<span translate>COPIA_INDIRIZZO_DA_DOMICILIO_BTN</span>
+						</a>
+					</div>
+		  		</div>	
+		  		<div class="form-group" ng-if='tipoDecorso=="ISOLAMENTO_DOMICILIARE" || tipoDecorso=="DISPOSTA_QUARANTENA_DOMIC"'>
+			    	<label class="col-sm-3  control-label"  for="indirizzoDecorso" translate>DECORSO_indirizzo_decorso</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control " id="indirizzoDecorso" placeholder="{{'DECORSO_indirizzo_decorso'|translate}}"  
+							ng-model="decorso.indirizzoDecorso">
+					</div>
+		  		</div>	
+				 <div class="form-group" ng-if='tipoDecorso=="ISOLAMENTO_DOMICILIARE" || tipoDecorso=="DISPOSTA_QUARANTENA_DOMIC"'>
+			    	<label class="col-sm-3  control-label"  for="decorsoComuneRicovero"><span translate>DECORSO_comune_isolamento_istat</span><br><span class='control-label-hint' translate>DECORSO_comune_isolamento_istat2</span></label>
+					<div class="col-sm-6">
+						<input type="text" ng-model="decorso.comuneRicoveroIstatCompleto" placeholder="{{'DECORSO_comune_isolamento_istat'|translate}}" 
+						uib-typeahead="c as c.nomeComune for c in  comuni | filter:$viewValue | limitTo:100"   typeahead-editable='false'
+						typeahead-no-results="noResults" class="form-control" ng-if='comuni.length>0'>				
+					</div>
+		  		</div>
+				<alert-panel content='feedbackAslDomicilio.feedback'></alert-panel>
+		  		<div class="form-group" ng-if='tipoDecorso=="ISOLAMENTO_DOMICILIARE" || tipoDecorso=="DISPOSTA_QUARANTENA_DOMIC"'> <!-- era POST_RICOVERO -->
+			    	<label class="col-sm-3  control-label"  for="ente" translate>PAZIENTI_asl_domicilio</label>
+					<div class="col-sm-6">
+						<span ng-if='paziente.aslDomicilio'>{{paziente.aslDomicilio}}</span>
+						<span ng-if='!paziente.aslDomicilio'><i>Asl domicilio non valorizzata</i></span>
+					</div>
+		  		</div>	
+		  			 
+		  		
+		  		
+		  		
+		  		<div class="form-group" ng-if='tipoDecorso=="STRUTTURA" || tipoDecorso=="ASSEGNAZIONE_DOMICILIO" || tipoDecorso=="DISPOSTA_QUARANTENA_EXTRA_DOMIC"'>
+			    	<label class="col-sm-3  control-label"  for="ente" translate>DECORSO_struttura</label>
+					<div class="col-sm-6">
+						<select ng-model="decorso.idStruttura" class="form-control " id="decorsoStruttura" ng-if='strutture.length>0'
+							ng-options="s.idStruttura as s.nome for s in strutture | orderBy:'nome'" ng-disabled='decorso.isolamentoDomiciliare' ng-change='loadAree(decorso.idStruttura)'>
+						</select>
+					</div>
+					<div class='col-sm-3'>
+						<a href ng-click='showPostiDisponibiliModal()' class='btn btn-default'  ng-if='tipoDecorso=="STRUTTURA"'>
+								<span translate>DECORSO_POSTI_DISPONIBILI_BTN</span>
+						</a>
+					</div>	  		
+		  		</div>		 
+		  		<div class="form-group"  ng-if='(tipoDecorso=="STRUTTURA" || tipoDecorso=="ASSEGNAZIONE_DOMICILIO" || tipoDecorso=="DISPOSTA_QUARANTENA_EXTRA_DOMIC") && azioneDecorso!="inQuarantena"'>
+			    	<label class="col-sm-3  control-label"  for="ente" translate>DECORSO_area</label>
+					<div class="col-sm-6">
+						<select ng-model="decorso.idArea" class="form-control " id="decorsoArea"
+							ng-options="a.idArea as a.nomeshort for a in aree | orderBy:'nomeshort'" ng-disabled='decorso.isolamentoDomiciliare' >
+						</select>
+					</div>
+		  		</div>		
+		  		   
+		  		<div class='form-group-divider' ></div>
+		  		
+				<div class="form-group" ng-if='tipoDecorso!="POST_RICOVERO"'>
+			    	<div class="col-sm-3 text-right">
+				    	<label class="control-label"  for="decorsoNote" translate>DECORSO_note</label>
+				    	<!-- 
+				    	<div class='hint-evidence'>
+				    		<div class='hint-evidence-icon'><i class='fa fa-lightbulb-o'></i></div>
+				    		<div class='hint-evidence-text'><span translate>DECORSO_DATI_VISIBILI_HINT</span></div>
+				    	</div>
+				    	-->
+				    </div>
+					<div class="col-sm-6">
+						<textarea rows='5'  class="form-control " id="decorsoNote" placeholder="{{'DECORSO_note'|translate}}" 
+							ng-model="decorso.note" maxlength="500"></textarea>
+					</div>
+			    	<div class="col-sm-3  control-label"  for="decorsoNote">
+						<!-- 
+							 <ul class='list-small-right small  list-unstyled'>
+								<li><strong class='list-bullet'>&nbsp;</strong> <i>NO DATI SENSIBILI</i></li>
+								<li><strong class='list-bullet'>&nbsp;</strong> <i>NO CONDIZIONI CLINICHE</i></li>
+								<li><strong class='list-bullet'>&nbsp;</strong> <i>SI protocollo domicilio</i></li>
+								<li><strong class='list-bullet'>&nbsp;</strong> <i>SI generi prima necessit&agrave;</i></li>
+								<li><strong class='list-bullet'>&nbsp;</strong> <i>SI raccolta rifiuti</i></li>
+							</ul>
+						
+						 -->
+			    	</div> 
+		  		</div>	
+	
+		  		
+				<div class="form-group">
+			    	<label class="col-sm-3  control-label"  for="decorsoCondizioniCliniche" translate>DECORSO_condizioni_cliniche</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control " id="decorsoCondizioniCliniche" placeholder="{{'DECORSO_condizioni_cliniche'|translate}}" 
+							ng-model="decorso.condizioniCliniche">
+					</div>
+		  		</div>	
+		  		<div class='form-group-intro'>
+		  			
+		  		</div>
+				<div class="form-group">
+			    	<label class="col-sm-3  control-label"  for="decorsoSintomi">
+			    		<span translate>DECORSO_sintomi</span>
+			    	</label>
+					<div class="col-sm-2">
+						<div class="radio inline-radio">
+							<label><input type="radio" ng-model='decorso.sintomi' id='decorsoSintomi' name='decorsoSintomi' value='SI'/>
+							<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span> <span translate>YES</span></label>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="radio inline-radio">
+							<label><input type="radio" ng-model='decorso.sintomi' id='decorsoSintomi' name='decorsoSintomi' value='NO'/>
+							<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span> <span translate>NO</span></label>
+						</div>
+					</div>
+					<div class="col-sm-5">
+					 	<span class='control-label-hint' translate>DECORSO_INTRO_SINTOMI</span>
+					</div>
+		  		</div>	
+		  		<div class="form-group">
+			    	<label class="col-sm-3  control-label"  for="decorsoDataInizioSintomatologia" translate>DECORSO_data_inizio_sint</label>
+					<div class="col-sm-6">
+						<input type="date" class="form-control " id="decorsoDataInizioSintomatologia" 
+							ng-model="decorso.dataInizioSint" ng-disabled="decorso.sintomi=='NO'">
+					</div>
+				</div>
+		  		
+			</div>
+	</form>
+	<alert-panel content='feedback'></alert-panel>
+		
+	</div>
+	<div class='modal-footer '>
+		<div class='toolbar-left'>
+			<a href ng-click='cancel()' class='btn btn-default' translate>CANCEL</a>
+		</div>
+		<div class='toolbar-right'>
+			<a href ng-click='save(true)' class='btn btn-primary' ng-if='utenteAbilitato && !loading' translate>SAVE_DECORSO</a>
+			<span translate ng-if='loading'>LOADING</span>
+		</div>
+	</div>
+	
+</div>

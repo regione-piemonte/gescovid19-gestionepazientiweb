@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="UTF-8">
+   <script src="./js/vue.js"></script>
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> -->
+<!--    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script> -->
+   <script src="./js/jquery-3.3.1.js"></script>
+   <link rel="stylesheet" href="./css/bootstrap.css" />
+   <script src="./js/bootstrap.js"></script>
+   <script src="./js/lodash.js"></script>
+</head>
+<body>
+
+<div class="jumbotron">
+	  <h1 class="display-4">Referti Upload</h1>
+	  <p class="lead">Benvenuto nella pagina di caricamento dei Referti <span class="badge badge-secondary">1.0.0</span></p>
+	  <hr class="my-4">
+	  <p>Da questa pagina è possibile caricare i referti nel formato CSV.</p>
+	</div>
+
+<div id="app" class="container">
+
+  <div v-if="currentUser && !profiloAbilitato" class="alert alert-warning" role="alert">
+	 <p>Utente non abilitato</p>
+  </div>
+  
+  <div v-if="currentUser && profiloAbilitato">
+
+		  <h2>File CSV</h2>
+		  <p>Selezionare il file CSV da cariare</p>
+		  
+		
+		  <div class="row">
+		    <div class="col">
+		        <label for="file">File</label> 
+		        <input type="file" class="form-control" id="file" ref="file" v-on:change="handleFileUpload()" />
+		    </div>
+		  </div>
+		  
+		  
+		<br>
+		<div v-if="loading">
+			<p>Caricamento in corso... Si prega di attendere.</p>
+		</div>
+		<div v-if="!loading">
+			<div v-if="!fileSelezionato && !errorMsg && !successMsg" class="alert alert-warning" role="alert">
+			 <p>Selezionare il file e premere bottone Invia.</p>
+			</div>
+			
+			<div v-if="fileSelezionato && !errorMsg && !successMsg" class="alert alert-success" role="alert" style="word-break: break-word" >
+			  <p>Il file è pronto per l'invio. Premere bottone Invia.</p>
+			</div>
+			
+			<div v-if="errorMsg" class="alert alert-warning" role="alert" style="word-break: break-word; white-space:pre-wrap;">
+			 <h4 class="alert-heading">Attenzione</h4>
+			 <p>{{errorMsg}}</p>
+			</div>
+			
+			<div v-if="successMsg" class="alert alert-success" role="alert" style="word-break: break-word; white-space:pre-wrap;" >
+			  <h4 class="alert-heading">Successo</h4>
+			  <p>{{successMsg}}</p>
+			</div>
+		</div>
+		
+		<div class="float-right">
+		        <input :disabled="!fileSelezionato" type="button" class="btn btn-primary" value="Invia" v-on:click="invia">
+		</div>
+
+	</div>
+
+</div>
+<br>
+<br>
+<br>
+
+<script>
+
+
+    
+var app = new Vue({
+  el: '#app',
+  data: {
+	currentUser: null,
+    loading: false,
+    fileSelezionato: false,
+    file: '',
+	fileText: '',
+	successMsg: false,
+	errorMsg: false,
+
+  },
+  computed: {
+	  profiloAbilitato: function() {
+		  	var elencoProfilo = this.currentUser && this.currentUser.elencoProfilo;
+	      	if(elencoProfilo && elencoProfilo.length){
+	      		for(var i = 0; i<elencoProfilo.length; i++){
+	      			var p = elencoProfilo[i];
+	      			if(p.idProfilo == 27){
+	      				return true;
+	      			}
+	      		}
+	      	}
+	      	return false;
+	  }
+  },
+  methods: {
+	  handleFileUpload: function() {
+		  console.log("handleFileUpload!");
+		  this.fileSelezionato = true;
+		  this.file = this.$refs.file.files[0];
+		  console.log(this.file);
+		  
+		  this.errorMsg = null;
+		  this.successMsg = null;
+		  
+		  var self = this; 
+		  var reader = new FileReader();
+		  reader.onload = function(progressEvent) {
+		    // Entire file
+		    //console.log(this.result);
+		    self.fileText = this.result;
+		  };
+		  reader.readAsText(this.file);
+		  
+	  },
+	  invia: function() {
+		//const basePath = "http://localhost:8080/gestionepazientiapiwebsrv";
+		const basePath = "..";
+		this.loading = true;
+		var self = this;
+        jQuery.ajax({
+        	type: "POST",
+        	url: basePath + "/api/referti/csv", 
+        	"headers": {
+        	    "accept": "application/json",
+        	    //"Shib-Identita-CodiceFiscale": "AAAAAA00B77B000",
+        	    //"X-Request-ID": "3545567c-e871-4a2d-a5c3-0a0d8370ba37",
+        	    //"X-Applicazione-Codice": "gestionepazientiweb",
+        	    //"X-Forwarded-For": "216.3.128.12",
+        	    "Content-Type": "text/plain"
+        	  },
+    		data: this.fileText, 
+            success: function (response, status, jqxhr) {
+            	self.loading = false;
+            	self.errorMsg = null;
+            	self.successMsg = "Import effettuato con successo.";
+		    },
+		    error: function (data, status, errorMessage) {
+		    	console.log(data);
+		    	
+		    	self.loading = false;
+		    	self.successMsg = null;
+		    	
+		    	self.errorMsg = data && 
+		    	         data.responseJSON 
+		    	         && data.responseJSON.status==400
+		    	         && data.responseJSON.code=='PARAMETRO_ERRATO'
+		    	         && data.responseJSON.detail
+		                 && data.responseJSON.detail.length
+		                 && data.responseJSON.detail[0].valore;
+		    	
+		    	if(!self.errorMsg) {
+		    		self.errorMsg = data && 
+	    	         data.responseJSON 
+	    	         && data.responseJSON.status==401
+	    	         && "Utente non autorizzato"
+		    	}
+		    	
+		    	if(!self.errorMsg) {
+		    		self.errorMsg = "Si è verificato un errore.";
+		    	}
+		        
+		    }
+        })
+    },
+    getCurrentUser: function() {
+    	var self = this;
+        jQuery.ajax({
+        	type: "GET",
+        	url: "../api/currentUser", 
+        	"headers": {
+        	    "accept": "application/json",
+        	    //"Shib-Identita-CodiceFiscale": "AAAAAA00B77B000",
+        	    //"X-Request-ID": "3545567c-e871-4a2d-a5c3-0a0d8370ba37",
+        	    //"X-Applicazione-Codice": "gestionepazientiweb",
+        	    //"X-Forwarded-For": "216.3.128.12",
+        	    "Content-Type": "application/json"
+        	  },
+            success: function (data, status, jqxhr) {
+            	console.log(data);
+            	self.currentUser = data;
+		    },
+		    error: function (data, status, errorMessage) {
+		    	console.log(data);
+		    }
+        })
+    }
+  },
+  filter: {
+      
+  },
+  created: function () {
+	    // `this` points to the vm instance
+	    console.log("created");
+	    this.getCurrentUser();
+  }
+});
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<div class='intervento-usca-dettaglio'>
+	<div class="detail-row">
+		<div class="detail-label"  translate>INTERVENTO_USCA_data_richiesta</div>
+		<div class="detail-content">{{iu.data | date:'dd/MM/yyyy HH:mm'}}</div>
+  	</div>	
+	<div class="detail-row">
+		<div class="detail-label"  translate>INTERVENTO_USCA_medico_richiesta</div>
+		<div class="detail-content">{{iu.medico.nome}} {{iu.medico.cognome}}</div>
+  	</div>	
+	<div class="detail-row">
+		<div class="detail-label"  translate>INTERVENTO_USCA_destinatario</div>
+		<div class="detail-content">{{iu.usca.nome}} </div>
+  	</div>	
+	<div class="detail-row">
+		<div class="detail-label"  translate>INTERVENTO_USCA_descrizione</div>
+		<div class="detail-content">{{iu.descrizione}} </div>
+  	</div>	
+ 	<div ng-repeat='p in iu.prescrizioni'class="detail-row">
+		<div class="detail-label  text-capitalize ">{{p.tipo.nome}}</div>
+		<div class="detail-content">{{p.prescrizione}} </div>
+  	</div>
+</div>

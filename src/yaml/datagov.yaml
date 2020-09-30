@@ -1,0 +1,598 @@
+swagger: '2.0'
+info:
+    title: 'DataGov API'
+    description: 'API per DataGov.'
+    version: 1.0.0
+schemes:
+    - http
+    - https
+basePath: /restfacade/be
+produces:
+    - application/json
+paths:
+    /projects:
+        post:
+            operationId: createProject
+            summary: 'Creates a project'
+            description: 'Creates a project'
+            parameters: [{name: project, required: true, in: body, schema: {$ref: '#/definitions/Project'}}]
+            produces: [application/json]
+            tags: [Projects]
+            responses: {'200': {description: 'Project Created', schema: {$ref: '#/definitions/Project'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+        get:
+            operationId: getProjects
+            summary: 'get all projects'
+            description: 'get all projects'
+            parameters: [{name: all, type: boolean, in: query, required: false}]
+            produces: [application/json]
+            tags: [Projects]
+            responses: {'200': {description: 'la lista di progetti', schema: {type: array, items: {$ref: '#/definitions/Project'}}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    '/projects/{idProject}':
+        get:
+            operationId: getProjectByIdProject
+            summary: 'get projects by idProject'
+            description: 'restituisce il dettaglio del progetto'
+            parameters: [{name: idProject, type: integer, in: path, required: true}]
+            produces: [application/json]
+            tags: [Projects]
+            responses: {'200': {description: 'la lista di progetti', schema: {$ref: '#/definitions/Project'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+        delete:
+            operationId: deleteProject
+            summary: 'delete a project'
+            description: 'cancella un progetto'
+            parameters: [{name: idProject, type: integer, in: path, required: true}]
+            produces: [application/json]
+            tags: [Projects]
+            responses: {'200': {description: 'project deleted', schema: {$ref: '#/definitions/Project'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+        put:
+            operationId: updateProject
+            summary: 'Updare a project'
+            description: 'Update a project'
+            parameters: [{name: project, required: true, in: body, schema: {$ref: '#/definitions/Project'}}]
+            produces: [application/json]
+            tags: [Projects]
+            responses: {'200': {description: 'Project Updated', schema: {$ref: '#/definitions/Project'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    /project_types:
+        get:
+            operationId: getProjectTypes
+            summary: 'get all project types'
+            description: 'get all project types'
+            produces: [application/json]
+            tags: ['Project Types']
+            responses: {'200': {description: 'la lista dei tipi di progetto', schema: {type: array, items: {$ref: '#/definitions/ProjectType'}}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    /project_status:
+        get:
+            operationId: getProjectStatus
+            summary: 'get all project status'
+            description: 'get all project status'
+            produces: [application/json]
+            tags: ['Project Status']
+            responses: {'200': {description: 'la lista degli stati del progetto', schema: {type: array, items: {$ref: '#/definitions/ProjectStatus'}}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    /collection_types:
+        get:
+            operationId: getCollectionTypes
+            summary: 'get all collection types'
+            description: 'get all collection types'
+            produces: [application/json]
+            tags: ['Collection Types']
+            responses: {'200': {description: 'la lista dei tipi di progetto', schema: {type: array, items: {$ref: '#/definitions/CollectionType'}}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    /collection_status:
+        get:
+            operationId: getCollectionStatus
+            summary: 'get all collection status'
+            description: 'get all collection status'
+            produces: [application/json]
+            tags: ['Collection Status']
+            responses: {'200': {description: 'la lista degli stati insieme di dataset', schema: {type: array, items: {$ref: '#/definitions/CollectionStatus'}}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    /relation_types:
+        get:
+            operationId: getRelationTypes
+            summary: 'get all relation types'
+            description: 'get all relation types'
+            produces: [application/json]
+            tags: ['Relation Types']
+            responses: {'200': {description: 'la lista dei tipi di progetto', schema: {type: array, items: {$ref: '#/definitions/RelationType'}}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    /roles:
+        get:
+            operationId: getRoles
+            summary: 'get all roles'
+            description: 'get all roles'
+            produces: [application/json]
+            tags: ['Role User']
+            responses: {'200': {description: 'la lista dei ruoli utente', schema: {type: array, items: {$ref: '#/definitions/Role'}}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    /approles:
+        get:
+            operationId: getAppRoles
+            summary: 'get all App roles'
+            description: 'get all App roles'
+            produces: [application/json]
+            tags: ['Role User']
+            responses: {'200': {description: 'la lista dei ruoli utente', schema: {type: array, items: {$ref: '#/definitions/AppRole'}}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    /users:
+        post:
+            operationId: createUser
+            summary: 'Creates an user'
+            description: 'Creates an user'
+            parameters: [{name: user, required: true, in: body, schema: {$ref: '#/definitions/User'}}]
+            produces: [application/json]
+            tags: [Users]
+            responses: {'200': {description: 'User Created', schema: {$ref: '#/definitions/User'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+        get:
+            operationId: getUsers
+            summary: 'get all users'
+            description: 'get all users'
+            produces: [application/json]
+            tags: [Users]
+            responses: {'200': {description: 'la lista degli utenti', schema: {type: array, items: {$ref: '#/definitions/User'}}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    '/users/{idUser}':
+        get:
+            operationId: getUserByIdUser
+            summary: 'get user by idUser'
+            description: 'restituisce il dettaglio del utente'
+            parameters: [{name: idUser, type: integer, in: path, required: true}]
+            produces: [application/json]
+            tags: [Users]
+            responses: {'200': {description: 'la lista di utenti', schema: {$ref: '#/definitions/User'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    /project_user:
+        post:
+            operationId: addUserToProject
+            summary: 'Add user to project'
+            description: 'Add user to project'
+            parameters: [{name: RProjectUser, required: true, in: body, schema: {$ref: '#/definitions/RProjectUser'}}]
+            produces: [application/json]
+            tags: [Projects]
+            responses: {'200': {description: 'Project Created', schema: {$ref: '#/definitions/RProjectUser'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    '/project_user/{idProject}/{idUser}/{idRole}':
+        delete:
+            operationId: removeUserFromProject
+            summary: 'remove a user from a project'
+            description: 'remove a user from a project'
+            parameters: [{name: idProject, type: integer, in: path, required: true}, {name: idUser, type: integer, in: path, required: true}, {name: idRole, type: integer, in: path, required: true}]
+            produces: [application/json]
+            tags: [Projects]
+            responses: {'200': {description: 'project deleted', schema: {$ref: '#/definitions/Project'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    /collections:
+        get:
+            operationId: getCollections
+            summary: 'get all collection'
+            description: 'get all collections'
+            parameters: [{name: idProject, type: integer, in: query, required: false}]
+            produces: [application/json]
+            tags: [Collection]
+            responses: {'200': {description: 'la lista delle collezioni', schema: {type: array, items: {$ref: '#/definitions/DatasetCollection'}}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    /collections/relation/{relationType}:
+        get:
+            operationId: getCollectionsForRelation
+            summary: 'get all collection for relation'
+            description: 'get all collection for relation'
+            parameters: [{name: relationOperationType, type: integer, in: path, required: true}, {name: idProject, type: integer, in: query, required: true}, {name: sourceIds, type: string, in: query, required: false}, {name: relationNode, type: string, in: query, required: false}]
+            produces: [application/json]
+            tags: [Collection]
+            responses: {'200': {description: 'la lista delle collezioni per destinazione', schema: {type: array, items: {$ref: '#/definitions/DatasetCollection'}}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    '/collections/{idCollection}':
+        get:
+            operationId: getCollectionByIdCollection
+            summary: 'get collection by id collection'
+            description: 'restituisce il dettaglio dell''insieme di dataset'
+            parameters: [{name: idCollection, type: integer, in: path, required: true}]
+            produces: [application/json]
+            tags: [Collections]
+            responses: {'200': {description: 'la lista di insiemi di dataset', schema: {$ref: '#/definitions/DatasetCollection'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    '/projects/{idProject}/collections':
+        post:
+            operationId: createCollection
+            summary: 'Creates a collection'
+            description: 'Creates a collection'
+            parameters: [{name: idProject, type: integer, in: path, required: true}, {name: collection, required: true, in: body, schema: {$ref: '#/definitions/DatasetCollection'}}]
+            produces: [application/json]
+            tags: [Collection]
+            responses: {'200': {description: 'Project Created', schema: {$ref: '#/definitions/Project'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    '/projects/{idProject}/collections/{idCollection}':
+        delete:
+            operationId: deleteCollection
+            summary: 'delete a collection'
+            description: 'cancella un insieme di dataset'
+            parameters: [{name: idCollection, type: integer, in: path, required: true}]
+            produces: [application/json]
+            tags: [Collection]
+            responses: {'200': {description: 'project deleted', schema: {$ref: '#/definitions/DatasetCollection'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+        put:
+            operationId: updateCollection
+            summary: 'Update a collection'
+            description: 'Update a collection'
+            parameters: [{name: idProject, type: integer, in: path, required: true}, {name: collection, required: true, in: body, schema: {$ref: '#/definitions/DatasetCollection'}}]
+            produces: [application/json]
+            tags: [Collection]
+            responses: {'200': {description: 'Project Created', schema: {$ref: '#/definitions/Project'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    /domains:
+        get:
+            operationId: getDomains
+            summary: 'get all domains'
+            description: 'get all domains'
+            produces: [application/json]
+            tags: [Domain]
+            responses: {'200': {description: 'la lista dei domini utente', schema: {type: array, items: {$ref: '#/definitions/Domain'}}}, default: {description: 'Unexpected error', schema: {type: string}}}
+        post:
+            operationId: createDomain
+            summary: 'Creates a domain'
+            description: 'Creates a domain'
+            parameters: [{name: domain, required: true, in: body, schema: {$ref: '#/definitions/Domain'}}]
+            produces: [application/json]
+            tags: [Domains]
+            responses: {'200': {description: 'Domain Created', schema: {$ref: '#/definitions/Domain'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    '/domains/{idDomain}':
+        get:
+            operationId: getDomainByIdDomain
+            summary: 'get domains by idDomain'
+            description: 'restituisce il dettaglio del dominio'
+            parameters: [{name: idDomain, type: integer, in: path, required: true}]
+            produces: [application/json]
+            tags: [Domains]
+            responses: {'200': {description: 'la lista di progetti', schema: {$ref: '#/definitions/Domain'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+        delete:
+            operationId: deleteDomain
+            summary: 'delete a domain'
+            description: 'cancella un dominio'
+            parameters: [{name: idDomain, type: integer, in: path, required: true}]
+            produces: [application/json]
+            tags: [Domains]
+            responses: {'200': {description: 'domain deleted', schema: {$ref: '#/definitions/Domain'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+        put:
+            operationId: updateDomain
+            summary: 'Updare a domain'
+            description: 'Update a domain'
+            parameters: [{name: domain, required: true, in: body, schema: {$ref: '#/definitions/Domain'}}]
+            produces: [application/json]
+            tags: [Domains]
+            responses: {'200': {description: 'Domain Updated', schema: {$ref: '#/definitions/Domain'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    /subdomains:
+        get:
+            operationId: getSubdomains
+            summary: 'get all subdomains'
+            description: 'get all subdomains'
+            produces: [application/json]
+            tags: [Subdomain]
+            responses: {'200': {description: 'la lista dei domini utente', schema: {type: array, items: {$ref: '#/definitions/Subdomain'}}}, default: {description: 'Unexpected error', schema: {type: string}}}
+        post:
+            operationId: createSubdomain
+            summary: 'Creates a domain'
+            description: 'Creates a subdomain'
+            parameters: [{name: subdomain, required: true, in: body, schema: {$ref: '#/definitions/Subdomain'}}]
+            produces: [application/json]
+            tags: [Subdomains]
+            responses: {'200': {description: 'Subdomain Created', schema: {$ref: '#/definitions/Subdomain'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    '/subdomains/{idSubdomain}':
+        get:
+            operationId: getSubdomainByIdSubdomain
+            summary: 'get domains by idSubdomain'
+            description: 'restituisce il dettaglio del dominio'
+            parameters: [{name: idSubdomain, type: integer, in: path, required: true}]
+            produces: [application/json]
+            tags: [Subdomains]
+            responses: {'200': {description: 'la lista di progetti', schema: {$ref: '#/definitions/Subdomain'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+        delete:
+            operationId: deleteSubdomain
+            summary: 'delete a domain'
+            description: 'cancella un sottodominio'
+            parameters: [{name: idSubdomain, type: integer, in: path, required: true}]
+            produces: [application/json]
+            tags: [Subdomains]
+            responses: {'200': {description: 'subdomain deleted', schema: {$ref: '#/definitions/Subdomain'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+        put:
+            operationId: updateSubdomain
+            summary: 'Updare a domain'
+            description: 'Update a domain'
+            parameters: [{name: domain, required: true, in: body, schema: {$ref: '#/definitions/Subdomain'}}]
+            produces: [application/json]
+            tags: [Subdomains]
+            responses: {'200': {description: 'Subdomain Updated', schema: {$ref: '#/definitions/Subdomain'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    /organizations:
+        get:
+            operationId: getOrganizations
+            summary: 'get all organizations'
+            description: 'get all organizations'
+            produces: [application/json]
+            tags: [Source]
+            responses: {'200': {description: 'la lista delle organizzazioni', schema: {type: array, items: {$ref: '#/definitions/Organization'}}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    /ipanipaorganizations:
+        get:
+            operationId: getIpaNipa
+            summary: 'get public amministration and ot public amministration organizations'
+            description: 'get public amministration and ot public amministration organizations'
+            produces: [application/json]
+            tags: [Source]
+            responses: {'200': {description: 'la lista delle organizzazioni ipa e non ipa', schema: {type: array, items: {$ref: '#/definitions/IpaNipaOrganization'}}}, default: {description: 'Unexpected error', schema: {type: string}}}   
+    /sources:
+        post:
+            operationId: createSource
+            summary: 'Creates a source'
+            description: 'Creates a source'
+            parameters: [{name: source, required: true, in: body, schema: {$ref: '#/definitions/Source'}}]
+            produces: [application/json]
+            tags: [Sources]
+            responses: {'200': {description: 'Source Created', schema: {$ref: '#/definitions/Source'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+        get:
+            operationId: getSources
+            summary: 'get all sources'
+            description: 'get all sources'
+            produces: [application/json]
+            tags: [Source]
+            responses: {'200': {description: 'la lista dei domini utente', schema: {type: array, items: {$ref: '#/definitions/Source'}}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    '/sources/{idSource}':
+        get:
+            operationId: getSourceByIdSource
+            summary: 'get sources by idSource'
+            description: 'restituisce il dettaglio della fonte'
+            parameters: [{name: idSource, type: integer, in: path, required: true}]
+            produces: [application/json]
+            tags: [Sources]
+            responses: {'200': {description: 'la lista di progetti', schema: {$ref: '#/definitions/Source'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+        delete:
+            operationId: deleteSource
+            summary: 'delete a source'
+            description: 'cancella una fonte'
+            parameters: [{name: idSource, type: integer, in: path, required: true}]
+            produces: [application/json]
+            tags: [Sources]
+            responses: {'200': {description: 'source deleted', schema: {$ref: '#/definitions/Source'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+        put:
+            operationId: updateSource
+            summary: 'Updare a source'
+            description: 'Update a source'
+            parameters: [{name: source, required: true, in: body, schema: {$ref: '#/definitions/Source'}}]
+            produces: [application/json]
+            tags: [Sources]
+            responses: {'200': {description: 'Source Updated', schema: {$ref: '#/definitions/Source'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    /relations:
+        post:
+            operationId: createRelation
+            summary: 'Creates a relation'
+            description: 'Creates a relation'
+            parameters: [{name: relation, required: true, in: body, schema: {$ref: '#/definitions/RCollectionRelation'}}]
+            produces: [application/json]
+            tags: [Relations]
+            responses: {'200': {description: 'Relation Created', schema: {$ref: '#/definitions/RCollectionRelation'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+        get:
+            operationId: getRelations
+            summary: 'get all relations'
+            description: 'get all relations'
+            parameters: [{name: idCollection, type: integer, in: query, required: false}]
+            produces: [application/json]
+            tags: [Relations]
+            responses: {'200': {description: 'la lista di progetti', schema: {type: array, items: {$ref: '#/definitions/RCollectionRelation'}}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    '/relations/{idRelation}':
+        get:
+            operationId: getRelationByIdRelation
+            summary: 'get relations by idRelation'
+            description: 'restituisce il dettaglio del progetto'
+            parameters: [{name: idRelation, type: integer, in: path, required: true}]
+            produces: [application/json]
+            tags: [Relations]
+            responses: {'200': {description: 'la lista di progetti', schema: {$ref: '#/definitions/RCollectionRelation'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+        delete:
+            operationId: deleteRelation
+            summary: 'delete a relation'
+            description: 'cancella un progetto'
+            parameters: [{name: idRelation, type: integer, in: path, required: true}]
+            produces: [application/json]
+            tags: [Relations]
+            responses: {'200': {description: 'relation deleted', schema: {$ref: '#/definitions/RCollectionRelation'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+        put:
+            operationId: updateRelation
+            summary: 'Updare a relation'
+            description: 'Update a relation'
+            parameters: [{name: relation, required: true, in: body, schema: {$ref: '#/definitions/RCollectionRelation'}}]
+            produces: [application/json]
+            tags: [Relations]
+            responses: {'200': {description: 'Relation Updated', schema: {$ref: '#/definitions/RCollectionRelation'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    /relations-multiple:
+        post:
+            operationId: createRelations
+            summary: 'Creates a relation'
+            description: 'Creates a relation'
+            parameters: [{name: relations, required: true, in: body, schema: {type: array, items: {$ref: '#/definitions/RCollectionRelation'}}}]
+            produces: [application/json]
+            tags: [Relations]
+            responses: {'200': {description: 'Relation Created', schema: {$ref: '#/definitions/RCollectionRelation'}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    /anaprodproducts:
+        get:
+            operationId: getAnaprodProducts
+            summary: 'get all products by Anagrafica Prodotti'
+            description: 'get all products by Anagrafica Prodotti'
+            produces: [application/json]
+            tags: [AnaProd]
+            responses: {'200': {description: 'la lista dei prodotti di Anagrafica Prodotti', schema: {type: array, items: {$ref: '#/definitions/AnaprodProduct'}}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    /permissions/collectionfields:
+        get:
+            operationId: getCollectionFieldsProperties
+            summary: 'get all collection fields properties'
+            description: 'get all collection fields properties'
+            parameters: [{name: idCollectionStatus, type: integer, in: query, required: false}]
+            produces: [application/json]
+            tags: [Collection]
+            responses: {'200': {description: 'la lista dei permessi dei campi degli insiemi di dataset', schema: {type: array, items: {$ref: '#/definitions/CollectionFieldsProperties'}}}, default: {description: 'Unexpected error', schema: {type: string}}}
+    /admin:  
+    '/admin/report/table':
+         get:
+            operationId: getTable
+            summary: 'get the Table stored on db'
+            description: 'get the Table stored on db'
+            parameters: [{name: table, type: string, in: query, required: false}]
+            produces: [application/json]
+            tags: [Admin]
+            responses: {'200': {description: 'tabella come è sul db', schema: {type: array, items: {$ref: '#/definitions/Project'}}}, default: {description: 'Unexpected error', schema: {type: string}}} 
+    '/admin/report/csv':
+         get:
+            operationId: getTableCSV
+            summary: 'get the Table stored on db as CSV'
+            description: 'get the Table stored on db as CSV'
+            parameters: [{name: table, type: string, in: query, required: false}]
+            produces: [text/csv]
+            tags: [Admin]
+            responses: {'200': {description: 'tabella in formato CSV', schema: {type: array, items: {$ref: '#/definitions/Project'}}}, default: {description: 'Unexpected error', schema: {type: string}}} 
+    Project:
+        type: object
+        properties:
+            id_project: {type: integer, description: 'id numerico del progetto'}
+            project_name: {type: string, description: 'nome del progetto'}
+            project_description: {type: string, description: 'descrizione del progetto'}
+            project_state: {type: integer, description: 'id dello stato del progetto'}
+            project_type: {type: integer, description: 'id del tipo del progetto'}
+            project_start_date: {type: string, description: 'data di inizio del progetto'}
+            project_end_date: {type: string, description: 'data di fine del progetto'}
+            project_note: {type: string, description: note}
+            project_organization: {type: string, description: organizzazione}
+            update_date: {type: string, description: 'data aggiornamento'}
+            update_useridentifier: {type: string, description: 'utente aggiornamento'}
+    ProjectType:
+        type: object
+        properties:
+            id_project_type: {type: integer, description: 'id numerico del tipo di progetto'}
+            project_type_description: {type: string, description: 'descrizione del tipo di progetto'}
+    ProjectStatus:
+        type: object
+        properties:
+            id_project_status: {type: integer, description: 'id numerico dello stato di progetto'}
+            project_status_description: {type: string, description: 'descrizione dello stato di progetto'}
+    CollectionType:
+        type: object
+        properties:
+            id_collection_type: {type: integer, description: 'id numerico del tipo di insieme di dataset'}
+            collection_type_description: {type: string, description: 'descrizione del tipo di insieme di dataset'}
+    CollectionStatus:
+        type: object
+        properties:
+            id_collection_status: {type: integer, description: 'id numerico dello stato insieme di dataset'}
+            collection_status_description: {type: string, description: 'descrizione dello stato insieme di dataset'}
+    RelationType:
+        type: object
+        properties:
+            id_relation_type: {type: integer, description: 'id numerico del tipo di relazione'}
+            relation_type_description: {type: string, description: 'descrizione del tipo di relazione'}
+    Role:
+        type: object
+        properties:
+            id_role: {type: integer, description: 'id numerico del ruolo'}
+            role_description: {type: string, description: 'descrizione del ruolo utente'}
+    AppRole:
+        type: object
+        properties:
+            id_role: {type: integer, description: 'id numerico del ruolo'}
+            project_role_description: {type: string, description: 'descrizione del ruolo utente'}
+    User:
+        type: object
+        properties:
+            id_user: {type: integer, description: 'id numerico utente'}
+            name: {type: string, description: 'nome utente'}
+            surname: {type: string, description: 'cognome utente'}
+            identifier: {type: string, description: 'identificativo utente'}
+            superadmin: {type: boolean, description: 'super admin'}
+    RProjectUser:
+        type: object
+        properties:
+            id_project: {type: integer, description: 'id numerico del progetto'}
+            id_user: {type: integer, description: 'id numerico del utente'}
+            id_role: {type: integer, description: 'id numerico del ruolo'}
+            update_date: {type: string, description: 'data aggiornamento'}
+            update_useridentifier: {type: string, description: 'utente aggiornamento'}
+    DatasetCollection:
+        type: object
+        properties:
+            id_collection: {type: integer, description: 'id numerico del insieme di dataset'}
+            collection_name: {type: string, description: 'nome insieme di dataset'}
+            collection_description: {type: string, description: 'descrizione insieme di dataset'}
+            collection_notes: {type: string, description: 'note insieme di dataset'}
+            collection_status: {type: integer, description: 'id stato del insieme di dataset'}
+            collection_type: {type: integer, description: 'id tipo del insieme di dataset'}
+            collection_data_steward: {type: integer, description: 'id numerico del insieme di dataset'}
+            collection_end_date: {type: string, description: 'data di fine insieme di dataset'}
+            collection_estimated_end_date: {type: string, description: 'data stimata di fine insieme di dataset'}
+            collection_max_end_date: {type: string, description: 'data massima di fine insieme di datset'}
+            collection_project_owner: {type: integer, description: 'id progetto proprietario'}
+            collection_estimated_volumes: {type: string, description: 'volume dati stimato'}
+            collection_disclosable: {type: boolean, description: 'flag divulgabilità'}
+            collection_disclosable_notes: {type: string, description: 'note divulgabilità'}
+            update_date: {type: string, description: 'data aggiornamento'}
+            update_useridentifier: {type: string, description: 'utente aggiornamento'}
+            id_domain: {type: integer, description: 'dominio insieme di dataset'}
+            id_source: {type: string, description: 'note divulgabilità'}
+            collection_source_completeness: {type: string, description: 'note divulgabilità'}
+    Domain:
+        type: object
+        properties:
+            id_domain: {type: integer, description: 'id numerico del dominio'}
+            domain_name: {type: string, description: 'nome del dominio'}
+    Subdomain:
+        type: object
+        properties:
+            id_subdomain: {type: integer, description: 'id numerico del sottodominio'}
+            subdomain_name: {type: string, description: 'nome del sottodominio'}
+            id_domain: {type: integer, description: 'id numerico del dominio'}
+    DomainWithSubdomains:
+        type: object
+        properties:
+            id_domain: {type: integer, description: 'id numerico del dominio'}
+            domain_name: {type: string, description: 'nome del dominio'}
+            subdomains: {type: array, items: {$ref: '#/definitions/Subdomain'}}
+    Source:
+        type: object
+        properties:
+            id_source: {type: integer, description: 'id numerico della sorgente'}
+            source_name: {type: string, description: 'nome del sorgente'}
+            source_description: {type: string, description: 'descrizione del sorgente'}
+            id_organization: {type: integer, description: 'id numerico della organizzazione padre'}
+            source_type: {type: string, description: 'descrizione del tipo di sorgente'}
+    Organization:
+        type: object
+        properties:
+            id_organization: {type: integer, description: 'id numerico della organizzazione'}
+            organization_name: {type: string, description: 'nome della organizzazione'}
+            organization_description: {type: string, description: 'descrizione della organizzazione'}
+    IpaNipaOrganization:
+        type: object
+        properties:
+            organization_code: {type: string, description: 'codice della organizzazione'}
+            organization_description: {type: string, description: 'descrizione della organizzazione'}
+            ipa: {type: boolean, description: 'flag ipa/non ipa'}
+    RCollectionRelation:
+        type: object
+        properties:
+            id_collection_relation: {type: integer, description: 'id numerico della relazione'}
+            id_collection_source : {type: integer, description: 'id numerico insieme source'}
+            id_collection_target : {type: integer, description: 'id numerico insieme target'}
+            id_relation_type : {type: integer, description: 'id tipo di relazione'}
+            relation_notes: {type: string, description: 'note della relazione'}
+            update_date: {type: string, description: 'data aggiornamento'}
+            update_useridentifier: {type: string, description: 'utente aggiornamento'}
+    AnaprodProduct:
+        type: object
+        properties:
+            ente_istanza: {type: string, description: 'nome ente'}
+            codice_prodotto: {type: string, description: 'codice del prodotto'}
+            desc_prodotto: {type: string, description: 'descrizione del prodotto'}
+    CollectionFieldsProperties:
+        type: object
+        properties:
+            id_collection_field_property: {type: integer, description: 'chiave primaria della proprietà'}
+            field: {type: string, description: 'nome del campo'}
+            id_collection_status: {type: integer, description: 'id dello stato'}
+            editable: {type: boolean, description: 'rappresenta se il campo è modificabile o meno'}
+            mandatory: {type: boolean, description: 'rappresenta se il campo è obbligatorio o meno'}
+    Dataset:
+        type: object
+        properties:
+            id_dataset: {type: integer, description: 'chiave primaria del dataset'}
+            dataset_name: {type: string, description: 'nome del dataset'}
+            dataset_description: {type: string, description: 'descrizione del dataset'}
+            dataset_collection: {type: integer, description: 'insieme di dataset di appartenenza'}
+            dataset_start_date: {type: string, description: 'data di inizio del dataset'}
+            dataset_end_date: {type: string, description: 'data di fine del dataset'}
+            update_date: {type: string, description: 'data ultimo aggiornamento'}
+            update_useridentifier: {type: string, description: 'id utente ultimo aggiornamento'}
+    RDatasetRelation:
+        type: object
+        properties:
+            id_dataset: {type: integer, description: 'chiave primaria del dataset'}
+            id_external_dataset: {type: integer, description: 'chiave primaria del esterno'}
+            relationship_begin_date: {type: string, description: 'data di inizio relazione'}
+            relationship_end_date: {type: string, description: 'data di fine relazione'}

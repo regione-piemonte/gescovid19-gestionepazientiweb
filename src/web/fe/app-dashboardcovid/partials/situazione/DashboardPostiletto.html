@@ -1,0 +1,84 @@
+<div class='container panel-main-content' >
+	<div class='panel-header panel-header-toolbar'>
+		<h1 class='panel-header-item-left panel-header-main-content' ng-click='debugCollection()'>
+			<strong translate>SITUAZIONE_TITLE</strong> <small>{{currentDate|date:'dd/MM/yyyy HH:mm'}}</small>
+		</h1>
+		<!-- 
+			<div class="panel-header-item-right">
+				<a href="/dashboardcovidweb/api/postiletto/disponibilita/report/csv" class="btn btn-default ng-scope">
+					<i class='fa fa-file-excel-o'></i>&nbsp;
+					<span translate>SITUAZIONE_DOWNLOAD_CSV_BTN</span>
+				</a>
+			</div>
+		 -->
+		
+	</div>
+	<div class='panel-main-content' >
+	
+		<alert-panel content='feedback'></alert-panel>	
+		
+		<div class='panel-main-content'>
+			
+	  		<alert-panel message='DISPONIBILITA_NO_DISPONIBILITA' type='info' closable='false' ng-if="disponibilita.length==0"></alert-panel>
+			<loading size='big'ng-if='loading' />
+			<div class='dashboard-main-content'>
+				<div class='dashboard-main-content-map'>
+					<!-- 
+						 <nvd3 options="sunburstOptions" data="sunburstData"></nvd3>
+					 -->
+					<h4 translate>DASHBOARD_POSTI_DISPONIBILI_TITLE</h4>
+					<div class='tab-menu tab-menu-small'>
+						<a href class='tab-menu-item' ng-class="{active: horizontalChart.selected == 'all'}" 
+							ng-click="showHorizontalChart()" translate>HORIZONTAL_CHART_TOTALE</a> 
+						<a href class='tab-menu-item' ng-class="{active: horizontalChart.selected == ta}"
+							ng-click="showHorizontalChart(ta)" ng-repeat='ta in tipi_aree_attive track by $index' translate>{{ta}}</a> 
+					</div>
+					<nvd3 options="horizontalBarOptions" data="horizontalBarData"></nvd3>
+					<div id='ente-label-fake'></div>
+					<h4 translate>Mappa</h4>
+					<div id='asrMap' ng-show="map.selected = 'asr'">
+						<svg></svg>
+						<div style='width: 300px; height: 2em;' >
+							<div class="info-panel text-center" ng-show="info.show"><small class='mute'>Posti occupati</small> <span>{{info.content}}</span>: <strong >{{info.value}}%</strong></div> 
+						</div>
+					</div>
+					<div id='aoMap' ng-show="map.selected = 'ao'">
+						<svg></svg>
+						<div style='width: 300px; height: 2em;'>
+							<div class="info-panel text-center" ng-show="info.show"><small class='mute'>Posti occupati</small> <span>{{info.content}}</span>: <strong >{{info.value}}%</strong></div> 
+						</div>
+					</div>
+				</div>				
+				<div class='dashboard-main-content-pies'>
+					<h4 translate>DASHBOARD_POSTI_PERCENTUALI_TITLE</h4>
+					<div class='dashboard-main-content-pies-container'>
+						<div ng-repeat='p in pieData track by $index' class='dashboard-main-content-pie-item' ng-click='showEnte(p)'>
+							<div>
+								<div class='title' title='{{p.name}}'>{{p.name|string_ellipse:20}}</div>
+								<div class='subtitle'>
+									<div><span translate>Target</span> <strong>{{p.postiTarget}}</strong></div>
+									<div class='info-separator'></div>
+									<div><span translate>Attivati</span> <strong>{{p.totaleDisponibili}}</strong></div>
+									<div class='info-separator'></div>
+									<div><span translate>Occupati</span> <strong>{{p.totaleOccupati}}</strong></div>
+								</div>
+								<div class='pie-chart'>
+									<div class='pie-chart-percent'>
+										<div>{{p.percent}}%</div>
+									</div>
+									<nvd3 options="pieOptions" data="p.data"></nvd3>
+								</div>
+							</div>
+							
+							<div class="break" ng-if='$index==5'></div> <!-- break -->
+									
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		</div>
+	</div>
+	<div>&nbsp;</div>
+</div>
+

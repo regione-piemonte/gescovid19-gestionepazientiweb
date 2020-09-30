@@ -1,0 +1,144 @@
+<div class='container panel-main-content' >
+	<div class='panel-header panel-header-toolbar'>
+		<h1 class='panel-header-item-left panel-header-main-content' ng-click='debugCollection()'>
+			<strong translate>MOVIMENTAZIONE_TITLE</strong> <small>{{currentDate|date:'dd/MM/yyyy HH:mm'}}</small>
+		</h1>
+		<div class="panel-header-item-right">
+			<a href="/dashboardcovidweb/api/postiletto/disponibilita/report/csv" class="btn btn-default ng-scope">
+				<i class='fa fa-file-excel-o'></i>&nbsp;
+				<span translate>MOVIMENTAZIONE_DOWNLOAD_CSV_BTN</span>
+			</a>
+		</div>
+		
+	</div>
+	<div class='panel-main-content' >
+	
+		<alert-panel content='feedback'></alert-panel>	
+		
+		<div class='panel-main-content'>
+			
+			<loading size='big'ng-if='loading' />
+				
+			<div ng-if='!loading' >
+				<div class='toolbar table-toolbar' ng-if="disponibilita.length>0">
+					<div class='table-toolbar-filter'>
+						<label><i class='fa fa-filter'></i> <span translate>TABLE_FILTERS</span></label> 
+						<input type='text' ng-model="filter.ente" placeholder='{{"STRUTTURA_id_ente"|translate}}'/>
+						<input type='text' ng-model="filter.struttura" placeholder='{{"AREA_id_struttura"|translate}}'/>
+						<input type='text' ng-model="filter.area" placeholder='{{"DISPONIBILITA_id_area"|translate}}'/>
+					</div>
+				</div>
+				
+				<div class='div-table' role="table"  ng-init='reverse=false'>
+					<div class="div-table-row div-table-header" role="rowgroup">
+						<!-- 
+							 <div class="div-table-cell" role="columnheader" translate>&nbsp;</div>
+						 -->
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'ente.nome'; reverse=!reverse">
+								<span translate-cloak translate>STRUTTURA_id_ente</span>&nbsp;
+								<span ng-show="predicate=='ente.nome' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='ente.nome' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'struttura.nome'; reverse=!reverse">
+								<span translate-cloak translate>AREA_id_struttura</span>&nbsp;
+								<span ng-show="predicate=='struttura.nome' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='struttura.nome' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'area.nome'; reverse=!reverse">
+								<span translate-cloak translate>DISPONIBILITA_id_area</span>&nbsp;
+								<span ng-show="predicate=='area.nome' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='area.nome' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'postiTarget'; reverse=!reverse">
+								<span translate-cloak translate>DISPONIBILITA_posti_target</span>&nbsp;
+								<span ng-show="predicate=='postiTarget' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='postiTarget' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'postiDisponibili'; reverse=!reverse">
+								<span translate-cloak translate>DISPONIBILITA_posti_disponibili</span>&nbsp;
+								<span ng-show="predicate=='postiDisponibili' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='postiDisponibili' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'postiOccupati'; reverse=!reverse">
+								<span translate-cloak translate>DISPONIBILITA_posti_occupati</span>&nbsp;
+								<span ng-show="predicate=='postiOccupati' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='postiOccupati' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'postiOccupati'; reverse=!reverse">
+								<span translate-cloak translate>DISPONIBILITA_posti_occupati_data</span>&nbsp;
+								<span ng-show="predicate=='postiOccupati' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='postiOccupati' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'dataInserimento'; reverse=!reverse">
+								<span translate-cloak translate>DISPONIBILITA_data_inserimento</span>&nbsp;
+								<span ng-show="predicate=='dataInserimento' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='dataInserimento' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'utenteInserimento'; reverse=!reverse">
+								<span translate-cloak translate>DISPONIBILITA_utente_inserimento</span>&nbsp;
+								<span ng-show="predicate=='utenteInserimento' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='utenteInserimento' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+					</div>
+					<div class="div-table-row div-table-row-linkable" role="rowgroup"
+						ng-repeat="d in filtered.disponibilita = (disponibilita | filter: disponibilitaStrutturaFilter | filter:disponibilitaAreaFilter | filter:disponibilitaEnteFilter
+						| orderBy:predicate:reverse) | startFrom:(filtered.currentPage-1)*pageSize | limitTo:pageSize track by $index">
+						<!--
+						<div class="div-table-cell first" role="cell" >
+							<div class="checkbox inline-checkbox">
+								<label><input id = 'checkPaziente__{{paziente.idSoggetto}}' type="checkbox" ng-model='p.selected' ng-change = 'selectPaziente(p.idSoggetto)' />
+								<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span></label>
+							</div>
+						</div>
+						-->
+						<div class="div-table-cell" role="cell"  >{{d.ente.nome}} </div>
+						<div class="div-table-cell" role="cell"  >{{d.struttura.nome}}</div>		
+						<div class="div-table-cell" role="cell"  >{{d.area.nome}}</div>		
+						<div class="div-table-cell" role="cell"  >{{d.postiTarget}}</div>		
+						<div class="div-table-cell" role="cell"  >{{d.postiDisponibili}}</div>		
+						<div class="div-table-cell" role="cell"  >{{d.postiOccupati}}</div>		
+						<div class="div-table-cell" role="cell"  >{{d.dataEvento|date:'dd/MM/yyyy HH:mm'}}</div>	
+						<div class="div-table-cell" role="cell"  >{{d.dataInserimento|date:'dd/MM/yyyy HH:mm'}}</div>	
+						<div class="div-table-cell" role="cell"  >{{d.utenteInserimento}}</div>	
+					</div>
+				</div>
+				<div class='pagination-container' ng-if="disponibilita.length>0">
+				 	<ul uib-pagination total-items="filtered.disponibilita.length" ng-model="filtered.currentPage" items-per-page="pageSize" class="pagination-sm"
+				 	 	previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" boundary-link-numbers="true" rotate="false" 
+				 	 	boundary-links="true" force-ellipses="true" max-size="5"></ul>
+				</div>
+				
+			
+		
+		  		<alert-panel message='DISPONIBILITA_NO_DISPONIBILITA' type='info' closable='false' ng-if="disponibilita.length==0"></alert-panel>
+			</div>
+		</div>
+		<!--
+		<div class='toolbar'>
+			<div class='toolbar-right'>
+				<a href ng-click='showNewPazienteModal()' class='btn btn-primary'><span translate>PAZIENTE_NEW</span></a>
+				<a href ng-click='showPaziente()' class='btn btn-primary' ng-disabled='!selectedPaziente.idSoggetto'><span translate>PAZIENTE_VIEW_SELECTED</span></a>
+			</div>
+		</div>
+		-->
+	</div>
+</div>
+

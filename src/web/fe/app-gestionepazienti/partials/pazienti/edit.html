@@ -1,0 +1,168 @@
+<div class='modal-compact' id="edit-paziente-modal">
+	<div class='modal-header' ng-click='debug()'>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+		<h4  ng-if='!paziente.idSoggetto'><span translate>PAZIENTE_NEW_TITLE</span></h4>
+		<h4 ng-if='paziente.idSoggetto'><span translate>PAZIENTE_EDIT_TITLE</span> {{paziente.id_soggetto}}</h4>
+	</div>
+	<div class="modal-body">
+		<!-- 
+			<p class='edit-intro' translate ng-if='!paziente.codice_fiscale'>PAZIENTE_NEW_INTRO</p>
+			<p class='edit-intro' translate ng-if='paziente.codice_fiscale'>PAZIENTE_EDIT_INTRO</p>
+		 -->
+		<alert-panel content='feedback'></alert-panel>
+		<form class='form-horizontal' >
+	  		<div class="form-group">
+		    	<label class="col-sm-3 control-label"  for="pazienteDomicilio" translate>PAZIENTI_tipo_soggetto</label>
+			  	<div class="col-sm-7">
+					<select id='tipoOperatoreSanitario' class="form-control "  
+						 ng-model='paziente.idTipoSoggetto' 
+						ng-options="o.idTipoSoggetto as o.descTipoSoggetto for o in tipisoggetto| orderBy:'idTipoSoggetto'"  >
+					</select>
+				</div>
+	  		</div>
+		  	<div class='form-group-divider'></div>
+	  		<div class='form-group-feedback' ng-if='cfAuraFeedback'>
+	  			<alert-panel content='cfAuraFeedback'></alert-panel>
+	  		</div>
+			<div class="form-group">
+		    	<label class="col-sm-3  control-label"  for="pazienteCodicefiscale" translate>PAZIENTI_codice_fiscale</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control " id="pazienteCodicefiscale" placeholder="{{'PAZIENTI_codice_fiscale'|translate}}" maxlength="16" 
+						ng-model="paziente.codiceFiscale">
+				</div>
+				<div class='col-sm-3'>
+					<a href ng-click='auraSearchByCF()' ng-if='!cfAuraloading' class='btn btn-default' title='{{"AURA_SEARCH_BY_CF_BTN_HINT"|translate}}'><span translate>AURA_SEARCH_BY_CF_BTN</span></a>
+					<i class="fa fa-circle-o-notch fa-spin fa-fw loading-in-btn" ng-if='cfAuraloading'></i>
+				</div>
+	  		</div>	
+	  		<div class='form-group-divider'></div>
+	  		<div class='form-group-feedback' ng-if='cognomeAuraFeedback'>
+	  			<alert-panel content='cognomeAuraFeedback'></alert-panel>
+	  		</div>
+		    <div class="form-group">
+		    	<label class="col-sm-3  control-label"  for="pazienteCognome" translate>PAZIENTI_cognome</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control " id="pazienteCognome" placeholder="{{'PAZIENTI_cognome'|translate}}"  
+						ng-model="paziente.cognome">
+				</div>
+				<div class='col-sm-3'>
+				</div>
+	  		</div>	
+		    <div class="form-group">
+		    	<label class="col-sm-3  control-label"  for="pazienteNome" translate>PAZIENTI_nome</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control " id="pazienteNome" placeholder="{{'PAZIENTI_nome'|translate}}" 
+						ng-model="paziente.nome">
+				</div>
+	  		</div>	
+	  		<div class="form-group">
+		    	<label class="col-sm-3  control-label"  for="pazienteDatanascita" translate>PAZIENTI_data_nascita</label>
+				<div class="col-sm-6">
+					<input type="date" class="form-control " id="pazienteDatanascita" placeholder="{{'pazienteDatanascita'|translate}}" 
+						ng-model="paziente.dataNascita">
+				</div>
+				<div class='col-sm-3'>
+					<a href ng-click='auraSearchByCognome()' class='btn btn-default' ng-if='!cognomeAuraloading' title='{{"AURA_SEARCH_BY_COGNOME_BTN_HINT"|translate}}'><span translate>AURA_SEARCH_BY_COGNOME_BTN</span></a>
+					<i class="fa fa-circle-o-notch fa-spin fa-fw loading-in-btn" ng-if='cognomeAuraloading'></i>
+				</div>
+	  		</div>	
+	  		<div class='form-group-divider'></div>
+	  		<div ng-if='!ricercaaura.eseguita' class='form-group-intro'>
+	  			<span translate ng-if='!ricercaaura.esito'>PAZIENTE_INTRO_NO_CERCATO_SU_AURA</span>
+	  		</div>
+	  		<div ng-if='ricercaaura.eseguita' class='form-group-intro'>
+		  		<div class='form-group'>
+			    	<label class="col-sm-3  control-label"  for="aslResidenza" translate>PAZIENTE_ENABLE_MODIFICA_LABEL</label>
+					<div class="col-sm-7  inline-controls">		  		
+						<div class="checkbox inline-checkbox">
+							<label><input type="checkbox" ng-model='modifica.enable'  />
+								<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+								<span translate>PAZIENTE_ENABLE_MODIFICA</span>
+							</label>
+						</div>	  		
+					</div>
+		  		</div>
+		  		<div class='form-group-intro'>
+		  			<span translate class='form-group-warning'>PAZIENTE_ENABLE_MODIFICA_WARNING</span><br>
+		  			<span translate class='form-group-warning'>PAZIENTE_ENABLE_MODIFICA_WARNING_2</span>
+		  		</div>
+		  		<div ng-if='ricercaaura.esito == "noals"' class='form-group-intro'><span translate ng-if='!ricercaaura.esito'>PAZIENTE_ASL_RICERCA_OK_NO_ASL</span></div>
+		  		<div class="form-group">
+			    	<label class="col-sm-3  control-label"  for="aslResidenza" translate>PAZIENTI_asl_residenza</label>
+					<div class="col-sm-7">
+						<input type="text" class="form-control " id="aslResidenza" placeholder="{{'PAZIENTI_asl_residenza'|translate}}" 
+							ng-model="paziente.aslResidenza" ng-disabled='!modifica.enable'
+							uib-typeahead="a for a in  allAsl | filter:$viewValue | limitTo:100">
+					</div>
+		  		</div>	
+		  		<div class="form-group">
+			    	<label class="col-sm-3  control-label"  for="aslDomicilio" translate>PAZIENTI_asl_domicilio</label>
+					<div class="col-sm-7">
+						<input type="text" class="form-control " id="aslDomicilio" placeholder="{{'PAZIENTI_asl_domicilio'|translate}}" 
+							ng-model="paziente.aslDomicilio" ng-disabled='!modifica.enable' 
+							uib-typeahead="a for a in  allAsl | filter:$viewValue | limitTo:100"  >
+					</div>
+		  		</div>	
+		  		<div class='form-group-divider'></div>
+		  		<div class="form-group">
+			    	<label class="col-sm-3  control-label"  for="pazienteResidenza" translate>PAZIENTI_comune_residenza_istat</label>
+				  	<div class="col-sm-7">
+							<!-- <select id='comuneResidenza' class="form-control "  
+							 ng-model='paziente.comuneResidenzaIstat' 
+							ng-options="c.istatComune as c.nomeComune for c in comuni | orderBy:'nomeComune'"  >
+							</select>-->
+							<input type="text" ng-model="paziente.comuneResidenzaIstatCompleto" placeholder="{{'PAZIENTI_comune_residenza_istat'|translate}}" 
+								uib-typeahead="c as c.nomeComune for c in  comuni | filter:$viewValue | limitTo:100"  typeahead-editable='false'
+								typeahead-no-results="noResults" class="form-control" ng-if='comuni.length>0' ng-disabled='!modifica.enable'>	
+					</div>
+		  		</div>
+		  		<div class="form-group">
+			    	<label class="col-sm-3 control-label"  for="pazienteDomicilio" translate>PAZIENTI_comune_domicilio_istat</label>
+				  	<div class="col-sm-7">
+				<!-- 			<select id='comuneDomiciliio' class="form-control "  
+							 ng-model='paziente.comuneDomicilioIstat' 
+							ng-options="c.istatComune as c.nomeComune for c in comuni | orderBy:'nomeComune'"  >
+							</select>-->
+							<input type="text" ng-model="paziente.comuneDomicilioIstatCompleto" placeholder="{{'PAZIENTI_comune_domicilio_istat'|translate}}" 
+								uib-typeahead="c as c.nomeComune for c in  comuni | filter:$viewValue | limitTo:100"  typeahead-editable='false'  typeahead-select-on-exact='true'
+								typeahead-no-results="noResults" class="form-control" ng-if='comuni.length>0' ng-disabled='!modifica.enable'>	
+					</div>
+		  		</div>
+		  		<div class="form-group">
+			    	<label class="col-sm-3  control-label"  for="pazienteIndirizzo" translate>PAZIENTI_indirizzo_domicilio</label>
+					<div class="col-sm-7">
+						<input type="text" class="form-control " id="pazienteIndirizzo" placeholder="{{'PAZIENTI_indirizzo_domicilio'|translate}}"  
+							ng-model="paziente.indirizzoDomicilio" ng-disabled='!modifica.enable'>
+					</div>
+		  		</div>
+		  		<div class="form-group">
+			    	<label class="col-sm-3  control-label"  for="pazienteTelefono" translate>PAZIENTI_telefono_recapito</label>
+					<div class="col-sm-7">
+						<input type="text" class="form-control " id="pazienteTelefono" placeholder="{{'PAZIENTI_telefono_recapito'|translate}}"  
+							ng-model="paziente.telefonoRecapito">
+					</div>
+		  		</div>
+		  		<div class="form-group">
+			    	<label class="col-sm-3  control-label"  for="pazienteEmail" translate>PAZIENTI_email_recapito</label>
+					<div class="col-sm-7">
+						<input type="text" class="form-control " id="pazienteEmail" placeholder="{{'PAZIENTI_email_recapito'|translate}}"  
+							ng-model="paziente.email">
+					</div>
+		  		</div>
+		  		
+		  	</div>
+	</form>
+	<alert-panel content='feedback'></alert-panel>
+		
+	</div>
+	<div class='modal-footer '>
+		<div class='toolbar-left'>
+			<a href ng-click='cancel()' class='btn btn-default' translate>CANCEL</a>
+		</div>
+		<div class='toolbar-right' ng-if='ricercaaura.eseguita' >
+			<a href ng-click='savePaziente(true)' class='btn btn-primary' translate ng-if='!loading'>SAVE</a>
+			<span translate ng-if='loading'>LOADING</span>
+		</div>
+	</div>
+	
+</div>

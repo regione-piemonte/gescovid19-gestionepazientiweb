@@ -1,0 +1,23 @@
+ <div class='intervento-usca-dettaglio'>
+    <div ng-if="!iu.cronologia || iu.cronologia.length==0">
+      	<span translate>INTERVENTO_USCA_DETTAGLIO_NO_CRONOLOGIA</span>
+    </div>
+    <table class="table" width="100%">
+      <thead class="table-header">
+	      <tr>
+	        <th translate>INTERVENTO_USCA_cronologia_data</th>
+	        <th translate>INTERVENTO_USCA_cronologia_stato</th>
+	        <th translate>INTERVENTO_USCA_cronologia_operatore</th>
+	        <th translate>INTERVENTO_USCA_cronologia_telefono</th>
+	      </tr>
+      </thead>
+      <tbody>
+	      <tr ng-repeat="c in iu.cronologia track by $index" class="table-row">
+	        <td>{{c.data_inizio| date:'dd/MM/yyyy HH:mm'}}</td>
+	        <td>{{'STATO_INTERVENTO_USCA_' + c.stato.codice|translate}}</td>
+	        <td>{{c.utente.cognome}} {{c.utente.nome}}</td>
+	        <td>{{c.utente.telefono}}</td>
+	      </tr>
+      </tbody>
+    </table>
+</div>

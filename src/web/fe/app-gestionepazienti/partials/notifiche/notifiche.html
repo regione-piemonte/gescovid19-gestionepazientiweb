@@ -1,0 +1,231 @@
+<div class='container-fluid  panel-main-content'>
+	<div class='panel-header panel-header-toolbar'>
+		<h1 class='panel-header-item-left panel-header-main-content'>
+			<strong translate>NOTIFICHE_TITLE</strong>
+		</h1>
+		<div class="panel-header-item-right"></div>
+
+	</div>
+	<div class='panel-main-content'>
+
+		<alert-panel content='feedback'></alert-panel>
+
+		<div class='panel-main-content'>
+
+			<loading size='big' ng-if='loading' />
+
+			<div ng-if='!loading'>
+
+
+				<div class='toolbar table-toolbar' ng-if="notifiche.length>0">
+					<div class='table-toolbar-filter'>
+						<label><i class='fa fa-filter'></i> <span translate>TABLE_FILTERS</span></label>
+					</div>
+					<div class='table-toolbar-filter'>
+							<div class="checkbox inline-checkbox " title='{{"SHOW_ONLY_NOTIFICHE_DA_VISIONARE_HINT"|translate}}'>
+								<label><input type="checkbox" ng-model='filter.daVisionare' name='checkboxDaVisionare' />
+									<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+									<small class='nowrap' translate>SHOW_ONLY_NOTIFICHE_DA_VISIONARE</small>
+								</label>
+							</div>
+					</div>
+					<!-- check box filtro tampone richiesto-->
+					<div class='table-toolbar-filter'>
+						<div class="checkbox inline-checkbox " title='{{"SHOW_ONLY_TAMPONE_DA_RICHIEDERE_HINT"|translate}}'>
+							<label><input type="checkbox" ng-model='filter.tamponeDaRichiedere' name='checkboxTamponiDaRichiedere' />
+								<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+								<small class='nowrap' translate>SHOW_ONLY_TAMPONE_DA_RICHIEDERE</small>
+							</label>
+						</div>
+					</div>
+					<!-- <div class='table-toolbar-filter'>
+						<div class="checkbox inline-checkbox " title='{{"SHOW_ONLY_ISOLAMENTO_HINT"|translate}}'>
+							<label><input type="checkbox" ng-model='filter.eventoNotifica.ISOLAMENTO' name='checkboxEventoNotifica'
+									ng-change='selectEventoNotifica("ISOLAMENTO")' />
+								<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+								< i class='fa-lg fa fa-hand-holding-medical'></i>
+								<small class='nowrap' translate>SHOW_ONLY_ISOLAMENTO</small>
+							</label>
+						</div>
+					</div> -->
+					<!-- <div class='table-toolbar-filter'>
+						<div class="checkbox inline-checkbox " title='{{"SHOW_ONLY_AGGRAVAMENTO_HINT"|translate}}'>
+							<label><input type="checkbox" ng-model='filter.eventoNotifica.AGGRAVAMENTO' name='checkboxEventoNotifica'
+									ng-change='selectEventoNotifica("AGGRAVAMENTO")' />
+								<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+								 <i class='fa-lg fa fa-exclamation-circle'></i>
+								<small class='nowrap' translate>SHOW_ONLY_AGGRAVAMENTO</small>
+							</label>
+						</div>
+					</div> -->
+				</div>
+
+
+
+				<div class='div-table div-table-small' ng-model='filter.soloIsolamento' role="table" ng-init='reverse=false'>
+					<div class="div-table-row div-table-header " role="rowgroup">
+						<div class="div-table-cell" role="columnheader" translate>&nbsp;</div>
+
+						<!-- tipo evento (isolamento o aggravamento tanto per capirci) --> 
+						<div class="div-table-cell first" style="width: 5%; min-width: 5%;" role="columnheader">
+							<a href="" ng-click="predicate  = 'idEvento'; reverse=!reverse">
+								<span translate-cloak translate>NOTIFICHE_tipo_evento</span>&nbsp;
+								<span ng-show="predicate=='idEvento' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='idEvento' && reverse" class="fa fa-angle-down  small"></span>
+							</a> 
+						</div>
+
+						<div class="div-table-cell first" style="width: 5%; min-width: 5%;"role="columnheader">
+							<a href="" ng-click="predicate  = 'idPriorita'; reverse=!reverse">
+								<span translate-cloak translate>NOTIFICHE_priorita</span>&nbsp;
+								<span ng-show="predicate=='idPriorita' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='idPriorita' && reverse"
+									class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+
+						<div class="div-table-cell first" style="width: 5%; min-width: 5%;" role="columnheader">
+							<a href="" ng-click="predicate  = 'id'; reverse=!reverse">
+								<span translate-cloak translate>NOTIFICHE_not_id</span>&nbsp;
+								<span ng-show="predicate=='id' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='id' && reverse"
+									class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" style="width: 5%; min-width: 5%;" role="columnheader">
+							<a href="" ng-click="predicate  = 'dataNotifica'; reverse=!reverse">
+								<span translate-cloak translate>NOTIFICHE_not_data_notifica</span>&nbsp;
+								<span ng-show="predicate=='dataNotifica' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='dataNotifica' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						
+						
+						<!--Soggetto: CF cognome e nome-->
+						<div class="div-table-cell first" style="width: 10%; min-width: 10%;" role="columnheader">
+							<a href="" ng-click="predicate  = 'soggetto.codiceFiscale'; reverse=!reverse">
+								<span translate-cloak translate>NOTIFICHE_soggetto</span>&nbsp;
+								<span ng-show="predicate=='soggetto.codiceFiscale' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='soggetto.codiceFiscale' && reverse"
+									class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+
+						<!--Medico: CF cognome e nome-->
+						<div class="div-table-cell first" style="width: 10%; min-width: 10%;" role="columnheader">
+							<a href="" ng-click="predicate  = 'medico.cfUtente'; reverse=!reverse">
+								<span translate-cloak translate>NOTIFICHE_medico</span>&nbsp;
+								<span ng-show="predicate=='medico.cfUtente' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='medico.cfUtente' && reverse"
+									class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+
+						<!--Esito Tampone-->
+						<div class="div-table-cell first" style="width: 10%; min-width: 10%;" role="columnheader">
+							<a href="" ng-click="predicate  = 'esitoTampone'; reverse=!reverse">
+								<span translate-cloak translate>NOTIFICHE_esito_tampone</span>&nbsp;
+								<span ng-show="predicate=='esitoTampone' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='esitoTampone' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						
+						<!-- testo request -->
+						<div class="div-table-cell first" style="width: 25%; min-width: 25%;" role="columnheader">
+							<a href="" ng-click="predicate  = 'descrizione'; reverse=!reverse">
+								<span translate-cloak translate>NOTIFICHE_not_testo_request</span>&nbsp;
+								<span ng-show="predicate=='descrizione' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='descrizione' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+
+						<!-- testo response -->
+						<div class="div-table-cell first" style="width: 25%; min-width: 25%;" role="columnheader">
+							<a href="" ng-click="predicate  = 'testoRisposta'; reverse=!reverse">
+								<span translate-cloak translate>NOTIFICHE_not_testo_response</span>&nbsp;
+								<span ng-show="predicate=='testoRisposta' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='testoRisposta' && reverse" class="fa fa-angle-down  small"></span>
+							</a> 
+						</div>
+
+						<!-- presa visione: se da prendere visione mostro bottone, altrimenti data presa visione e CF utente presa visione -->
+						<div class="div-table-cell first" style="width: 10%; min-width: 10%;" role="columnheader">
+							<a href="" ng-click="predicate  = 'dataPresaVisione'; reverse=!reverse">
+								<span translate-cloak translate>NOTIFICHE_presa_visione</span>&nbsp;
+								<span ng-show="predicate=='dataPresaVisione' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='dataPresaVisione' && reverse" class="fa fa-angle-down  small"></span>
+							</a> 
+						</div>
+
+						<div class="div-table-cell" role="columnheader" translate>&nbsp;</div>
+					</div>
+					<div class="div-table-row div-table-row-linkable" role="rowgroup" 
+					
+					ng-repeat="n in filtered.notifiche = (
+						notifiche | 
+						filter: daVisionareFilter | 
+						filter: eventoNotificaIsolamentoFilter |
+						filter: tamponeDaRichiedereFilter |
+						orderBy:predicate:reverse) | 
+						startFrom:(filtered.currentPage-1)*pageSize |
+						limitTo:pageSize" >
+
+						<div class="div-table-cell " role="cell">&nbsp;</div>
+						<div class="div-table-cell " role="cell">{{n.tipoEvento}}</div>
+						<div class="div-table-cell " role="cell">
+							<span style="font-weight: bold" ng-class="{'text-danger': n.codPriorita == 'ALTA', 'text-warning': n.codPriorita == 'MEDIA'}">
+								{{n.descrPriorita}}
+							</span>
+						</div>
+						<div class="div-table-cell " role="cell">{{n.id}}</div>
+						<div class="div-table-cell " role="cell">{{n.dataNotifica | date:'dd/MM/yyyy'}}</div>
+						<div class="div-table-cell " role="cell"><a ng-click="showPaziente(n.idSoggetto)" >{{n.soggetto.codiceFiscale}}<br>{{n.soggetto.nome}}<br>{{n.soggetto.cognome}}</a></div>
+						<div class="div-table-cell " role="cell">{{n.medico.cfUtente}}<br>{{n.medico.nome}}<br>{{n.medico.cognome}}</div>
+						<div class="div-table-cell " role="cell">{{n.esitoTampone}}</div>
+						<div class="div-table-cell " role="cell">{{n.descrizione}}</div>
+						<div class="div-table-cell " role="cell">{{n.testoRisposta}}</div>
+						<div class="div-table-cell " role="cell">
+							<div ng-if="n.dataPresaVisione"><i class="fa fa-check" aria-hidden="true"></i> Presa visione da {{n.cfUtentePresaVisione}} in data {{n.dataPresaVisione  | date:'dd/MM/yyyy'}}</div>
+							<div ng-if="!n.dataPresaVisione" ng-click='showPresaVisioneModal(n)'><input type="button" value="Prendi visione"></input></div>
+						</div>
+					</div>
+				</div>
+				<div class='pagination-container' ng-if="filtered.notifiche.length>0">
+					<ul uib-pagination total-items="filtered.notifiche.length" ng-model="filtered.currentPage" items-per-page="pageSize"
+						class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;"
+						last-text="&raquo;" boundary-links="true" force-ellipses="true" max-size="10"></ul>
+				</div>
+				<alert-panel message='NOTIFICHE_NO_NOTIFICHE' type='info' closable='false'
+					ng-if="filtered.notifiche.length==0"></alert-panel>
+				</div>
+
+
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		</div>
+		<div class='toolbar'>
+			<div class='toolbar-right'>
+			</div>
+		</div>
+	</div>
+</div>

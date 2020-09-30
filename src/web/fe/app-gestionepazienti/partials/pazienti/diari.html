@@ -1,0 +1,40 @@
+<div class='panel-main-content'>
+	<alert-panel content='feedback'></alert-panel>	
+	
+	
+	<div class='panel-main-content'>
+		<loading size='big'ng-if='loading' />
+			
+		<div ng-if='!loading' >
+			
+			<div class='diari-list' ng-if="diari.length>0">
+				<div class='diario-row' ng-repeat='d in diari track by $index'>
+					<div class='diario-date'><div class='diario-bullet'>&nbsp;</div> <span>{{d.data|date:'dd/MM/yyyy HH:mm'}}</span></div>
+					<div class='diario-info row' ng-class="{'diario-info-no-border':$last}">
+						<div class='diario-info-item col-sm-2'>
+							<div class='diario-info-label' translate>DIARIO_autore</div>
+							<div class='diario-info-value'>{{d.autore.cognome|nvl:'-'}} {{d.autore.nome}}&nbsp;</div>
+						</div>
+						<div class='diario-info-item col-sm-3'>
+							<div class='diario-info-label' translate>DIARIO_sintomi</div>
+							<div class='diario-info-value'>{{esplodiSintomi(d.sintomi)}}&nbsp;</div>
+						</div>
+						<div class='diario-info-item col-sm-4'>
+							<div class='diario-info-label' translate>DIARIO_altri_sintomi</div>
+							<div class='diario-info-value'>{{d.note}}&nbsp;</div>
+						</div>
+						<div class='diario-info-item col-sm-3' ng-if='d.isAdiCovid'>
+							<div class='diario-info-label' >Attivazione ADI COVID Sintomatici</div>
+							<div class='diario-info-value'>Data: {{d.dataAdiCovid |date:'dd/MM/yyyy HH:mm' }}&nbsp;<br>Note: {{d.noteAdiCovid}}</div>
+						</div>
+					</div>
+				
+				</div>
+			</div>
+			
+	  		<alert-panel message='PAZIENTI_DIARI_NO_DIARI' type='info' closable='false' ng-if="diari.length==0"></alert-panel>
+		</div>
+	</div>
+	
+</div>
+

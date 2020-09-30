@@ -1,0 +1,16 @@
+/build/
+/dist/
+/lib/
+/tempgen/
+/branch/
+.metadata
+.classpath.bkp
+.classpath
+.settings
+build.xml.bkp
+/bin/
+.idea/
+/src.zip
+/buildfiles/dev.properties
+
+buildfiles/prod.properties.bak

@@ -1,0 +1,4094 @@
+swagger: '2.0'
+info:
+  description: API della piattaforma per l'emergenza COVID-19 di CSI Piemonte.
+  version: v1
+  title: Gestione Pazienti API
+  contact:
+    name: CSI Piemonte
+host: 'localhost:8080'
+basePath: /gestionepazientiapiwebsrv/api
+tags:
+  - name: Aura
+  - name: Current User
+  - name: Decodifiche
+  - name: Decorso
+  - name: Ente
+  - name: Laboratorio
+  - name: Locallogout
+  - name: MMG Deleganti
+  - name: Ping
+  - name: Referti
+  - name: Soggetto
+  - name: Tampone
+schemes:
+  - http
+paths:
+  '/aura/{codiceFiscale}':
+    get:
+      tags:
+        - Aura
+      operationId: getSoggettiAuraByCF_1
+      produces:
+        - application/json
+      parameters:
+        - name: codiceFiscale
+          in: path
+          required: true
+          type: string
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Success
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  '/aura/{nome}/{cognome}/{dd}/{mm}/{yyyy}':
+    get:
+      tags:
+        - Aura
+      operationId: getSoggettiAuraByNomeCognomeData_1
+      produces:
+        - application/json
+      parameters:
+        - name: nome
+          in: path
+          required: true
+          type: string
+        - name: cognome
+          in: path
+          required: true
+          type: string
+        - name: dd
+          in: path
+          required: true
+          type: string
+        - name: mm
+          in: path
+          required: true
+          type: string
+        - name: yyyy
+          in: path
+          required: true
+          type: string
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Success
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  '/aura/find/{id}':
+    get:
+      tags:
+        - Aura
+      operationId: findAnagraficaById_1
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Success
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /currentUser:
+    get:
+      tags:
+        - Current User
+      summary: get current user
+      description: Restituisce informazioni sull'utente correntemente loggato.
+      operationId: getCurrentUser_1
+      produces:
+        - application/json
+      parameters:
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: l'utente corrente
+          schema:
+            $ref: '#/definitions/Utenti'
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /decodifiche/asr:
+    get:
+      tags:
+        - Decodifiche
+      summary: get lista asr
+      description: ''
+      operationId: getElencoAsr_1
+      produces:
+        - application/json
+      parameters:
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Elenco asr
+          schema:
+            $ref: '#/definitions/Asr'
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /decodifiche/comuni:
+    get:
+      tags:
+        - Decodifiche
+      summary: get lista comuni
+      description: ''
+      operationId: getElencoComuni_1
+      produces:
+        - application/json
+      parameters:
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Elenco comuni
+          schema:
+            $ref: '#/definitions/Comuni'
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /decodifiche/asl:
+    get:
+      tags:
+        - Decodifiche
+      summary: get lista asr
+      description: ''
+      operationId: getElencoAsl_1
+      produces:
+        - application/json
+      parameters:
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Elenco asr
+          schema:
+            $ref: '#/definitions/Asr'
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /decodifiche/tampone-motivi:
+    get:
+      tags:
+        - Decodifiche
+      summary: Motivi di un tampone
+      description: ''
+      operationId: getTamponeMotivi_1
+      produces:
+        - application/json
+      parameters:
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/TamponeMotivo'
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /decodifiche/tiposoggetto:
+    get:
+      tags:
+        - Decodifiche
+      summary: get lista tipo soggetto
+      description: ''
+      operationId: getElencoTipoSoggetto_1
+      produces:
+        - application/json
+      parameters:
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Elenco asr
+          schema:
+            $ref: '#/definitions/Asr'
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /decodifiche/repartoricovero:
+    get:
+      tags:
+        - Decodifiche
+      summary: get lista reparto ricovero
+      description: ''
+      operationId: getElencoRepartoRicovero_1
+      produces:
+        - application/json
+      parameters:
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Elenco reparto ricovero
+          schema:
+            $ref: '#/definitions/RepartoRicovero'
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /decodifiche/tipoevento:
+    get:
+      tags:
+        - Decodifiche
+      summary: get lista tipo evento
+      description: ''
+      operationId: getElencoTipoEvento_1
+      produces:
+        - application/json
+      parameters:
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Elenco evento
+          schema:
+            $ref: '#/definitions/DecodeTipoEvento'
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /decodifiche/testcovid:
+    get:
+      tags:
+        - Decodifiche
+      summary: get lista test covid
+      description: ''
+      operationId: getElencoTestCovid_1
+      produces:
+        - application/json
+      parameters:
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Elenco testcovid
+          schema:
+            $ref: '#/definitions/Comuni'
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /decodifiche/esitodimissioni:
+    get:
+      tags:
+        - Decodifiche
+      summary: get lista esito dimissioni
+      description: ''
+      operationId: getElencoEsitoDimissioni_1
+      produces:
+        - application/json
+      parameters:
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Elenco esito dimissioni
+          schema:
+            $ref: '#/definitions/EsitoDimissioni'
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /decodifiche/ristampone:
+    get:
+      tags:
+        - Decodifiche
+      summary: get lista risultato tampone
+      description: ''
+      operationId: getElencoRisTampone_1
+      produces:
+        - application/json
+      parameters:
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Elenco risultato tampone
+          schema:
+            $ref: '#/definitions/RisTampone'
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /decodifiche/laboratorio:
+    get:
+      tags:
+        - Decodifiche
+      summary: get lista Laboratorio
+      description: ''
+      operationId: getElencoLaboratorio_1
+      produces:
+        - application/json
+      parameters:
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Elenco Laboratorio
+          schema:
+            $ref: '#/definitions/Laboratorio'
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /decodifiche/soggetto-contatto-tipi:
+    get:
+      tags:
+        - Decodifiche
+      summary: Tipi contatto di un soggetto
+      description: ''
+      operationId: getTipiContattoSoggetto_1
+      produces:
+        - application/json
+      parameters:
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Soggetto
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SoggettoContattoTipo'
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  '/decorso/{idDecorso}':
+    put:
+      tags:
+        - Decorso
+      operationId: updateDecorso_1
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: idDecorso
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/DecorsoForElenco'
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Success
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+    delete:
+      tags:
+        - Decorso
+      operationId: deleteDecorso_1
+      produces:
+        - application/json
+      parameters:
+        - name: idDecorso
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Success
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /decorso:
+    post:
+      tags:
+        - Decorso
+      operationId: insertDecorso_1
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/DecorsoForElenco'
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Success
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /ente:
+    get:
+      tags:
+        - Ente
+      operationId: getElencoEnti
+      produces:
+        - application/json
+      parameters:
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Success
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /laboratorio:
+    get:
+      tags:
+        - Laboratorio
+      operationId: getElencoLaboratori_1
+      produces:
+        - application/json
+      parameters:
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/LaboratorioCompleto'
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /localLogout:
+    get:
+      tags:
+        - Locallogout
+      operationId: localLogout_1
+      produces:
+        - application/json
+      parameters:
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Message'
+          headers: {}
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /mmg-deleganti:
+    post:
+      tags:
+        - MMG Deleganti
+      summary: inserimento di una delega
+      description: ''
+      operationId: insertDelega_1
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/Payload2'
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Delega medico
+          schema:
+            $ref: '#/definitions/RMedicoMedico'
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  '/mmg-deleganti/aggiorna-validita-delega/{idMedicoDelegato}':
+    put:
+      tags:
+        - MMG Deleganti
+      operationId: updateDelega_1
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: idMedicoDelegato
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/Payload'
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Success
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  '/mmg-deleganti/cancella-delega/{idMedicoDelegato}':
+    delete:
+      tags:
+        - MMG Deleganti
+      summary: delete di una delega
+      description: ''
+      operationId: deleteDelega_1
+      produces:
+        - application/json
+      parameters:
+        - name: idMedicoDelegato
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Delete delega medico OK
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /mmg-deleganti/medici-delegabili:
+    get:
+      tags:
+        - MMG Deleganti
+      summary: get medici delegabili
+      description: ''
+      operationId: getMediciDelegabili_1
+      produces:
+        - application/json
+      parameters:
+        - name: codiceFiscale
+          in: query
+          required: false
+          type: string
+        - name: cognome
+          in: query
+          required: false
+          type: string
+        - name: nome
+          in: query
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Elenco medici delegabili
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Medico'
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  '/mmg-deleganti/by-cf/{codiceFiscale}':
+    get:
+      tags:
+        - MMG Deleganti
+      summary: get medici deleganti
+      description: ''
+      operationId: searchMediciDeleganti_1
+      produces:
+        - application/json
+      parameters:
+        - name: codiceFiscale
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Elenco medici Deleganti
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/MedicoExt'
+          headers:
+            Rows-Number:
+              type: integer
+              format: int64
+              description: Numero totale elementi
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  '/mmg-deleganti/{codiceFiscale}/medici-delegati':
+    get:
+      tags:
+        - MMG Deleganti
+      summary: get medici delegati
+      description: ''
+      operationId: getMediciDelegati_1
+      produces:
+        - application/json
+      parameters:
+        - name: codiceFiscale
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Elenco medici delegati
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/MedicoExt'
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /ping:
+    get:
+      tags:
+        - Ping
+      summary: servizio di ping del backend
+      description: Restituisce una stringa per confermare la disponibilità del backend
+      operationId: ping_1
+      produces:
+        - plain/text
+      parameters: []
+      responses:
+        '200':
+          description: stringa di conferma funzionamento
+          schema:
+            type: string
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /referti/csv:
+    post:
+      tags:
+        - Referti
+      operationId: insertReferti_1
+      consumes:
+        - text/plain
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            type: string
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Success
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /soggetto:
+    get:
+      tags:
+        - Soggetto
+      summary: get soggetti pazienti
+      description: ''
+      operationId: getElencoSoggetti_1
+      produces:
+        - application/json
+      parameters:
+        - name: orderby
+          in: query
+          required: false
+          type: string
+        - name: rowPerPage
+          in: query
+          required: false
+          type: integer
+          format: int64
+        - name: pageNumber
+          in: query
+          required: false
+          type: integer
+          format: int64
+        - name: descending
+          in: query
+          required: false
+          type: string
+        - name: idTipoEvento
+          in: query
+          required: false
+          type: string
+        - name: idTipoSoggettoStr
+          in: query
+          required: false
+          type: string
+        - name: filter
+          in: query
+          required: false
+          type: string
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Elenco Soggetti
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SoggettoForElenco'
+          headers:
+            Rows-Number:
+              type: integer
+              format: int64
+              description: Numero totale elementi
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+    post:
+      tags:
+        - Soggetto
+      summary: inserimento di un soggetto
+      description: ''
+      operationId: insertSoggetto_1
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/SoggettoForDettaglio'
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Soggetto
+          schema:
+            $ref: '#/definitions/SoggettoForDettaglio'
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+    put:
+      tags:
+        - Soggetto
+      operationId: updateSoggetto_1
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/SoggettoForDettaglio'
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Success
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /soggetto/report/xlsx:
+    get:
+      tags:
+        - Soggetto
+      operationId: getElencoSoggettiXlsx_1
+      produces:
+        - application/xlsx
+      parameters:
+        - name: codiceFiscale
+          in: query
+          required: false
+          type: string
+        - name: cognome
+          in: query
+          required: false
+          type: string
+        - name: nome
+          in: query
+          required: false
+          type: string
+        - name: idTipoEvento
+          in: query
+          required: false
+          type: string
+        - name: idTipoSoggettoStr
+          in: query
+          required: false
+          type: string
+        - name: comuneRicovero
+          in: query
+          required: false
+          type: string
+        - name: comuneDomicilio
+          in: query
+          required: false
+          type: string
+        - name: comuneResidenza
+          in: query
+          required: false
+          type: string
+        - name: filter
+          in: query
+          required: false
+          type: string
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Success
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /soggetto/extra:
+    get:
+      tags:
+        - Soggetto
+      summary: get soggetti pazienti
+      description: ''
+      operationId: getElencoSoggettiExtraAsr_1
+      produces:
+        - application/json
+      parameters:
+        - name: orderby
+          in: query
+          required: false
+          type: string
+        - name: rowPerPage
+          in: query
+          required: false
+          type: integer
+          format: int64
+        - name: pageNumber
+          in: query
+          required: false
+          type: integer
+          format: int64
+        - name: descending
+          in: query
+          required: false
+          type: string
+        - name: codiceFiscale
+          in: query
+          required: false
+          type: string
+        - name: cognome
+          in: query
+          required: false
+          type: string
+        - name: nome
+          in: query
+          required: false
+          type: string
+        - name: cognomeexact
+          in: query
+          required: false
+          type: boolean
+        - name: idTipoEvento
+          in: query
+          required: false
+          type: string
+        - name: idTipoSoggettoStr
+          in: query
+          required: false
+          type: string
+        - name: filter
+          in: query
+          required: false
+          type: string
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Elenco Soggetti
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SoggettoForElenco'
+          headers:
+            Rows-Number:
+              type: integer
+              format: int64
+              description: Numero totale elementi
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /soggetto/segnalati:
+    get:
+      tags:
+        - Soggetto
+      operationId: getElencoSoggettiSegnalati_1
+      produces:
+        - application/json
+      parameters:
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Success
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /soggetto/quarantena/report/csv:
+    get:
+      tags:
+        - Soggetto
+      operationId: getElencoSoggettiQuarantenaCsv_1
+      produces:
+        - text/csv
+      parameters:
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Success
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /soggetto/trasferimenti:
+    get:
+      tags:
+        - Soggetto
+      summary: get soggetti trasferiti
+      description: ''
+      operationId: getElencoSoggettiTrasferiti_1
+      produces:
+        - application/json
+      parameters:
+        - name: orderby
+          in: query
+          required: false
+          type: string
+        - name: rowPerPage
+          in: query
+          required: false
+          type: integer
+          format: int64
+        - name: pageNumber
+          in: query
+          required: false
+          type: integer
+          format: int64
+        - name: descending
+          in: query
+          required: false
+          type: string
+        - name: filter
+          in: query
+          required: false
+          type: string
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Elenco Soggetti trasferiti
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SoggettoForTrasferimento'
+          headers:
+            Rows-Number:
+              type: integer
+              format: int64
+              description: Numero totale elementi
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /soggetto/report/csv:
+    get:
+      tags:
+        - Soggetto
+      operationId: getElencoSoggettiCsv_1
+      produces:
+        - text/csv
+      parameters:
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Success
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /soggetto/quarantena:
+    get:
+      tags:
+        - Soggetto
+      summary: get soggetti quarantena
+      description: ''
+      operationId: getElencoSoggettiQuarantena_1
+      produces:
+        - application/json
+      parameters:
+        - name: orderby
+          in: query
+          required: false
+          type: string
+        - name: rowPerPage
+          in: query
+          required: false
+          type: integer
+          format: int64
+        - name: pageNumber
+          in: query
+          required: false
+          type: integer
+          format: int64
+        - name: descending
+          in: query
+          required: false
+          type: string
+        - name: filter
+          in: query
+          required: false
+          type: string
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Elenco Soggetti quarantena
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SoggettoForTrasferimento'
+          headers:
+            Rows-Number:
+              type: integer
+              format: int64
+              description: Numero totale elementi
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /soggetto/contatti:
+    post:
+      tags:
+        - Soggetto
+      summary: inserisce il contatto (contagio) di un soggetto
+      description: ''
+      operationId: inserisciContatto_1
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/SoggettoContatto'
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/SoggettoContatto'
+        '201':
+          description: Creato
+          schema:
+            $ref: '#/definitions/SoggettoContatto'
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  '/soggetto/{idSoggetto}':
+    get:
+      tags:
+        - Soggetto
+      summary: get soggetto dettaglio
+      description: ''
+      operationId: getSoggettoByIdSoggetto_1
+      produces:
+        - application/json
+      parameters:
+        - name: idSoggetto
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Soggetto
+          schema:
+            $ref: '#/definitions/SoggettoForDettaglio'
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /tampone/report/csv:
+    get:
+      tags:
+        - Tampone
+      operationId: getElencoTamponiCsv_1
+      produces:
+        - text/csv
+      parameters:
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Elenco tamponi
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/TamponeForReport'
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  /tampone:
+    get:
+      tags:
+        - Tampone
+      operationId: getElencoTamponi_1
+      produces:
+        - application/json
+      parameters:
+        - name: orderby
+          in: query
+          required: false
+          type: string
+        - name: rowPerPage
+          in: query
+          required: false
+          type: integer
+          format: int64
+        - name: pageNumber
+          in: query
+          required: false
+          type: integer
+          format: int64
+        - name: descending
+          in: query
+          required: false
+          type: string
+        - name: filter
+          in: query
+          required: false
+          type: string
+        - name: infoInsufficienti
+          in: query
+          required: false
+          type: string
+        - name: tamponeAutorizzato
+          in: query
+          required: false
+          type: string
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Elenco tamponi
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/TamponeForReport'
+          headers:
+            Rows-Number:
+              type: integer
+              format: int64
+              description: Numero totale elementi
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+    post:
+      tags:
+        - Tampone
+      operationId: insertTampone_1
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/TamponeForElenco'
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Success
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+    put:
+      tags:
+        - Tampone
+      operationId: updateTampone_1
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/TamponeForElenco'
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Success
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+    patch:
+      tags:
+        - Tampone
+      operationId: risultatoTampone_1
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/TamponeForElenco'
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Success
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  '/tampone/test-referti/{idSoggetto}':
+    get:
+      tags:
+        - Tampone
+      operationId: getElencoTest_1
+      produces:
+        - application/json
+      parameters:
+        - name: idSoggetto
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Elenco test
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/TestExt'
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+  '/tampone/{idTampone}':
+    delete:
+      tags:
+        - Tampone
+      operationId: deleteTampone_1
+      produces:
+        - application/json
+      parameters:
+        - name: idTampone
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: Shib-Identita-CodiceFiscale
+          in: header
+          required: true
+          type: string
+          x-example: AAAAAA00B77B000
+        - name: X-Request-ID
+          in: header
+          required: true
+          type: string
+          x-example: 3545567c-e871-4a2d-a5c3-0a0d8370ba37
+        - name: X-Applicazione-Codice
+          in: header
+          required: true
+          type: string
+          x-example: gestionepazientiweb
+        - name: X-Forwarded-For
+          in: header
+          required: true
+          type: string
+          x-example: 216.3.128.12
+        - name: User-Agent
+          in: header
+          required: false
+          type: string
+          x-example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0. 2403.157 Safari/537.36.'
+      responses:
+        '200':
+          description: Success
+        '201':
+          description: Created
+        '400':
+          description: 'Bad request, ricontrollare parametri in input'
+          schema:
+            $ref: '#/definitions/Errore'
+        '401':
+          description: Utente non autorizzato a compiere l'operazione
+          schema:
+            $ref: '#/definitions/Errore'
+        '404':
+          description: Risorsa non trovata
+          schema:
+            $ref: '#/definitions/Errore'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Errore'
+definitions:
+  Dettaglio:
+    type: object
+    properties:
+      chiave:
+        type: string
+      valore:
+        type: string
+  Errore:
+    type: object
+    properties:
+      status:
+        type: integer
+        format: int32
+      code:
+        type: string
+      title:
+        type: string
+      detail:
+        type: array
+        items:
+          $ref: '#/definitions/Dettaglio'
+      messages:
+        type: array
+        items:
+          $ref: '#/definitions/Messaggio'
+      links:
+        type: array
+        items:
+          type: string
+  Messaggio:
+    type: object
+    properties:
+      codice:
+        type: string
+      tipo:
+        type: string
+        enum:
+          - ERR
+          - WARN
+          - INFO
+      parametri:
+        type: string
+  Utenti:
+    type: object
+    properties:
+      cfUtente:
+        type: string
+      idAsr:
+        type: integer
+        format: int64
+      idLaboratorio:
+        type: integer
+        format: int64
+  Asr:
+    type: object
+    properties:
+      idAsr:
+        type: integer
+        format: int64
+      descrizione:
+        type: string
+      idEnte:
+        type: integer
+        format: int32
+  Comuni:
+    type: object
+    properties:
+      istatComune:
+        type: string
+      nomeComune:
+        type: string
+  TamponeMotivo:
+    type: object
+    properties:
+      tamponeMotivoId:
+        type: integer
+        format: int32
+      tamponeMotivoCod:
+        type: string
+      tamponeMotivoDesc:
+        type: string
+      validitaInizio:
+        type: string
+        format: date-time
+      validitaFine:
+        type: string
+        format: date-time
+      utenteOperazione:
+        type: string
+      dataCreazione:
+        type: string
+        format: date-time
+      dataModifica:
+        type: string
+        format: date-time
+      dataCancellazione:
+        type: string
+        format: date-time
+  RepartoRicovero:
+    type: object
+    properties:
+      idRepRicovero:
+        type: integer
+        format: int64
+      repartoRicovero:
+        type: string
+  DecodeTipoEvento:
+    type: object
+    properties:
+      idTipoEvento:
+        type: integer
+        format: int32
+      descTipoEvento:
+        type: string
+      segno:
+        type: string
+  EsitoDimissioni:
+    type: object
+    properties:
+      idDimiss:
+        type: integer
+        format: int64
+      esitoDim:
+        type: string
+  RisTampone:
+    type: object
+    properties:
+      idRisTamp:
+        type: integer
+        format: int64
+      risultatoTampone:
+        type: string
+  Laboratorio:
+    type: object
+    properties:
+      idLaboratorio:
+        type: integer
+        format: int64
+      descrizione:
+        type: string
+      siglaLaboratorio:
+        type: string
+      capacitaGiornaliera:
+        type: integer
+        format: int32
+  SoggettoContattoTipo:
+    type: object
+    properties:
+      contattoTipoId:
+        type: integer
+        format: int32
+      contattoTipoCod:
+        type: string
+      contattoTipoDesc:
+        type: string
+      validitaInizio:
+        type: string
+        format: date-time
+      validitaFine:
+        type: string
+        format: date-time
+      utenteOperazione:
+        type: string
+      dataCreazione:
+        type: string
+        format: date-time
+      dataModifica:
+        type: string
+        format: date-time
+      dataCancellazione:
+        type: string
+        format: date-time
+  Area:
+    type: object
+    properties:
+      idArea:
+        type: integer
+        format: int32
+      idStruttura:
+        type: string
+      idDArea:
+        type: string
+      nome:
+        type: string
+      responsabile:
+        type: string
+      riferimento:
+        type: string
+      statoValidita:
+        type: string
+  DecorsoForElenco:
+    type: object
+    properties:
+      luogoPaziente:
+        type: string
+      descrizioneContesto:
+        type: string
+      idDecorso:
+        type: integer
+        format: int64
+      idSoggetto:
+        type: integer
+        format: int64
+      comuneRicoveroIstat:
+        type: string
+      idRepRicovero:
+        type: integer
+        format: int64
+      condizioniCliniche:
+        type: string
+      idDimiss:
+        type: integer
+        format: int64
+      sintomi:
+        type: string
+      ospedaleRicovero:
+        type: string
+      dataDimissioni:
+        type: string
+        format: date-time
+      dataInizioSint:
+        type: string
+        format: date-time
+      dataEvento:
+        type: string
+        format: date-time
+      idTipoEvento:
+        type: integer
+        format: int32
+      idArea:
+        type: integer
+        format: int32
+      note:
+        type: string
+      dataPrevFineEvento:
+        type: string
+        format: date-time
+      indirizzoDecorso:
+        type: string
+      decorsoPresso:
+        type: string
+      comuneRicovero:
+        $ref: '#/definitions/Comuni'
+      esitoDimissioni:
+        $ref: '#/definitions/EsitoDimissioni'
+      repartoRicovero:
+        $ref: '#/definitions/RepartoRicovero'
+      decodeTipoEvento:
+        $ref: '#/definitions/DecodeTipoEvento'
+      area:
+        $ref: '#/definitions/Area'
+      struttura:
+        $ref: '#/definitions/Struttura'
+      ente:
+        $ref: '#/definitions/Ente'
+      sintomo:
+        $ref: '#/definitions/Sintomo'
+  Ente:
+    type: object
+    properties:
+      idEnte:
+        type: integer
+        format: int32
+      nome:
+        type: string
+      totPostiTarget:
+        type: integer
+        format: int32
+  Sintomo:
+    type: object
+    properties:
+      idSintomo:
+        type: integer
+        format: int64
+      idDecorso:
+        type: integer
+        format: int64
+      temperatura:
+        type: number
+      flgGusto:
+        type: string
+      flgOlfatto:
+        type: string
+      flgTosse:
+        type: string
+      flgDoloriMusc:
+        type: string
+      flgStanchezza:
+        type: string
+      flgCongiuntivite:
+        type: string
+      flgDiarrea:
+        type: string
+      flgRaffreddore:
+        type: string
+      noteSintomo:
+        type: string
+      flgDispnea:
+        type: string
+      flgCefalea:
+        type: string
+      flgFaringodinia:
+        type: string
+  Struttura:
+    type: object
+    properties:
+      idStruttura:
+        type: string
+      idEnte:
+        type: integer
+        format: int32
+      nome:
+        type: string
+      natura:
+        type: string
+  LaboratorioCompleto:
+    type: object
+    properties:
+      idLaboratorio:
+        type: integer
+        format: int64
+      descrizione:
+        type: string
+      siglaLaboratorio:
+        type: string
+      capacitaGiornaliera:
+        type: integer
+        format: int32
+      tamponiDaLavorare:
+        type: integer
+        format: int32
+  Message:
+    type: object
+    properties:
+      message:
+        type: string
+  RMedicoMedico:
+    type: object
+    properties:
+      idMedicoMedico:
+        type: integer
+        format: int32
+      idMedicoDelegante:
+        type: integer
+        format: int64
+      idMedicoDelegato:
+        type: integer
+        format: int64
+      validitaInizio:
+        type: string
+        format: date-time
+      validitaFine:
+        type: string
+        format: date-time
+      utenteOperazione:
+        type: string
+      dataCreazione:
+        type: string
+        format: date-time
+      dataModifica:
+        type: string
+        format: date-time
+      dataCancellazione:
+        type: string
+        format: date-time
+  Payload2:
+    type: object
+    properties:
+      idMedicoDelegato:
+        type: integer
+        format: int32
+      idMedicoDelegante:
+        type: integer
+        format: int32
+      dataInizioValidita:
+        type: string
+        format: date-time
+      dataFineValidita:
+        type: string
+        format: date-time
+  Payload:
+    type: object
+    properties:
+      dataInizioValidita:
+        type: string
+        format: date-time
+      dataFineValidita:
+        type: string
+        format: date-time
+  Medico:
+    type: object
+    properties:
+      idMedico:
+        type: integer
+        format: int64
+      cfMedico:
+        type: string
+      codiceReg:
+        type: string
+      cognome:
+        type: string
+      nome:
+        type: string
+  MedicoExt:
+    type: object
+    properties:
+      idMedico:
+        type: integer
+        format: int64
+      cfMedico:
+        type: string
+      codiceReg:
+        type: string
+      cognome:
+        type: string
+      nome:
+        type: string
+      dataInizioValidita:
+        type: string
+        format: date-time
+      dataFineValidita:
+        type: string
+        format: date-time
+  SoggettoContattoExt:
+    type: object
+    properties:
+      idSoggettoContatti:
+        type: integer
+        format: int32
+      idSoggettoDa:
+        type: integer
+        format: int64
+      idSoggettoA:
+        type: integer
+        format: int64
+      noteContatto:
+        type: string
+      idDecorso:
+        type: integer
+        format: int64
+      contattoTipoId:
+        type: integer
+        format: int64
+      validitaInizio:
+        type: string
+        format: date-time
+      validitaFine:
+        type: string
+        format: date-time
+      utenteOperazione:
+        type: string
+      dataCreazione:
+        type: string
+        format: date-time
+      dataModifca:
+        type: string
+        format: date-time
+      dataCancellazione:
+        type: string
+        format: date-time
+      nomeSoggettoA:
+        type: string
+      nomeSoggettoDa:
+        type: string
+      cognomeSoggettoA:
+        type: string
+      cognomeSoggettoDa:
+        type: string
+      codiceFiscaleSoggettoA:
+        type: string
+      codiceFiscaleSoggettoDa:
+        type: string
+      contattoTipoCodice:
+        type: string
+      contattoTipoDescrizione:
+        type: string
+  SoggettoForDettaglio:
+    type: object
+    properties:
+      idTipoSoggetto:
+        type: integer
+        format: int64
+      idSoggetto:
+        type: integer
+        format: int64
+      codiceFiscale:
+        type: string
+      idAsr:
+        type: integer
+        format: int64
+      cognome:
+        type: string
+      nome:
+        type: string
+      comuneResidenzaIstat:
+        type: string
+      comuneDomicilioIstat:
+        type: string
+      indirizzoDomicilio:
+        type: string
+      telefonoRecapito:
+        type: string
+      dataNascita:
+        type: string
+        format: date-time
+      aslResidenza:
+        type: string
+      aslDomicilio:
+        type: string
+      email:
+        type: string
+      totalCount:
+        type: integer
+        format: int64
+      asr:
+        $ref: '#/definitions/Asr'
+      comuneDomicilio:
+        $ref: '#/definitions/Comuni'
+      comuneResidenza:
+        $ref: '#/definitions/Comuni'
+      numeroCampioni:
+        type: integer
+        format: int32
+      numeroDecorsi:
+        type: integer
+        format: int32
+      ultimoIdTipoEvento:
+        type: integer
+        format: int32
+      tipoSoggetto:
+        $ref: '#/definitions/TipoSoggetto'
+      elencoTampone:
+        type: array
+        items:
+          $ref: '#/definitions/TamponeForElenco'
+      elencoDecorso:
+        type: array
+        items:
+          $ref: '#/definitions/DecorsoForElenco'
+      elencoContattiDa:
+        type: array
+        items:
+          $ref: '#/definitions/SoggettoContattoExt'
+      elencoContattiA:
+        type: array
+        items:
+          $ref: '#/definitions/SoggettoContattoExt'
+      codiceApplicazione:
+        type: string
+      idAura:
+        type: integer
+        format: int64
+      medico:
+        $ref: '#/definitions/Medico'
+  TamponeForElenco:
+    type: object
+    properties:
+      idTampone:
+        type: integer
+        format: int64
+      idSoggetto:
+        type: integer
+        format: int64
+      idLaboratorio:
+        type: integer
+        format: int64
+      criterioEpidemiologicoCovid19:
+        type: string
+      idTestCovid:
+        type: integer
+        format: int64
+      dataTestStr:
+        type: string
+      idRisTamp:
+        type: integer
+        format: int64
+      tamponeAutorizzato:
+        type: string
+      dataInserimentoRichiesta:
+        type: string
+        format: date-time
+      dataUltimaModifica:
+        type: string
+        format: date-time
+      utenteUltimaModifica:
+        type: string
+      dataTest:
+        type: string
+        format: date-time
+      medicoRichiedente:
+        type: string
+      contattoRichiedente:
+        type: string
+      tamponeMotivoId:
+        type: integer
+        format: int32
+      laboratorio:
+        $ref: '#/definitions/Laboratorio'
+      testCovid:
+        $ref: '#/definitions/TestCovid'
+      risTampone:
+        $ref: '#/definitions/RisTampone'
+      tamponeMotivo:
+        $ref: '#/definitions/TamponeMotivo'
+  TestCovid:
+    type: object
+    properties:
+      idTestCovid:
+        type: integer
+        format: int64
+      testCovid:
+        type: string
+  TipoSoggetto:
+    type: object
+    properties:
+      idTipoSoggetto:
+        type: integer
+        format: int32
+      descTipoSoggetto:
+        type: string
+  SoggettoForElenco:
+    type: object
+    properties:
+      idTipoSoggetto:
+        type: integer
+        format: int64
+      idSoggetto:
+        type: integer
+        format: int64
+      codiceFiscale:
+        type: string
+      idAsr:
+        type: integer
+        format: int64
+      cognome:
+        type: string
+      nome:
+        type: string
+      comuneResidenzaIstat:
+        type: string
+      comuneDomicilioIstat:
+        type: string
+      indirizzoDomicilio:
+        type: string
+      telefonoRecapito:
+        type: string
+      dataNascita:
+        type: string
+        format: date-time
+      aslResidenza:
+        type: string
+      aslDomicilio:
+        type: string
+      email:
+        type: string
+      totalCount:
+        type: integer
+        format: int64
+      asr:
+        $ref: '#/definitions/Asr'
+      comuneDomicilio:
+        $ref: '#/definitions/Comuni'
+      comuneResidenza:
+        $ref: '#/definitions/Comuni'
+      numeroCampioni:
+        type: integer
+        format: int32
+      numeroDecorsi:
+        type: integer
+        format: int32
+      ultimoIdTipoEvento:
+        type: integer
+        format: int32
+      tipoSoggetto:
+        $ref: '#/definitions/TipoSoggetto'
+  Decorso:
+    type: object
+    properties:
+      luogoPaziente:
+        type: string
+      descrizioneContesto:
+        type: string
+      idDecorso:
+        type: integer
+        format: int64
+      idSoggetto:
+        type: integer
+        format: int64
+      comuneRicoveroIstat:
+        type: string
+      idRepRicovero:
+        type: integer
+        format: int64
+      condizioniCliniche:
+        type: string
+      idDimiss:
+        type: integer
+        format: int64
+      sintomi:
+        type: string
+      ospedaleRicovero:
+        type: string
+      dataDimissioni:
+        type: string
+        format: date-time
+      dataInizioSint:
+        type: string
+        format: date-time
+      dataEvento:
+        type: string
+        format: date-time
+      idTipoEvento:
+        type: integer
+        format: int32
+      idArea:
+        type: integer
+        format: int32
+      note:
+        type: string
+      dataPrevFineEvento:
+        type: string
+        format: date-time
+      indirizzoDecorso:
+        type: string
+      decorsoPresso:
+        type: string
+  SoggettoForTrasferimento:
+    type: object
+    properties:
+      idTipoSoggetto:
+        type: integer
+        format: int64
+      idSoggetto:
+        type: integer
+        format: int64
+      codiceFiscale:
+        type: string
+      idAsr:
+        type: integer
+        format: int64
+      cognome:
+        type: string
+      nome:
+        type: string
+      comuneResidenzaIstat:
+        type: string
+      comuneDomicilioIstat:
+        type: string
+      indirizzoDomicilio:
+        type: string
+      telefonoRecapito:
+        type: string
+      dataNascita:
+        type: string
+        format: date-time
+      aslResidenza:
+        type: string
+      aslDomicilio:
+        type: string
+      email:
+        type: string
+      asr:
+        $ref: '#/definitions/Asr'
+      decorso:
+        $ref: '#/definitions/Decorso'
+      area:
+        $ref: '#/definitions/Area'
+      struttura:
+        $ref: '#/definitions/Struttura'
+      ente:
+        $ref: '#/definitions/Ente'
+      tipoEvento:
+        $ref: '#/definitions/DecodeTipoEvento'
+      comuneRicovero:
+        $ref: '#/definitions/Comuni'
+      tipoSoggetto:
+        $ref: '#/definitions/TipoSoggetto'
+      totalCount:
+        type: integer
+        format: int64
+  SoggettoContatto:
+    type: object
+    properties:
+      idSoggettoContatti:
+        type: integer
+        format: int32
+      idSoggettoDa:
+        type: integer
+        format: int64
+      idSoggettoA:
+        type: integer
+        format: int64
+      noteContatto:
+        type: string
+      idDecorso:
+        type: integer
+        format: int64
+      contattoTipoId:
+        type: integer
+        format: int64
+      validitaInizio:
+        type: string
+        format: date-time
+      validitaFine:
+        type: string
+        format: date-time
+      utenteOperazione:
+        type: string
+      dataCreazione:
+        type: string
+        format: date-time
+      dataModifca:
+        type: string
+        format: date-time
+      dataCancellazione:
+        type: string
+        format: date-time
+  TamponeForReport:
+    type: object
+    properties:
+      dataInserimentoRichiesta:
+        type: string
+        format: date-time
+      cognome:
+        type: string
+      nome:
+        type: string
+      dataNascita:
+        type: string
+        format: date-time
+      tamponeAutorizzato:
+        type: string
+      esitoTampone:
+        type: string
+      dataEsito:
+        type: string
+        format: date-time
+      laboratorio:
+        type: string
+      idTampone:
+        type: string
+      idSoggetto:
+        type: string
+      criterioEpidemiologicoCovid19:
+        type: string
+      medicoRichiedente:
+        type: string
+      contattoRichiedente:
+        type: string
+      codiceFiscale:
+        type: string
+      indirizzoDomicilio:
+        type: string
+      comuneDomicilio:
+        type: string
+      comuneResidenza:
+        type: string
+      descTipoSoggetto:
+        type: string
+      totalCount:
+        type: integer
+        format: int64
+  TestEsito:
+    type: object
+    properties:
+      testEsitoId:
+        type: integer
+        format: int32
+      testEsitoCod:
+        type: string
+      testEsitoDesc:
+        type: string
+      validitaInizio:
+        type: string
+        format: date-time
+      validitaFine:
+        type: string
+        format: date-time
+      utenteOperazione:
+        type: string
+      dataCreazione:
+        type: string
+        format: date-time
+      dataModifica:
+        type: string
+        format: date-time
+      dataCancellazione:
+        type: string
+        format: date-time
+  TestExt:
+    type: object
+    properties:
+      testId:
+        type: integer
+        format: int64
+      testDataEsecuzione:
+        type: string
+        format: date-time
+      testRangeRiferimento:
+        type: string
+      testValore:
+        type: string
+      testUnitaMisura:
+        type: string
+      testCodiceEsito:
+        type: string
+      testLaboratorioDesc:
+        type: string
+      testProgramma:
+        type: string
+      idSoggetto:
+        type: integer
+        format: int64
+      testEsitoId:
+        type: integer
+        format: int32
+      testTipoId:
+        type: integer
+        format: int32
+      testRichiestaTipoId:
+        type: integer
+        format: int32
+      intfrdetId:
+        type: integer
+        format: int32
+      utenteOperazione:
+        type: string
+      dataCreazione:
+        type: string
+        format: date-time
+      dataModifica:
+        type: string
+        format: date-time
+      dataCancellazione:
+        type: string
+        format: date-time
+      testEsito:
+        $ref: '#/definitions/TestEsito'
+      testTipo:
+        $ref: '#/definitions/TestTipo'
+      testRichiestaTipo:
+        $ref: '#/definitions/TestRichiestaTipo'
+      utente:
+        $ref: '#/definitions/UtenteContatto'
+  TestRichiestaTipo:
+    type: object
+    properties:
+      testRichiestaTipoId:
+        type: integer
+        format: int32
+      testRichiestaTipoCod:
+        type: string
+      testRichiestaTipoDesc:
+        type: string
+      validitaInizio:
+        type: string
+        format: date-time
+      validitaFine:
+        type: string
+        format: date-time
+      utenteOperazione:
+        type: string
+      dataCreazione:
+        type: string
+        format: date-time
+      dataModifica:
+        type: string
+        format: date-time
+      dataCancellazione:
+        type: string
+        format: date-time
+  TestTipo:
+    type: object
+    properties:
+      testTipoId:
+        type: integer
+        format: int32
+      testTipoCod:
+        type: string
+      testTipoDesc:
+        type: string
+      validitaInizio:
+        type: string
+        format: date-time
+      validitaFine:
+        type: string
+        format: date-time
+      utenteOperazione:
+        type: string
+      dataCreazione:
+        type: string
+        format: date-time
+      dataModifica:
+        type: string
+        format: date-time
+      dataCancellazione:
+        type: string
+        format: date-time
+  UtenteContatto:
+    type: object
+    properties:
+      cfUtente:
+        type: string
+      nome:
+        type: string
+      cognome:
+        type: string
+      telefono:
+        type: string
+      email:
+        type: string

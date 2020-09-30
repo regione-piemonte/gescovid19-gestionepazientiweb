@@ -1,0 +1,101 @@
+<div class='container panel-main-content' >
+	<!--<div class='panel-header'>
+
+	</div>-->
+	<div class='panel-main-content' >
+	
+		<div class='panel-main-content container'>
+			
+			<loading size='big'ng-if='loading' />
+				
+			<div ng-if='!loading' class='detail-panel'>
+				<div class="detail-row">
+			    	<div class="detail-label"  translate>PAZIENTI_codice_fiscale</div>
+					<div class="detail-content">
+						{{paziente.codiceFiscale}}
+					</div>
+			    	<div class="detail-label"  translate>PAZIENTI_nr_tamponi_richiesti</div>
+					<div class="detail-content">
+						{{paziente.numeroCampioni}}
+					</div>
+		  		</div>	
+			    <div class="detail-row">
+			    	<div class="detail-label" translate>PAZIENTI_cognome</div>
+					<div class="detail-content">
+							{{paziente.cognome}}
+					</div>
+		  		</div>	
+			    <div class="detail-row">
+			    	<div class="detail-label "translate>PAZIENTI_nome</div>
+					<div class="detail-content">
+							{{paziente.nome}}
+					</div>
+		  		</div>	
+		  		<div class="detail-row">
+			    	<div class="detail-label  "  for="pazienteDatanascita" translate>PAZIENTI_data_nascita</div>
+					<div class="detail-content">
+							{{paziente.dataNascita|date:'dd/MM/yyyy'}}
+					</div>
+		  		</div>
+			    <div class="detail-row">
+			    	<div class="detail-label "translate>PAZIENTI_asl_residenza</div>
+					<div class="detail-content">
+							{{paziente.aslResidenza}}
+					</div>
+		  		</div>	
+			    <div class="detail-row">
+			    	<div class="detail-label "translate>PAZIENTI_asl_domicilio</div>
+					<div class="detail-content">
+							{{paziente.aslDomicilio}}
+					</div>
+		  		</div>	
+		  		<div class="detail-row">
+			    	<div class="detail-label  "  for="pazienteResidenza" translate>PAZIENTI_comune_residenza_istat</div>
+					<div class="detail-content">
+							{{paziente.comuneResidenza.nomeComune}}
+					</div>
+		  		</div>	
+		  		<div class="detail-row">
+			    	<div class="detail-label  "  for="pazienteDomicilio" translate>PAZIENTI_comune_domicilio_istat</div>
+					<div class="detail-content">
+							{{paziente.comuneDomicilio.nomeComune}}
+					</div>
+		  		</div>
+		  		<div class="detail-row">
+			    	<div class="detail-label  "  for="pazienteIndirizzo" translate>PAZIENTI_indirizzo_domicilio</div>
+					<div class="detail-content">
+							{{paziente.indirizzoDomicilio}}
+					</div>
+		  		</div>
+		  		<div class="detail-row">
+			    	<div class="detail-label  "  for="pazienteTelefono" translate>PAZIENTI_telefono_recapito</div>
+					<div class="detail-content">
+							{{paziente.telefonoRecapito}}
+					</div>
+		  		</div>			
+		  		<div class="detail-row">
+			    	<div class="detail-label  "  for="pazienteTelefono" translate>PAZIENTI_email_recapito</div>
+					<div class="detail-content">
+						{{paziente.email}}
+					</div>
+		  		</div>			
+		  		<div class="detail-row">
+			    	<div class="detail-label  "  for="tipoSoggetto" translate>PAZIENTI_tipo_soggetto</div>
+					<div class="detail-content">
+						{{paziente.tipoSoggetto.descTipoSoggetto|nvl:'cittadino'}}
+					</div>
+		  		</div>			
+			</div>
+		</div>
+		<!-- <div class='toolbar'>
+			<div class='toolbar-left'>
+				<a href ng-click='#/pazienti' class='btn btn-default'><span translate>PAZIENTE_BACK_ELENCO_PAZIENTI_BTN</span></a>
+			</div>
+			<div class='toolbar-right' project_id='{{idProject}}'>
+				<a href ng-click='showNewPazienteModal()' class='btn btn-default'><span translate>PAZIENTE_LISTA_DECORSO_BTN</span></a>
+				<a href ng-click='showNewPazienteModal()' class='btn btn-default'><span translate>PAZIENTE_ELENCO_TAMPONI_BTN</span></a>
+				<a href ng-click='showNewPazienteModal()' class='btn btn-default'><span translate>PAZIENTE_RICHIEDI_TAMPONE_BTN</span></a>
+			</div>
+		</div>-->
+	</div>
+</div>

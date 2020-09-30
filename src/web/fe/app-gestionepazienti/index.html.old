@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html used-lang ng-app="gestionepazienti" lang='it'>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <base href="/gestionepazientiweb/"> -->
+<title >Gestione Pazienti</title>
+<!-- Bootstrap -->
+<!-- Latest compiled and minified CSS -->
+<script charset='UTF-8'>
+window['adrum-start-time'] = new Date().getTime();
+(function(config){
+	var appKey = '@@@config.appKey@@@';
+	if (location.hostname === 'rupcovid.sdp.csi.it'  || location.hostname === 'webcovid.sdp.csi.it') {
+		appKey = 'AD-AAB-AAV-TAJ'
+	}
+	else if (location.hostname === 'int-rupcovid.sdp.csi.it') {
+		appKey = 'AD-AAB-AAV-SWY'
+	}
+    config.appKey = appKey;
+    config.adrumExtUrlHttp = 'http://cdn.appdynamics.com';
+    config.adrumExtUrlHttps = 'https://cdn.appdynamics.com';
+    config.beaconUrlHttp = 'http://pdx-col.eum-appdynamics.com';
+    config.beaconUrlHttps = 'https://pdx-col.eum-appdynamics.com';
+    config.xd = {enable : false};
+    config.fetch = true;
+    config.isZonePromise = true;
+    config.spa = {"spa2": true };
+})(window['adrum-config'] || (window['adrum-config'] = {}));
+</script>
+<script src='//cdn.appdynamics.com/adrum/adrum-4.5.17.2890.js'></script>
+
+<link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/app.css">
+<link rel="stylesheet" type="text/css" href="css/responsive.css">
+<link href="lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="js/i18n/strings_en.js"></script>
+
+<script type="text/javascript" src="js/i18n/strings_it.js"></script>
+
+<link rel="shortcut icon" href="favicon.png">
+<!-- generics -->
+<link rel="icon" href="img/icons/favicon-16.png" sizes="16x16">
+<link rel="icon" href="img/icons/favicon-32.png" sizes="32x32">
+<link rel="icon" href="img/icons/favicon-192.png" sizes="192x192">
+
+<!-- iOS -->
+<link rel="apple-touch-icon" href="img/icons/favicon-152.png" sizes="152x152">
+<link rel="apple-touch-icon" href="img/icons/favicon-180.png" sizes="180x180">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+	<script type='text/javascript'>
+		if(!console){
+			var console = window.console || { log: function() {} };
+		}
+		if(!console.debug)
+			console.debug = window.console.log;
+	</script>
+	<link rel="stylesheet" type="text/css" href="lib/outdated-browser-rework/dist/style.css">
+	<script src="lib/outdated-browser-rework/dist/outdated-browser-rework.min.js"></script>
+	<script>
+		// Since this is a demo page, we disable support for all browsers
+		outdatedBrowserRework({
+			fullscreen: false,
+			browserSupport: {
+				'Chrome': 30, 
+				'Edge': true,
+				'Firefox': 27,
+				'Opera': true,
+				'Safari': 7,
+				'IE': false
+			},
+			messages: {
+		        it: {
+		            outOfDate: "Aggiornamento browser richiesto",
+		            unsupported: "Il browser utilizzato non è supportato",
+		            update: {
+		                web: "La versione del browser in uso non è più supportata, si prega quindi di ricorrere ai " + 
+		                "seguenti browser/versioni: Chrome/30+, Firefox/27+, Safari/7+"
+		            },
+		            // You can set the URL to null if you do not want a clickable link or provide
+		            // your own markup in the `update.web` message.
+		            url: "http://outdatedbrowser.com/",
+		            callToAction: "Scarica un broswer supportato",
+		            close: "Chiudi"
+		        }
+		    }
+		})
+	</script>
+
+</head>
+<body>
+	<div id="outdated"></div>
+	<div ng-controller="GlobalCtrl as globalCtrl" id='main-page'>
+		<div class='toast toast-{{toast.type}}' ng-if="toast">
+			<div class="toast-close-link" href ng-click="closeToast()">&times</div>
+			<span ng-if='!toast.noTranslate' translate>{{toast.message}}</span>
+			<span ng-if='toast.noTranslate' >{{toast.message}}</span>
+		</div>
+		<main-navbar></main-navbar>
+		<!-- <breadcrumb></breadcrumb> -->
+		<div ng-view id='main-body'></div>
+		<main-footer></main-footer>
+	</div>
+	
+	
+	<script type="text/ng-template" id="confirmDialog.html">
+    		<div class="home-page-modal">
+	        	<div class="modal-header">
+    	       		<h4 class="">{{question.title|translate}}</h4>
+        		</div>
+	        	<div class="modal-body">
+					<div class="intro" ng-if="question.message">{{question.message|translate}}</div>
+					<div class="intro" ng-if="question.messageHtml" ng-bind-html="question.messageHtml"></div>
+				</div>
+				<div class="modal-footer">
+					<a ng-click='no()' class="btn btn-default" translate-cloak translate>NO</a>
+					<a ng-click='yes()' class="btn " translate-cloak translate>YES</a>
+				</div>
+			</div>
+	</script>
+
+	<script type="text/ng-template" id="htmlPopover.html">
+	<div class="modal-compact">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" translate>{{title}}</h4>
+        </div>
+		<div class="modal-body">
+			<div ng-bind-html="htmlContent"></div>
+		</div>
+		<div class='modal-footer date-time-hint-footer' ng-if='htmlFooter'>
+			<div ng-bind-html="htmlFooter"></div>
+		</div>
+	</div>
+	</script>	
+	
+	<script type="text/ng-template" id="helpDialog.html">
+    	<div class="help-page-modal">
+	        <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="yes()"><span aria-hidden="true">&times;</span></button>
+    	   		<h3 class="">{{help.title|translate}}</h3>
+        	</div>
+	       	<div class="modal-body">
+				<ng-include src="'partials/help/'+help.section+'/'+help.page + '_' + currentLang() + '.html?time='+currentmillis"></ng-include>
+			</div>
+			<div class="modal-footer">
+				<a ng-click='yes()' class="btn btn-default" translate-cloak translate>CLOSE</a>
+			</div>
+		</div>
+	</script>
+	<script type="text/ng-template" id="chooseUsersModal.html">
+		<div class="modal-body modal-compact">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+   		        <h3 class="modal-title"><span translate >CHOOSE_USER_MODAL_TITLE</span></h3>
+        	</div>
+			<div class="modal-body">
+
+				<div class='choose-table'>
+					<div ng-repeat='(firstLetter, users) in userMap track by $index'>
+						<div class='choose-table-section'><h4>{{firstLetter}}</h4></div>
+						<div class='row'>
+							<div class='col-sm-4' ng-repeat='user in users track by $index'>
+								<div class='choose-table-item' ng-click='chooseUser(user)'>{{user.surname}} {{user.name}}</div>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</script>
+	<script type="text/ng-template" id="tableOptionsDialog.html">
+   	<div class="home-page-modal">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+   		    <h3 class="modal-title"><span translate >TABLE_OPTIONS_MODAL_TITLE</span></h3>
+        </div>
+        <div class="modal-body">
+			<div class='option-dialog-row'>
+				<span translate>ADMIN_ROW_PAGE_SIZE</span>
+				<select title="{{ADMIN_ROW_PAGE_SIZE|translate}}" ng-model="options.pageSize">
+					<option value="10">10</option>
+					<option value="20">20</option>
+					<option value="50">50</option>
+					<option value="100">100</option>
+				</select>
+			</div>
+			<div class='option-dialog-row'>&nbsp; </div>
+			<div class='option-dialog-row'>
+				<div class="checkbox">
+					<label><input type="checkbox" ng-model='options.showCompactData'/>{{"ADMIN_SHOW_ALL_DATA"|translate}}
+					<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span></label>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a ng-click='cancel()' class="btn " translate-cloak translate>CANCEL</a>
+			<a ng-click='ok()' class="btn btn-default" translate-cloak translate>OK</a>
+		</div>
+	</div>
+</script>
+
+	<script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="lib/angular/angular.min.js"></script>
+	<script type="text/javascript" src="lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+	<script type="text/javascript" src="lib/angular-route/angular-route.min.js"></script>
+	<script type="text/javascript" src="lib/angular-local-storage/dist/angular-local-storage.min.js"></script>
+	<script type="text/javascript" src="lib/angular-sanitize/angular-sanitize.min.js"></script>
+	<script type="text/javascript" src="lib/angular-translate/angular-translate.min.js"></script>
+
+
+	<script type="text/javascript" src="js/constants.js"></script>
+	<script type="text/javascript" src="js/releasenotes.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/helpers.js"></script>
+
+	<script type="text/javascript" src="js/services/services.js"></script>
+	<script type="text/javascript" src="js/services/gestionepazientiServices.js"></script>
+
+	<script type="text/javascript" src="js/controllers.js"></script>
+	<script type="text/javascript" src="js/business/PazientiController.js"></script>
+	<script type="text/javascript" src="js/business/PazienteController.js"></script>
+	<script type="text/javascript" src="js/business/TamponiController.js"></script>
+	<script type="text/javascript" src="js/business/NotificheController.js"></script>
+	<script type="text/javascript" src="js/business/ComunicazioniMMGController.js"></script>
+	<script type="text/javascript" src="js/business/DecorsiController.js"></script>
+
+
+	<script type="text/javascript" src="js/filters.js"></script>
+
+	<script type="text/javascript" src="js/directives.js"></script>
+
+	<script src="lib/d3/d3.min.js"></script>
+	<script src="lib/lodash/dist/lodash.min.js"></script>
+	<script src="lib/graphlib/dist/graphlib.core.min.js"></script>
+	<!-- 
+	<script src="lib/dagre/dist/dagre.core.min.js"></script>
+	<script src="lib/dagre-d3/dist/dagre-d3.core.min.js"></script>
+	
+	 -->
+	<script type='text/javascript' src="lib/jsPDF/dist/jspdf.min.js"></script>
+</body>
+</html>

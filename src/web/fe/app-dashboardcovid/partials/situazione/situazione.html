@@ -1,0 +1,185 @@
+<div class='container-fluid panel-main-content' >
+	<div class='panel-header panel-header-toolbar'>
+		<h1 class='panel-header-item-left panel-header-main-content' ng-click='debugCollection()'>
+			<strong translate>SITUAZIONE_TITLE</strong> <small>{{currentDate|date:'dd/MM/yyyy HH:mm'}}</small>
+		</h1>
+		<div class="panel-header-item-right" >
+			<a href  ng-if='vista.situazione=="elenco"' ng-click='vista.situazione="aggregati"' class="btn btn-default ng-scope">
+				<span translate>SITUAZIONE_SHOW_AGGREGATI_BTN</span>
+			</a>
+			<a href  ng-if='vista.situazione=="aggregati"' ng-click='vista.situazione="elenco"'  class="btn btn-default ng-scope">
+				<span translate>SITUAZIONE_SHOW_ELENCO_BTN</span>
+			</a>
+			<a href="/dashboardcovidweb/api/postiletto/disponibilita/report/xlsx" class="btn btn-default ng-scope">
+				<i class='fa fa-file-excel-o'></i>&nbsp;
+				<span translate>SITUAZIONE_DOWNLOAD_CSV_BTN</span>
+			</a>
+		</div>
+		
+	</div>
+	<div class='panel-main-content' >
+	
+		<alert-panel content='feedback'></alert-panel>	
+		
+		<div class='panel-main-content'>
+			
+			<loading size='big'ng-if='loading' />
+				
+			<div ng-if='!loading' >
+				<div class='situazione-legend'>
+					<div class='situazione-legend-intro' translate>SITUAZIONE_LEGEND_INTRO</div>
+					<div class='situazione-legend-badge situazione-legend-red'></div>&nbsp;<div translate>SITUAZIONE_LEGEND_RED</div>
+					<div class='situazione-legend-badge situazione-legend-orange'></div>&nbsp;<div translate>SITUAZIONE_LEGEND_ORANGE</div>
+					<div class='situazione-legend-badge situazione-legend-yellow'></div>&nbsp;<div translate>SITUAZIONE_LEGEND_YELLOW</div>
+					<div class='situazione-legend-badge situazione-legend-green'></div>&nbsp;<div translate>SITUAZIONE_LEGEND_GREEN</div>
+				</div>
+				<div class='situazione-table' ng-repeat='(ente, struttura) in disponibilita2 track by $index' ng-if='vista.situazione=="aggregati"'>
+					<div class='situazione-ente'>
+						<div class='situazione-ente-nome'>{{ente}}</div>
+						<div class='situazione-ente-nome-totali'><label class='' translate>SITUAZIONE_TOTALE_POSTI_TARGET_ENTE</label>&nbsp;<span class='value'>{{struttura.totPostiTarget}}</span></div>
+						<div class='situazione-ente-nome-totali'><label class='' translate>SITUAZIONE_TOTALE_POSTI_DISPONIBILI_ENTE</label>&nbsp;<span class='value'>{{struttura.totaleDisponibili}}</span></div>
+						<div class='situazione-ente-nome-totali'><label class='' translate>SITUAZIONE_TOTALE_POSTI_OCCUPATI_ENTE</label>&nbsp;<span class='value'>{{struttura.totaleOccupati}}</span></div>
+						<div class="div-table-cell"  role="cell" >
+							<div class='progressbar ' style='border-color:{{struttura.color}}'>
+								<div class='progressbar-full'style='width:{{struttura.fullSize}}px; background-color: {{struttura.color}}'>&nbsp;</div>
+							</div>
+						</div>
+						<div class='accordion-button'><a href ng-click='accordion[ente]=!accordion[ente]'><i class='fa fa-plus'></i></a></div>
+					</div>
+					<table class='table' ng-if='accordion[ente]'>
+						<thead>
+							<tr class='situazione-ente-first-header'>
+								<th></th>
+								<th ng-repeat='ta in tipi_aree track by $index' colspan='2' class='situazione-ente-value-column situazione-ente-value-p'>{{ta|translate}}</th>
+								<th colspan='2' class='situazione-ente-value-column ' translate>SITUAZIONE_TOTALE_POSTI</th> 
+							</tr>
+							<tr class='situazione-ente-second-header'>
+								<th>&nbsp;</th>
+								<th ng-repeat-start='ta in tipi_aree track by $index' translate>D</th>
+								<th ng-repeat-end translate class='situazione-ente-value-p'>P</th>
+								<th translate>D</th>
+								<th translate class=''>P</th>							
+							</tr>
+						</thead>
+						<tbody>
+							
+							<tr ng-repeat='(name, a) in struttura track by $index' ng-if='name!="totaleDisponibili" && name!="totaleOccupati"&& name!="fullSize" && name!="color"  && name!="totPostiTarget"'>
+								<td>{{name}}</td>
+								<td ng-repeat-start='ta in tipi_aree track by $index' style='{{a[ta].style}}' class='situazione-ente-value situazione-ente-value-d'>
+									<span ng-if='ta!="IN_ATTESA"' >{{a[ta].postiDisponibili}}</span>
+									<span ng-if='ta=="IN_ATTESA"' class='mute'>-</span>
+								</td>
+								<td ng-repeat-end class='situazione-ente-value situazione-ente-value-p' style='{{a[ta].style}}'>{{a[ta].postiOccupati}}</td>
+								<td ><strong>{{a.totaleDisponibili}}</strong></td>
+								<td><strong>{{a.totaleOccupati}}</strong></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>			
+				<div ng-if='vista.situazione=="elenco"'>
+					<div class='toolbar table-toolbar' ng-if="disponibilita.length>0" '>
+						<div class='table-toolbar-filter'>
+							<label><i class='fa fa-filter'></i> <span translate>TABLE_FILTERS</span></label> 
+							<input type='text' ng-model="filter.ente" placeholder='{{"STRUTTURA_id_ente"|translate}}'/>
+							<input type='text' ng-model="filter.struttura" placeholder='{{"AREA_id_struttura"|translate}}'/>
+							<input type='text' ng-model="filter.area" placeholder='{{"DISPONIBILITA_id_area"|translate}}'/>
+						</div>
+					</div>
+					
+					<div class='div-table' role="table"  ng-init='reverse=false'>
+						<div class="div-table-row div-table-header" role="rowgroup">
+							<!-- 
+								 <div class="div-table-cell" role="columnheader" translate>&nbsp;</div>
+							 -->
+							<div class="div-table-cell first" role="columnheader">
+								<a href="" ng-click="predicate  = 'ente.nome'; reverse=!reverse">
+									<span translate-cloak translate>STRUTTURA_id_ente</span>&nbsp;
+									<span ng-show="predicate=='ente.nome' && !reverse" class="fa fa-angle-up small"></span>
+									<span ng-show="predicate=='ente.nome' && reverse" class="fa fa-angle-down  small"></span>
+								</a>
+							</div>
+							<div class="div-table-cell first" role="columnheader">
+								<a href="" ng-click="predicate  = 'struttura.nome'; reverse=!reverse">
+									<span translate-cloak translate>AREA_id_struttura</span>&nbsp;
+									<span ng-show="predicate=='struttura.nome' && !reverse" class="fa fa-angle-up small"></span>
+									<span ng-show="predicate=='struttura.nome' && reverse" class="fa fa-angle-down  small"></span>
+								</a>
+							</div>
+							<div class="div-table-cell first" role="columnheader">
+								<a href="" ng-click="predicate  = 'area.nome'; reverse=!reverse">
+									<span translate-cloak translate>DISPONIBILITA_id_area</span>&nbsp;
+									<span ng-show="predicate=='area.nome' && !reverse" class="fa fa-angle-up small"></span>
+									<span ng-show="predicate=='area.nome' && reverse" class="fa fa-angle-down  small"></span>
+								</a>
+							</div>
+							<div class="div-table-cell first" role="columnheader">
+								<a href="" ng-click="predicate  = 'postiDisponibili'; reverse=!reverse">
+									<span translate-cloak translate>DISPONIBILITA_posti_disponibili</span>&nbsp;
+									<span ng-show="predicate=='postiDisponibili' && !reverse" class="fa fa-angle-up small"></span>
+									<span ng-show="predicate=='postiDisponibili' && reverse" class="fa fa-angle-down  small"></span>
+								</a>
+							</div>
+							<div class="div-table-cell first" role="columnheader">
+								<a href="" ng-click="predicate  = 'postiOccupati'; reverse=!reverse">
+									<span translate-cloak translate>DISPONIBILITA_posti_occupati</span>&nbsp;
+									<span ng-show="predicate=='postiOccupati' && !reverse" class="fa fa-angle-up small"></span>
+									<span ng-show="predicate=='postiOccupati' && reverse" class="fa fa-angle-down  small"></span>
+								</a>
+							</div>
+							<div class="div-table-cell first" role="columnheader">
+								<a href="" ng-click="predicate  = 'postiOccupati'; reverse=!reverse">
+									<span translate-cloak translate>DISPONIBILITA_posti_occupati_data</span>&nbsp;
+									<span ng-show="predicate=='postiOccupati' && !reverse" class="fa fa-angle-up small"></span>
+									<span ng-show="predicate=='postiOccupati' && reverse" class="fa fa-angle-down  small"></span>
+								</a>
+							</div>
+							<div>&nbsp;</div>
+	
+						</div>
+						<div class="div-table-row div-table-row-linkable" role="rowgroup"
+							ng-repeat="d in filtered.disponibilita = (disponibilita | filter: disponibilitaStrutturaFilter | filter:disponibilitaAreaFilter | filter:disponibilitaEnteFilter
+							| orderBy:predicate:reverse) | startFrom:(filtered.currentPage-1)*pageSize | limitTo:pageSize track by $index">
+							<!--
+							<div class="div-table-cell first" role="cell" >
+								<div class="checkbox inline-checkbox">
+									<label><input id = 'checkPaziente__{{paziente.idSoggetto}}' type="checkbox" ng-model='p.selected' ng-change = 'selectPaziente(p.idSoggetto)' />
+									<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span></label>
+								</div>
+							</div>
+							-->
+							<div class="div-table-cell" role="cell"  >{{d.ente.nome}} </div>
+							<div class="div-table-cell" role="cell"  >{{d.struttura.nome}}</div>		
+							<div class="div-table-cell" role="cell"  >{{d.area.nome}}</div>		
+							<div class="div-table-cell text-center" role="cell"  style='{{d.style}}' >{{d.postiDisponibili}}</div>		
+							<div class="div-table-cell text-center" role="cell"  style='{{d.style}}'>{{d.postiOccupati}}</div>		
+							<div class="div-table-cell" role="cell"  >{{d.dataEvento|date:'dd/MM/yyyy HH:mm'}}</div>	
+							<div class="div-table-cell"  role="cell" >
+								<div class='progressbar ' style='border-color:{{d.color}}'>
+									<div class='progressbar-full'style='width:{{d.fullSize}}px; background-color: {{d.color}}'>&nbsp;</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class='pagination-container' ng-if="disponibilita.length>0">
+					 	<ul uib-pagination total-items="filtered.disponibilita.length" ng-model="filtered.currentPage" items-per-page="pageSize" class="pagination-sm"
+					 	 	previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" boundary-link-numbers="true" rotate="false" 
+					 	 	boundary-links="true" force-ellipses="true" max-size="5"></ul>
+					</div>
+					
+				
+			
+			  		<alert-panel message='DISPONIBILITA_NO_DISPONIBILITA' type='info' closable='false' ng-if="disponibilita.length==0"></alert-panel>
+			  	</div>
+			</div>
+		</div>
+		<!--
+		<div class='toolbar'>
+			<div class='toolbar-right'>
+				<a href ng-click='showNewPazienteModal()' class='btn btn-primary'><span translate>PAZIENTE_NEW</span></a>
+				<a href ng-click='showPaziente()' class='btn btn-primary' ng-disabled='!selectedPaziente.idSoggetto'><span translate>PAZIENTE_VIEW_SELECTED</span></a>
+			</div>
+		</div>
+		-->
+	</div>
+</div>
+

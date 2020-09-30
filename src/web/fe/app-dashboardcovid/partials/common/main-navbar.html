@@ -1,0 +1,89 @@
+
+<div id='main-header' ng-cloak class='nav-bar-compact'>
+	<nav class="navbar ">
+		<div class="container-fluid">
+			<div class="navbar-header">
+			    <button type="button" class="navbar-toggle" ng-click="navbarCollapsed = !navbarCollapsed" ng-init="navbarCollapsed=true">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+				<a href="#/" class="navbar-brand" ><span class="hidden"></span>
+					<logo />
+				</a>
+			</div>
+
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" collapse="navbarCollapsed">
+				<ul class="nav navbar-nav action-navbar">
+					<!-- <li>
+						<a href="#/home" ng-class="{active: $route.current.$$route.activetab == 'home'}" class='main-menu-item '>
+							<span translate-cloak translate>MENU_HOME</span>
+						</a>
+					</li>-->
+					<li class='border-left'>
+						<a ng-href="#/situazione"  ng-class="{active: $route.current.$$route.activetab == 'situazione'}" class='main-menu-item '>
+							<span translate-cloak translate>MENU_SITUAZIONE</span>
+						</a>
+					</li>
+					<!-- 
+					<li class='border-left'>
+						<a ng-href="#/movimentazione"  ng-class="{active: $route.current.$$route.activetab == 'movimentazione'}" class='main-menu-item '>
+							<span translate-cloak translate>MENU_MOVIMENTAZIONE</span>
+						</a>
+					</li>
+					<li class='border-left'>
+						<a ng-href="#/tamponis"  ng-class="{active: $route.current.$$route.activetab == 'tamponi'}" class='main-menu-item '>
+							<span translate-cloak translate>MENU_TAMPONI</span>
+						</a>
+					</li>  -->
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<p class="navbar-text">
+							<small><i>{{currentDate|date:'dd/MM/yyyy HH:mm:ss'}}</i></small>
+						</p>
+					</li>
+					
+				<!-- 	<li>
+						<p class="navbar-text" ng-class='{superadmin: currentUser.superadmin}'>
+							<strong></strong>  {{currentUser.asr.descrizione}}
+						</p>
+					</li>-->
+					<li>
+						<p class="navbar-text" >
+							<i class='fa fa-user-circle-o'></i> {{currentUser.nome}} {{currentUser.cognome}} 
+						</p>
+					</li>
+					<!-- <li>
+						<a href  title="{{'HELP'|translate}}"><i class='fa fa-question'></i> </a>
+					</li>-->
+					<li>
+						<a href ng-click='logout()' title="{{'LOGOUT'|translate}}"><i class='fa fa-sign-out'></i> <span translate>LOGOUT</span></a>
+					</li>
+				</ul>
+				
+				<!-- <ul class="nav navbar-nav navbar-right navbar-with-caret lang-menu" ng-cloak>
+					<li class='main-menu-item main-menu-item-caret' class="dropdown" dropdown >
+			           	<a href class="dropdown-toggle main-menu-profile-caret"  id="dropdownMenuLang" data-toggle="dropdown" dropdown-toggle>
+							<span ng-if="currentLang() == 'it'">ITA</span>
+							<span ng-if="currentLang() == 'en'">ENG</span>
+							<span class="fa fa-chevron-down caret-icon"></span>
+					  	</a>
+		             	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuLang">
+						 	<li>
+						 		<a ng-click="changeLanguage('it')"  href title="{{'MENU_LANG_IT'|translate}}" ng-class="{'indent-dropdownitem-noicon':currentLang() != 'it'}" >
+						 			<i class='glyphicon glyphicon-ok indent-dropdownitem-icon' ng-show="currentLang() == 'it'"></i>&nbsp;&nbsp;<span translate>MENU_LANG_IT</span>
+						 		</a>
+						 	</li>
+						 	<li>
+						 		<a ng-click="changeLanguage('en')"  href title="{{'MENU_LANG_EN'|translate}}" ng-class="{'indent-dropdownitem-noicon':currentLang() != 'en'}" >
+						 			<i class='glyphicon glyphicon-ok indent-dropdownitem-icon' ng-show="currentLang() == 'en'"></i>&nbsp;&nbsp;<span translate>MENU_LANG_EN</span>
+						 		</a>
+						 	</li>	
+				  		</ul>
+				  	</li>
+	            </ul>-->
+			</div>
+		</div>
+	</nav>
+
+</div>
+

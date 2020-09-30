@@ -1,0 +1,115 @@
+<div class='modal-compact' id="nuovo-contatto-modal">
+  <div class='modal-header' ng-click='debugCollection()'>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span
+        aria-hidden="true">&times;</span></button>
+    <h4><span>{{'NUOVO_CONTATTO_TITLE'|translate}}</span></h4>
+  </div>
+
+  <div class='modal-intro-data'>
+    <div class="detail-row">
+      <div class="detail-label" translate>PAZIENTI_id_soggetto</div>
+      <div class="detail-content">
+        {{paziente.idSoggetto}}
+      </div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label" translate>PAZIENTI_codice_fiscale</div>
+      <div class="detail-content">
+        {{paziente.codiceFiscale}}
+      </div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label" translate>PAZIENTI_cognome</div>
+      <div class="detail-content">
+        {{paziente.cognome}}
+      </div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label " translate>PAZIENTI_nome</div>
+      <div class="detail-content">
+        {{paziente.nome}}
+      </div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label  " for="pazienteDatanascita" translate>PAZIENTI_data_nascita</div>
+      <div class="detail-content">
+        {{paziente.dataNascita|date:'dd/MM/yyyy'}}
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-body">
+
+    <form class='form-horizontal'>
+      <div class="form-group">
+        <label class="col-sm-3  control-label" translate>Cerca il paziente</label>
+        <div class="col-sm-6">
+          <input class="form-control" type="text" ng-model="searchCodiceFiascale" placeholder="Codice Fiscale"><br>
+          <input class="form-control" type="text" ng-model="searchCognomeSearch" placeholder="Cognome"><br>
+          <input class="form-control" type="text" ng-model="searchNome" placeholder="Nome">
+        </div>
+        <div class="col-sm-3" class="detail-content">
+          <a href ng-click='getPazienti(null, searchCodiceFiascale, searchCognomeSearch, searchNome)' class='btn btn-default'
+            translate>cerca</a>
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-3  control-label" translate>CONTATTO_id_soggetto_a</label>
+        <div class="col-sm-6">
+          <!-- input class="form-control" type="text" ng-model="ngModelSoggettoASelected" ng-model-options="modelSoggettoAOptions" placeholder="Cerca il paziente" 
+          uib-typeahead="s as s.nome + ' ' + s.cognome + ' (' + s.codiceFiscale + ') ' for s in soggetti | filter : $viewValue | limitTo:20"   
+          typeahead-editable='false'
+          typeahead-no-results="noResults"  ng-if='soggetti.length'-->
+          
+          <select ng-model="soggettoA" class="form-control "
+            ng-options="s as s.nome + ' ' + s.cognome + ' (' + s.codiceFiscale + ') ' for s in soggetti | limitTo:30" 
+            ng-change='selectPazienteA(soggettoA)'
+            ng-if='soggetti.length'>
+          </select>
+
+          <p ng-if='!soggettoDaSearchPressed'>Cercare prima il paziente.</p>
+          <p ng-if='!loadingPazienti && soggettoDaSearchPressed && !soggetti.length'>Nessun paziente trovato. Puoi inserirne uno nuovo.</p>
+          <!--p ng-if='loadingPazienti'>Caricamento lista pazienti in corso...</p -->
+          <loading size='small' ng-if='loadingPazienti' />
+        </div>
+        <div class="col-sm-3" class="detail-content">
+          <a href ng-click='showInserisciSoggettoModal()' class='btn btn-default'
+            translate>NUOVO_CONTATTO_INSERISCI_SOGGETTO</a>
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-3  control-label" for="contattoTipoId" translate>CONTATTO_tipo</label>
+        <div class="col-sm-6">
+
+          <select ng-model="tipoContatto" class="form-control " id="contattoTipoId"
+            ng-change='selectTipoContatto(tipoContatto)'
+            ng-options="c.contattoTipoId as c.contattoTipoDesc for c in tipiContatto | orderBy:'contattoTipoDesc'">
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-3  control-label" translate>CONTATTO_note</label>
+        <div class="col-sm-6">
+          <textarea rows='5' class="form-control " id="contattoNote" placeholder="{{'CONTATTO_note'|translate}}"
+            ng-model="noteContatto" maxlength="500"></textarea>
+        </div>
+      </div>
+
+    </form>
+    <alert-panel content='feedback'></alert-panel>
+  </div>
+  <div class='modal-footer '>
+    <div class='toolbar-left'>
+      <a href ng-click='cancel()' class='btn btn-default' translate>CANCEL</a>
+    </div>
+    <div class='toolbar-right'>
+      <a href ng-click='salvaContatto()' class='btn btn-primary' translate>NUOVO_CONTATTO_INSERISCI</a>
+    </div>
+  </div>
+
+</div>

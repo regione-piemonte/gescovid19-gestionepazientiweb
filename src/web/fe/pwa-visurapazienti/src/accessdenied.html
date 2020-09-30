@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html used-lang lang='it'>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <base href="/visurapazientiweb/"> -->
+<title ng-bind="'Visura Pazienti - Accesso negato">Visura Pazienti</title>
+<!-- Bootstrap -->
+<!-- Latest compiled and minified CSS -->
+
+
+<link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/app.css">
+<link rel="stylesheet" type="text/css" href="css/responsive.css">
+<link href="lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="js/i18n/strings_en.js"></script>
+
+<script type="text/javascript" src="js/i18n/strings_it.js"></script>
+
+<link rel="shortcut icon" href="favicon.png">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+	<script type='text/javascript'>
+		if(!console){
+			var console = window.console || { log: function() {} };
+		}
+		if(!console.debug)
+			console.debug = window.console.log;
+	</script>
+</head>
+<body>
+	<div id='main-header' ng-cloak class='nav-bar-compact'>
+		<nav class="navbar ">
+			<div class="container-fluid">
+				<div class="navbar-header">
+				    <button type="button" class="navbar-toggle" ng-click="navbarCollapsed = !navbarCollapsed" ng-init="navbarCollapsed=true">
+						<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+					</button>
+					<a href="#/" class="navbar-brand" ><span class="hidden">Visura Pazienti - beta</span>
+						<div class="logo"><span class="visura">Visura</span><span class="pazienti">Pazienti</span></div>
+					</a>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" collapse="navbarCollapsed">
+					<ul class="nav navbar-nav navbar-right">
+						<!-- <li>
+							<p class="navbar-text" ng-class='{superadmin: currentUser.superadmin}'>
+								<i class='fa fa-user-circle-o'></i> {{currentUser.name}} {{currentUser.surname}}
+							</p>
+						</li>-->
+						<li>
+							<a href='/localLogout'><i class='fa fa-sign-out'></i></a>
+						</li>
+					</ul> 
+				</div>
+			</div>
+		</nav>
+	
+	</div>
+	
+	<div class='contaier access-denied-container'>
+		<div class="logo access-denied-logo"><span class="visura">Visura</span><span class="pazienti">Pazienti</span></div>
+		<div class='access-denied-page'>
+			<div class='access-denied-icon'>
+				<i class='fa fa-warning'></i>
+			</div>
+			<div class='access-denied-text'>
+				<h2>Utente non abilitato</h2>
+				<p>L'utente autenticato non risulta abilitato all'utilizzo di  <strong>Visura Pazienti</strong>. 
+				<!-- 
+				Per informazioni contattare <a href='mailto:smartdatanet@csi.it'>smartdatanet@csi.it</a></p>
+				 -->
+			</div>
+	
+	<!-- 
+			<h1>User not enabled</h1>
+			<p>The authenticated user is not enabled to use the DataGov. For information contact<a href='mailto:smartdatanet@csi.it'>smartdatanet@csi.it</a></p>
+	-->	
+		</div>
+	</div>
+	<footer id="main-footer" class='access-denied-page-footer'>
+    <div class="footer-menu ">
+        <div class="container ">
+            <div class="row ">
+                <div class="footer-menu-box ">
+                    <ul>
+                        <li class="app-logo"><logo /></span></li>
+                        <li class="link ">&copy 2020 - CSI Piemonte</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</footer>
+
+</body>
+</html>

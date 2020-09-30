@@ -1,0 +1,111 @@
+<div class='container panel-main-content' >
+	<div class='panel-header panel-header-toolbar'>
+		<h1 class='panel-header-item-left panel-header-main-content' ng-click='debugCollection()'>
+			<strong translate>SITUAZIONE_TITLE</strong> <small>{{currentDate|date:'dd/MM/yyyy HH:mm'}}</small>
+		</h1>
+		<!-- 
+			<div class="panel-header-item-right">
+				<a href="/dashboardcovidweb/api/postiletto/disponibilita/report/csv" class="btn btn-default ng-scope">
+					<i class='fa fa-file-excel-o'></i>&nbsp;
+					<span translate>SITUAZIONE_DOWNLOAD_CSV_BTN</span>
+				</a>
+			</div>
+		 -->
+		
+	</div>
+	<div class='panel-main-content' >
+	
+		<alert-panel content='feedback'></alert-panel>	
+		
+		<div class='panel-main-content'>
+			
+			<loading size='big'ng-if='loading' />
+			<div class='dashboard-main-content panel-container-with-sidemenu'>
+				<div class='panel-sidemenu dashboard-main-content-side-menu'>
+					<div class='side-menu-section'>
+						<h1>{{ente.nome}}</h1>
+						<div class='dashboard-ente-info'>
+							<div><span translate>Target</span> <strong>{{ente.totPostiTarget}}</strong></div>
+							<div><span translate>Attivati</span> <strong>{{ente.totaleDisponibili}}</strong></div>
+							<div><span translate>Occupati</span> <strong>{{ente.totaleOccupati}}</strong></div>
+						</div>
+					</div>
+					<div class='side-menu-section'>
+					  <div class='side-menu-section-title' translate>DASHBOARD_ENTE_SIDE_MENU_TITLE</div>
+					  <a  href ng-click='showStruttura()' class="side-menu-item active">{{ente.nome}}</a>
+					  <a  href ng-click='showStruttura(struttura)' class="side-menu-item side-menu-subitem" ng-repeat='(nome,struttura) in ente.strutture track by $index'>{{nome}}</a>
+					</div>
+				</div>				
+				<div class='dashboard-main-content-side-menu-content'>
+					<!-- 
+						 <h4 translate>DASHBOARD_POSTI_PERCENTUALI_TITLE</h4>
+					 -->
+					<div class='dashboard-ente-charts'>
+						<div class='dashboard-ente-charts-pie'>
+							<h4 translate>DASHBOARD_ENTE_PERCENTUALE_TITLE</h4>
+							<div class='pie-chart'>
+								<div class='pie-chart-percent pie-chart-percent-ente'>
+									<div>{{pieData.percent}}%</div>
+								</div>
+								<nvd3 options="pieOptions" data="pieData.data"></nvd3>
+							</div>
+						</div>
+						<div class='dashboard-ente-trend'>
+							<h4 translate>DASHBOARD_ENTE_ANDAMENTO_POSTI_CHART_TITLE</h4>
+							<nvd3 options="lineOptions" data="lineData"></nvd3>
+							
+						</div>
+						<div class='dashboard-ente-table-aree'>
+							<h4 translate>DASHBOARD_TABLE_AREE_TITLE</h4>
+							<table class='table'>
+								<thead><tr><th>&nbsp;</th><th translate>D</th><th translate>P</th></tr></thead>
+								<tbody>
+									<tr ng-repeat='ta in tipi_aree_attive track by $index'>
+										<td translate>{{ta}}</td>
+										<td class='text-center'>{{ente[ta].postiDisponibili}}</td>
+										<td class='text-center'>{{ente[ta].postiOccupati}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class='dashboard-ente-table'>
+						<table class='table'>
+						<thead>
+							<tr class='situazione-ente-first-header'>
+								<th></th>
+								<th ng-repeat='ta in tipi_aree_attive track by $index' colspan='2' class='situazione-ente-value-column situazione-ente-value-p'>{{ta|translate}}</th>
+								<th colspan='2' class='situazione-ente-value-column ' translate>SITUAZIONE_TOTALE_POSTI</th> 
+							</tr>
+							<tr class='situazione-ente-second-header'>
+								<th>&nbsp;</th>
+								<th ng-repeat-start='ta in tipi_aree_attive track by $index' translate>D</th>
+								<th ng-repeat-end translate class='situazione-ente-value-p'>P</th>
+								<th translate>D</th>
+								<th translate class=''>P</th>							
+							</tr>
+						</thead>
+						<tbody>
+							
+							<tr ng-repeat='(name, a) in ente.strutture track by $index' ng-if='name!="totaleDisponibili" && name!="totaleOccupati"&& name!="fullSize" && name!="color"  && name!="totPostiTarget"'>
+								<td>{{name}}</td>
+								<td ng-repeat-start='ta in tipi_aree_attive track by $index' style='{{a[ta].style}}' class='situazione-ente-value situazione-ente-value-d'>
+									<span ng-if='ta!="IN_ATTESA"' ng-class="{mute:a[ta].postiDisponibili==0}">{{a[ta].postiDisponibili}}</span>
+									<span ng-if='ta=="IN_ATTESA"' class='mute'>-</span>
+								</td>
+								<td ng-repeat-end class='situazione-ente-value situazione-ente-value-p'  ng-class="{mute:a[ta].postiDisponibili==0}" style='{{a[ta].style}}'>{{a[ta].postiOccupati}}</td>
+								<td >{{a.totaleDisponibili}}</td>
+								<td>{{a.totaleOccupati}}</td>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+					
+				</div>
+			</div>
+		
+		</div>
+	</div>
+	<div>&nbsp;</div>
+</div>
+

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html used-lang lang='it'>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestione Pazienti Login</title>
+<!-- Bootstrap -->
+<!-- Latest compiled and minified CSS -->
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Raleway:200,400,600,900&display=swap" rel="stylesheet">
+
+<style>
+	body{font-family: 'Raleway', sans-serif; margin: 24px 48px;font-size: 18px;}
+	.header{display: flex; justify-content: flex-end;}
+	a{white-space: nowrap;width: auto;}
+	h2{font-weight: 400; text-align: right; font-size: 48px;margin:0;margin-left: 2em;
+		text-shadow:0 10px 20px rgba(0,0,0,0.1), 0 6px 6px rgba(0,0,0,0.12);}
+	h2.pazienti{color:#ff9900; }
+	h2.dashboard{color:#ff4141; }
+	.btn-pazienti{background-color:#ff9900; border: none;}
+	.btn-dashboard{background-color:#ff4141; border: none; }
+	h2 strong{font-weight: 900;}
+	h4{font-size:28.45px;letter-spacing:1px; line-height40px;font-weight: 200; margin: 20px 0; clear: both;}
+	h4 small{display: block; font-size: 16px; line-height: 20px; font-weight: 400;margin-top: 20px; margin-bottom: 128px;}
+	a:hover{background-color: #f3f3f3;}
+	a.first-panel{border-left-width: 0px;; padding-left: 12px;}
+	
+	.clearfix{clear: both;font-size: 12px;font-weight: 400;line-height: 20px;}
+	
+	.main-label{text-decoration: none;font-size: 21.3333px;font-weight: 600;line-height: 40px; color: #333;}
+	.info{display: block;}
+	.hint{display: block;margin-top: 40px;}
+	.superadmin{color: #ff2252;}
+	
+	input{margin: 0 4em 0 1em; font-family: Arial}
+	.label{display: block;color: #999;font-size: 12px;font-weight: 400;letter-spacing: 4px;line-height: 20px;}
+	
+	.section-separator{min-height: 600px;}
+</style>
+
+</head>
+<body>
+	<div class='header'>
+		<h2 class='dashboard'><strong>Dashboard</strong>Covid</h2>
+		<h2 class='pazienti'><strong>Gestione</strong>Pazienti</h2>
+	</div>
+	<h4>Accesso all'ambiente di test <strong>Gestione Pazienti</strong> </h4>
+	<div class='container'>
+		<p>L'ambiente di test visualizza una <strong>copia</strong> dei dati di produzione. I dati visualizzati potrebbero non essere aggiornati con quelli di produzione, l'utente potrebbe vedere dati diversi, se questi sono stati modificati successivamente alla copia.</p>
+		<form class="form-inline">
+			 <div class="form-group">
+				<label>Indicare il codice fiscale utente con cui accedere</label>
+				<input type="text" class="form-control" id="cf" value='DPNDME73A02L219B'>
+			</div>
+			<a href="javascript:login('gestionepazientiweb')" class="btn btn-primary btn-pazienti">Accedi a Gestione Pazienti</a>
+		</form>
+	</div>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	
+	<h4>Accesso all'ambiente di test <strong>Dashboard Covid</strong> </h4>
+	<div class='container'>
+		<form class="form-inline">
+			 <div class="form-group">
+				<label>Per accedere cliccare sul bottone</label>
+				<input type="text" class="form-control" id="cf" value='DPNDME73A02L219B'>
+			</div>
+			<a href="javascript:login('dashboardcovidweb')" class="btn btn-primary btn-dashboard">Accedi a Dashboard Covid</a>
+		</form>
+	</div>
+	
+	<script>
+  //var videoUrl = "MOV_2004.m3u8"; 
+
+
+  var login = function(app){
+	 	//DPNDME73A02L219B
+	  var cf = document.getElementById("cf").value;
+	  var loginUrl = 'http://int-sdnet-covidjb1.sdp.csi.it:11010/'+app+'/?Shib-Iride-IdentitaDigitale='+
+	  cf
+	  +'/Utente/Test/CSI_NUOVACA/20110203143956/8/4xrPg/X9R8Uzr00C+jkrwg==#/pazienti';
+	   window.location=loginUrl;
+	   return false;
+	
+	}
+</script>
+</body>
+</html>
+

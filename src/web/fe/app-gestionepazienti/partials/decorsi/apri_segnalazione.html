@@ -1,0 +1,354 @@
+<div class='modal-compact' id="sintomi-modal">
+	<div class='modal-header' ng-click='debugCollection()'>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+		<h4 ><span>{{'SINTOMI_TITLE'|translate}}</span></h4>
+	</div>
+	
+	<div class='modal-intro-data'>
+		<div class="detail-row">
+	    	<div class="detail-label"  translate>PAZIENTI_id_soggetto</div>
+			<div class="detail-content">
+				{{paziente.idSoggetto}}
+			</div>
+  		</div>	
+		<div class="detail-row">
+	    	<div class="detail-label"  translate>PAZIENTI_codice_fiscale</div>
+			<div class="detail-content">
+				{{paziente.codiceFiscale}}
+			</div>
+  		</div>	
+	    <div class="detail-row">
+	    	<div class="detail-label" translate>PAZIENTI_cognome</div>
+			<div class="detail-content">
+					{{paziente.cognome}}
+			</div>
+  		</div>	
+	    <div class="detail-row">
+	    	<div class="detail-label "translate>PAZIENTI_nome</div>
+			<div class="detail-content">
+					{{paziente.nome}}
+			</div>
+  		</div>	
+  		<div class="detail-row">
+	    	<div class="detail-label  "  for="pazienteDatanascita" translate>PAZIENTI_data_nascita</div>
+			<div class="detail-content">
+					{{paziente.dataNascita|date:'dd/MM/yyyy'}}
+			</div>
+		</div>
+		<div class="detail-row">
+	    	<div class="detail-label"  translate>DECORSO_data_evento</div>
+			<div class="detail-content">
+				{{decorso.dataDimissioni|date:'dd/MM/yyyy'}}
+			</div>
+		</div>
+		<div class="detail-row">
+	    	<div class="detail-label"  translate>DECORSO_condizioni_cliniche</div>
+			<div class="detail-content">
+				{{decorso.condizioniCliniche}}
+			</div>
+		  </div>
+		  <div class="detail-row">
+	    	<div class="detail-label"  translate>DECORSO_descrizione_contesto</div>
+			<div class="detail-content">
+				{{decorso.descrizioneContesto}}
+			</div>
+		  </div>
+		  <div class="detail-row">
+	    	<div class="detail-label"  translate>DECORSO_luogo_paziente</div>
+			<div class="detail-content">
+				{{decorso.luogoPaziente}}
+			</div>
+  		</div>
+		  <div class="detail-row">
+	    	<div class="detail-label"  translate>DECORSO_note</div>
+			<div class="detail-content">
+				{{decorso.note}}
+			</div>
+  		</div>
+		  <div class="detail-row">
+	    	<div class="detail-label"  translate>DECORSO_id_decorso</div>
+			<div class="detail-content">
+				{{decorso.idDecorso}}
+			</div>
+  		</div>
+  	</div>
+	<div class="modal-body">
+		<loading size='big'ng-if='loading' />
+		<form class='form-horizontal' ng-if='!loading'  >
+			<div ng-if="decorso.sintomi == 'NO'" class='form-section-title' >Nessun sintomo riportato nella segnalazione</div>
+			<div ng-if="decorso.sintomi == 'SI'" class='form-section-title' >Sintomi dal {{decorso.dataInizioSint|date:'dd/MM/yyyy'}}</div>
+			   <div class='form-group'>
+				<div class='col-sm-6  inline-controls'>
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='decorso.sintomi' value='NO' name='decorso_sintomi' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>No</span>
+					</label>
+				  </div>
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='decorso.sintomi'  value='SI' name='decorso_sintomi' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>Si</span>
+					</label>
+				  </div>
+				</div>
+			  </div>
+			  <!-- temperatura -->
+			  <div class='form-group form-group-grey'>
+				  <label class='col-sm-3  control-label'  for='sintomiTemperatura'>Temperatura</label>
+				  <div class='col-sm-6'>
+					<input disabled='disabled'  type='number' min='32' max='45' class='form-control ' id='sintomiTemperatura'
+					  ng-model='sintomo.temperatura'>
+				  </div>
+			  </div>
+			  <!-- dispena -->
+			  <div class='form-group'>
+				<label class='col-sm-3  control-label'  for='sintomi_flg_dispnea'>Dispnea</label>
+				<div class='col-sm-6  inline-controls'>
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgDispnea' value='NO' name='sintomi_flg_dispnea' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>No</span>
+					</label>
+				  </div>
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgDispnea'  value='SI' name='sintomi_flg_dispnea' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>Si</span>
+					</label>
+				  </div>
+				</div>
+			  </div>
+			  <!-- tosse -->
+			  <div class='form-group form-group-grey'>
+				<label class='col-sm-3  control-label'  for='sintomi_flg_tosse'>Tosse</label>
+				<div class='col-sm-9  inline-controls'>
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgTosse' value='NO' name='sintomi_flg_tosse' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>No</span>
+					</label>
+				  </div>
+				  <!--
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgTosse' value='SI' name='sintomi_flg_tosse' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>Si</span>
+					</label>
+				  </div>
+				  -->
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgTosse' value='NON_PERSISTENTE' name='sintomi_flg_tosse' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>Non presistente</span>
+					</label>
+				  </div>
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgTosse' value='PERSISTENTE_GRASSA' name='sintomi_flg_tosse' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>Persistente grassa</span>
+					</label>
+				  </div>
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgTosse' value='PERSISTENTE_SECCA' name='sintomi_flg_tosse' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>Persistente secca</span>
+					</label>
+				  </div>
+			  </div>
+			</div>
+
+
+
+
+			  <!-- congiuntivite -->
+			  <div class='form-group'>
+				<label class='col-sm-3  control-label'  for='sintomi_flg_congiuntivite'>Congiuntivite</label>
+				<div class='col-sm-6  inline-controls'>
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgCongiuntivite' value='NO' name='sintomi_flg_congiuntivite' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>No</span>
+					</label>
+				  </div>
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgCongiuntivite'  value='SI' name='sintomi_flg_congiuntivite' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>Si</span>
+					</label>
+				  </div>
+				</div>
+			  </div>
+			  <!-- diarrea -->
+			  <div class='form-group form-group-grey'>
+				<label class='col-sm-3  control-label'  for='sintomi_flg_diarrea'>Diarrea</label>
+				<div class='col-sm-6  inline-controls'>
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgDiarrea' value='NO' name='sintomi_flg_diarrea' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>No</span>
+					</label>
+				  </div>
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgDiarrea' value='SI' name='sintomi_flg_diarrea' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>Si</span>
+					</label>
+				  </div>
+				</div>
+			  </div>
+			  <!-- dolori_musc -->
+			  <div class='form-group'>
+				<label class='col-sm-3  control-label'  for='sintomi_flg_dolori_musc'>Dolori Muscolari</label>
+				<div class='col-sm-6  inline-controls'>
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgDoloriMusc' value='NO' name='sintomi_flg_dolori_musc' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>No</span>
+					</label>
+				  </div>
+				  <!--
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgDoloriMusc' value='SI'  name='sintomi_flg_dolori_musc' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>Si</span>
+					</label>
+				  </div>
+				  -->
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgDoloriMusc' value='PRIMA_EMERGENZA' name='sintomi_flg_dolori_musc' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>Prima Emergenza</span>
+					</label>
+				  </div>
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgDoloriMusc' value='ULTIME_2_SETTIMANE' name='sintomi_flg_dolori_musc' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>Ultime due settimane</span>
+					</label>
+				  </div>
+				</div>
+			  </div>
+			  <!-- gusto -->
+			  <div class='form-group form-group-grey'>
+				<label class='col-sm-3  control-label'  for='sintomi_flg_gusto'>Ageusia</label>
+				<div class='col-sm-6  inline-controls'>
+				  <div class='radio inline-radio'>
+					<label><input  type='radio' ng-model='sintomo.flgGusto' value='NO' name='sintomi_flg_gusto' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>No</span>
+					</label>
+				  </div>
+				  <div class='radio inline-radio'>
+					<label><input type='radio' ng-model='sintomo.flgGusto' value='SI' name='sintomi_flg_gusto' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>Si</span>
+					</label>
+				  </div>
+				</div>
+			  </div>
+			  <!-- olfatto -->
+			  <div class='form-group'>
+				<label class='col-sm-3  control-label'  for='sintomi_flg_olfatto'>Anosmia</label>
+				<div class='col-sm-6  inline-controls'>
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgOlfatto' value='NO' name='sintomi_flg_olfatto' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>No</span>
+					</label>
+				  </div>
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgOlfatto' value='SI' name='sintomi_flg_olfatto' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>Si</span>
+					</label>
+				  </div>
+				</div>
+			  </div>
+			  <!-- raffreddore -->
+			  <div class='form-group form-group-grey'>
+				<label class='col-sm-3  control-label'  for='sintomi_flg_raffreddore'>Raffreddore</label>
+				<div class='col-sm-6  inline-controls'>
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgRaffreddore' value='NO' name='sintomi_flg_raffreddore' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>No</span>
+					</label>
+				  </div>
+				  <!--
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgRaffreddore' value='SI' name='sintomi_flg_raffreddore' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>Si</span>
+					</label>
+				  </div>
+				  -->
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgRaffreddore' value='LEGGERO' name='sintomi_flg_raffreddore' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>Leggero</span>
+					</label>
+				  </div>
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgRaffreddore' value='FORTE' name='sintomi_flg_raffreddore' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>Forte</span>
+					</label>
+				  </div>
+				</div>
+			  </div>
+			  <!-- stanchezza -->
+			  <div class='form-group'>
+				<label class='col-sm-3  control-label'  for='sintomi_flg_stanchezza'>Stanchezza</label>
+				<div class='col-sm-6  inline-controls'>
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgStanchezza' value='NO' name='sintomi_flg_stanchezza' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>No</span>
+					</label>
+				  </div>
+				  <!--
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgStanchezza' value='SI' name='sintomi_flg_stanchezza' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>Si</span>
+					</label>
+				  </div>
+				  -->
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgStanchezza' value='NELLA_NORMA' name='sintomi_flg_stanchezza' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>Nella norma</span>
+					</label>
+				  </div>
+				  <div class='radio inline-radio'>
+					<label><input disabled='disabled'  type='radio' ng-model='sintomo.flgStanchezza' value='PIU_SOLITO' name='sintomi_flg_stanchezza' />
+					  <span class='cr'><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					  <span>Pi&ugrave; del solito</span>
+					</label>
+				  </div>
+				</div>
+			  </div>
+			  <!-- note -->
+			  <div class='form-group form-group-grey'>
+				  <label class='col-sm-3  control-label'  for='sintomiNote'>Note</label>
+				  <div class='col-sm-6'>
+					<span>{{sintomo.noteSintomo}}</span>
+				  </div>
+			  </div>
+		</form>
+	<alert-panel content='feedback'></alert-panel>
+	</div>
+
+	<div class='modal-footer '>
+		<div class='toolbar-left'>
+			<a href ng-click='cancel()' class='btn btn-default' translate>CANCEL</a>
+		</div>
+		<div class='toolbar-right' ng-if='isLastDecorso'>
+			<a href ng-click='save(false)' class='btn btn-primary' ng-if='!loading' translate>SEGNALAZIONE_INCOGRUA</a>
+			<a href ng-click='save(true)' class='btn btn-primary' ng-if='!loading' translate>SEGNALAZIONE_PRENDI_IN_CARICO</a>
+			<span translate ng-if='loading'>LOADING</span>
+		</div>
+	</div>
+	
+</div>

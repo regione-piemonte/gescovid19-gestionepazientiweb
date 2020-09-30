@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+  <servlet>
+    <servlet-name>externalApiServlet</servlet-name>
+    <servlet-class>it.csi.gestionepazienti.gestionepazientiweb.business.ExternalApiProxyServlet</servlet-class>
+  	<init-param>
+  		<param-name>apiBaseUrl</param-name>
+  		<param-value>@@@external.uscammgapi.url@@@</param-value>
+  	</init-param>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>externalApiServlet</servlet-name>
+    <url-pattern>/external/api/uscammg/*</url-pattern>
+  </servlet-mapping>
+
+	
+	<listener>
+		<listener-class>it.csi.gestionepazienti.gestionepazientiweb.util.AppServletContextListener</listener-class>
+   	</listener>
+   <listener>
+      <listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
+   </listener>
+   
+	<listener>
+      <listener-class>org.jboss.resteasy.plugins.spring.SpringContextLoaderListener</listener-class>
+   </listener>
+
+    <listener>
+        <listener-class>it.csi.gestionepazienti.gestionepazientiweb.filter.@@@subwebapp@@@.SessionCounterListener</listener-class>
+    </listener>
+
+ <!-- 	<listener>
+    	<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+   	</listener> -->
+   	
+   <!-- filtro di protezione ad attacchi XSRF -->
+   <filter>
+		<filter-name>XSRFProtectionFilter</filter-name>
+		<filter-class>it.csi.gestionepazienti.gestionepazientiweb.filter.XSRFProtectionFilter</filter-class>
+		<init-param>
+    		<param-name>disabled</param-name>
+    		<param-value>@@@XSRFFILTER.DISABLED@@@</param-value>
+  		</init-param>
+   </filter>
+   <filter-mapping>
+		<filter-name>XSRFProtectionFilter</filter-name>
+		<url-pattern>*</url-pattern>
+   </filter-mapping>
+
+  
+  
+ <!-- filtro di recepimento token autenticazione -->
+   <filter>
+		<filter-name>IrideIdAdapterFilter</filter-name>
+		<filter-class>it.csi.gestionepazienti.gestionepazientiweb.filter.@@@subwebapp@@@.IrideIdAdapterFilter</filter-class>
+		<init-param>
+    		<param-name>devmode</param-name>
+    		<param-value>@@@IDADAPTERFILTER.DEVMODE@@@</param-value>
+  		</init-param>
+		<init-param>
+ 		   <param-name>logout.url</param-name>
+    	   <param-value>@@@logout.url@@@</param-value>
+  		</init-param>
+  		<init-param>
+ 		   <param-name>accessdenied.url</param-name>
+    	   <param-value>@@@accessdenied.url@@@</param-value>
+  		</init-param>
+   </filter>
+   <filter-mapping>
+		<filter-name>IrideIdAdapterFilter</filter-name>
+		<url-pattern>*</url-pattern>
+   </filter-mapping>
+   
+   
+   
+   <!-- 
+   <filter>
+		<filter-name>UserIdAdapterFilter</filter-name>
+		<filter-class>it.csi.gestionepazienti.gestionepazientiweb.filter.UserIdAdapterFilter</filter-class>
+		<init-param>
+    		<param-name>devmode</param-name>
+    		<param-value>@@@IDADAPTERFILTER.DEVMODE@@@</param-value>
+  		</init-param>
+		<init-param>
+ 		   <param-name>runningApplication</param-name>
+    	   <param-value>@@@subwebapp@@@</param-value>
+  		</init-param>
+   </filter>
+   <filter-mapping>
+		<filter-name>UserIdAdapterFilter</filter-name>
+		<url-pattern>*</url-pattern>
+   </filter-mapping>
+   -->
+   
+   
+   
+   
+ 
+ <filter>
+	    <filter-name>CorsFilter</filter-name>
+	    <filter-class>it.csi.gestionepazienti.gestionepazientiweb.filter.CorsFilter</filter-class>
+	    <init-param>
+    		<param-name>enablecors</param-name>
+    		<param-value>@@@CORSFILTER.ENABLECORS@@@</param-value>
+  		</init-param>
+	</filter> 
+	<filter-mapping>
+	    <filter-name>CorsFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
+	</filter-mapping>
+ 
+	<filter>
+	    <filter-name> ApiApplicationFilter</filter-name>
+	    <filter-class>it.csi.gestionepazienti.gestionepazientiweb.filter.ApiApplicationFilter</filter-class>
+	</filter> 
+	<filter-mapping>
+	    <filter-name>ApiApplicationFilter</filter-name>
+	    <url-pattern>/api/*</url-pattern>
+	</filter-mapping>
+ 
+  <!-- replica della sessione (pur essendo i servizi stateless, serve per replicare il contesto 
+       di autenticazione e il token xsrf, quindi e' necessario solo nello scenario SPA-REST -->
+  <!--  <distributable />  -->
+	
+</web-app>

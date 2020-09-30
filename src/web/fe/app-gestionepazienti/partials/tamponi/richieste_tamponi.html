@@ -1,0 +1,166 @@
+<div class='container-fluid  panel-main-content' >
+	<div class='panel-header panel-header-toolbar'>
+		<h1 class='panel-header-item-left panel-header-main-content' ng-click='debugCollection()'>
+			<strong translate>RICHIESTE_TAMPONE_TITLE</strong>
+		</h1>
+		<div class="panel-header-item-right">
+			<a href="/gestionepazientiweb/api/tampone/report/csv" class="btn btn-default ng-scope">
+				<i class='fa fa-file-excel-o'></i>&nbsp;
+				<span translate>RICHIESTE_TAMPONE_DOWNLOAD_CSV_BTN</span>
+			</a>
+		</div>
+		
+	</div>
+	<div class='panel-main-content' >
+	
+		<alert-panel content='feedback'></alert-panel>	
+		
+		<div class='panel-main-content'>
+			
+			<loading size='big'ng-if='loading' />
+				
+			<div ng-if='!loading' >
+				<div class='toolbar table-toolbar' ng-if="tamponi.length>0">
+					<div class='table-toolbar-filter table-toolbar-filter-right '  >
+						<div class="checkbox inline-checkbox my-project-checkbox" >
+							<label><input type="checkbox" ng-model='filter.showOnlyNoInfo'  /> 			
+							<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span></label>
+							<bind ng-bind-html='"SHOW_ONLY_TAMPONI_NO_INFO"|translate'></bind>
+						</div>
+					</div>
+					<div class='table-toolbar-filter'>
+						<label><i class='fa fa-filter'></i> <span translate>TABLE_FILTERS</span></label> 
+						<input type='text' ng-model="filter.cognomeFilter" placeholder='{{"PAZIENTI_cognome"|translate}}'/>
+						<input type='text' ng-model="filter.nomeFilter" placeholder='{{"PAZIENTI_nome"|translate}}'/>
+						<input type='text' ng-model="filter.autorizzatoFilter" placeholder='{{"TAMPONI_tampone_autorizzato"|translate}}'/>
+						<input type='text' ng-model="filter.esitoFilter" placeholder='{{"TAMPONI_ris_tampone"|translate}}'/>
+					</div>
+				</div>
+				
+				<div class='div-table div-table-small' role="table"  ng-init='reverse=false'>
+					<div class="div-table-row div-table-header " role="rowgroup">
+						<div class="div-table-cell" role="columnheader" translate>&nbsp;</div>				
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'idTampone'; reverse=!reverse">
+								<span translate-cloak translate>TAMPONI_id_tampone</span>&nbsp;
+								<span ng-show="predicate=='idTampone' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='idTampone' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'dataInserimentoRichiesta'; reverse=!reverse">
+								<span translate-cloak translate>TAMPONI_data_inserimento</span>&nbsp;
+								<span ng-show="predicate=='dataInserimentoRichiesta' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='dataInserimentoRichiesta' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'idSoggetto'; reverse=!reverse">
+								<span translate-cloak translate>PAZIENTI_id_soggetto</span>&nbsp;
+								<span ng-show="predicate=='idSoggetto' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='idSoggetto' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'cognome'; reverse=!reverse">
+								<span translate-cloak translate>PAZIENTI_cognome</span>&nbsp;
+								<span ng-show="predicate=='cognome' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='cognome' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'nome'; reverse=!reverse">
+								<span translate-cloak translate>PAZIENTI_nome</span>&nbsp;
+								<span ng-show="predicate=='nome' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='nome' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'dataNascita'; reverse=!reverse">
+								<span translate-cloak translate>PAZIENTI_data_nascita</span>&nbsp;
+								<span ng-show="predicate=='dataNascita' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='dataNascita' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'tamponeAutorizzato'; reverse=!reverse">
+								<span translate-cloak translate>TAMPONI_tampone_autorizzato</span>&nbsp;
+								<span ng-show="predicate=='tamponeAutorizzato' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='tamponeAutorizzato' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'risTampone.risultatoTampone'; reverse=!reverse">
+								<span translate-cloak translate>TAMPONI_ris_tampone</span>&nbsp;
+								<span ng-show="predicate=='risTampone.risultatoTampone' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='risTampone.risultatoTampone' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>	
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'dataEsito'; reverse=!reverse">
+								<span translate-cloak translate>TAMPONI_data_test</span>&nbsp;
+								<span ng-show="predicate=='dataEsito' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='dataEsito' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>	
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'criterioEpidemiologicoCovid19'; reverse=!reverse"  title='{{"TAMPONI_criterio_epidemiologico_covid19"|translate}}'>
+								<span translate-cloak translate>TAMPONI_criterio_epidemiologico_covid19_short</span>&nbsp;
+								<span ng-show="predicate=='criterioEpidemiologicoCovid19' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='criterioEpidemiologicoCovid19' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'laboratorio.descrizione'; reverse=!reverse">
+								<span translate-cloak translate>TAMPONI_id_laboratorio</span>&nbsp;
+								<span ng-show="predicate=='laboratorio.descrizione' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='laboratorio.descrizione' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'medicoRichiedente'; reverse=!reverse">
+								<span translate-cloak translate>TAMPONI_richiedente</span>&nbsp;
+								<span ng-show="predicate=='medicoRichiedente' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='medicoRichiedente' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell" role="columnheader" translate>&nbsp;</div>
+					</div>
+					<div class="div-table-row div-table-row-linkable" role="rowgroup"
+						ng-repeat="t in filtered.tamponi = (tamponi | filter:noInfoFilter|filter: tamponeEsitoFilter| filter: tamponeAutorizzatoFilter | filter: pazienteNomeFilter | filter:pazienteCognomeFilter |filter:pazienteCodicefiscaleFilter |orderBy:predicate:reverse) | 
+							startFrom:(filtered.currentPage-1)*pageSize | limitTo:pageSize">
+						<div class="div-table-cell first exclamation"><i ng-if='t.tamponeAutorizzato=="NI"'class='fa fa-exclamation'></i></div>
+						<div class="div-table-cell" role="cell">{{t.idTampone}}</div>		
+						<div class="div-table-cell nowrap" role="cell" >{{t.dataInserimentoRichiesta |date:'dd/MM/yyyy HH:mm'}}</div>
+						<div class="div-table-cell" role="cell">{{t.idSoggetto}}</div>		
+						<div class="div-table-cell" role="cell">{{t.cognome}}</div>		
+						<div class="div-table-cell" role="cell">{{t.nome}}</div>		
+						<div class="div-table-cell" role="cell">{{t.dataNascita|date:'dd/MM/yyyy'}}</div>		
+						<div class="div-table-cell" role="cell" >{{t.tamponeAutorizzato|tamponeautorizzato}}</div>		
+						<div class="div-table-cell" role="cell" >{{t.esitoTampone}}</div>
+						<div class="div-table-cell" role="cell" >{{t.dataEsito|date:'dd/MM/yyyy'}}</div>
+						<div class="div-table-cell" role="cell" title='{{t.criterioEpidemiologicoCovid19}}'><small>{{t.criterioEpidemiologicoCovid19|string_ellipse:20}}</small></div>	
+						<div class="div-table-cell" role="cell" >{{t.laboratorio|laboratorioshort}}</div>
+						<div class="div-table-cell" role="cell" >{{t.medicoRichiedente}}<br>{{t.contattoRichiedente}}</div>
+						<div class="div-table-cell" role="cell" >
+							<a class='btn btn-default btn-xs' ng-click='showEditTamponeModal(t.idSoggetto,t.idTampone)' translate ng-if='t.tamponeAutorizzato=="NI"'>TAMPONE_INTEGRA_CRITERI</a>
+						</div>
+					</div>
+				</div>
+				<div class='pagination-container' ng-if="tamponi.length>0">
+				 	<ul uib-pagination total-items="filtered.tamponi.length" ng-model="filtered.currentPage" items-per-page="pageSize" class="pagination-sm"
+				 	 	previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" boundary-links="true" force-ellipses="true"  max-size="10"></ul>
+				</div>
+				
+			
+		
+		  		<alert-panel message='TAMPONI_NO_TAMPONI' type='info' closable='false' ng-if="tamponi.length==0"></alert-panel>
+			</div>
+		</div>
+		<div class='toolbar'>
+			<div class='toolbar-right'>
+			</div>
+		</div>
+	</div>
+</div>
+

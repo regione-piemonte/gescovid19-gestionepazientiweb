@@ -1,0 +1,112 @@
+<div class='modal-compact' id="edit-paziente-modal">
+	<div class='modal-header' ng-click='debug()'>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+		<h4 ><span>{{'DIARIO_NEW_TITLE'|translate}}</span></h4>
+	</div>
+	
+	<div class='modal-intro-data'>
+		<div class="detail-row">
+	    	<div class="detail-label"  translate>PAZIENTI_id_soggetto</div>
+			<div class="detail-content">
+				{{paziente.idSoggetto}}
+			</div>
+  		</div>	
+		<div class="detail-row">
+	    	<div class="detail-label"  translate>PAZIENTI_codice_fiscale</div>
+			<div class="detail-content">
+				{{paziente.codiceFiscale}}
+			</div>
+  		</div>	
+	    <div class="detail-row">
+	    	<div class="detail-label" translate>PAZIENTI_cognome</div>
+			<div class="detail-content">
+					{{paziente.cognome}}
+			</div>
+  		</div>	
+	    <div class="detail-row">
+	    	<div class="detail-label "translate>PAZIENTI_nome</div>
+			<div class="detail-content">
+					{{paziente.nome}}
+			</div>
+  		</div>	
+  		<div class="detail-row">
+	    	<div class="detail-label  "  for="pazienteDatanascita" translate>PAZIENTI_data_nascita</div>
+			<div class="detail-content">
+					{{paziente.dataNascita|date:'dd/MM/yyyy'}}
+			</div>
+  		</div>
+  	</div>
+	<div class="modal-body">
+		<!-- 
+			<p class='edit-intro' translate ng-if='!paziente.codice_fiscale'>PAZIENTE_NEW_INTRO</p>
+			<p class='edit-intro' translate ng-if='paziente.codice_fiscale'>PAZIENTE_EDIT_INTRO</p>
+		 -->
+
+		<alert-panel content='feedback'></alert-panel>
+		
+		<loading size='big'ng-if='loading' />
+				
+		
+		<form class='form-horizontal diario-new-sintomi' ng-if='!loading'  >
+			<div class="form-group">
+		    	<label class="col-sm-2  control-label"  for="giornoDiario" translate >DIARIO_giorno</label>
+				<div class="col-sm-3">
+					<input type='date' ng-model="data.giorno" class="form-control " id="giornoDiario" />
+				</div>
+	  	    	<label class="col-sm-1  control-label"  for="oraDiario" translate >DIARIO_ora</label>
+				<div class="col-sm-3">
+					<input type='time' ng-model="data.ora"  step="60"  class="form-control " id="oraDiario" />
+				</div>
+	  		</div>	
+	  		<div class="form-group">
+	  	    	<label class="col-sm-2  control-label"  translate >DIARIO_sintomi</label>
+				<div class="col-sm-5">
+					<div  ng-repeat='s in allSintomi_1 track by $index'>
+						<div class="checkbox inline-chekcbox">
+							<label><input type="checkbox" ng-model='sintomi[s.codice].checked'  value='s'/>
+								<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+								<span>{{s.nome}}</span>
+							</label>
+						</div>
+						<div ng-if='s.misurabile' class='diario-sintomi-misurabile'>
+							<input type='number' class="" ng-model='sintomi[s.codice].valore' ng-disabled='!sintomi[s.codice].checked'> <span>{{s.unita_misura}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-5">
+					<div  ng-repeat='s in allSintomi_2 track by $index'>
+						<div class="checkbox inline-chekcbox" >
+							<label><input type="checkbox" ng-model='sintomi[s.codice].checked'  value='s'/>
+								<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+								<span>{{s.nome}} </span>
+							</label>
+						</div>
+						<div ng-if='s.misurabile' class='diario-sintomi-misurabile'>
+							<input type='number' class="" ng-model='sintomi[s.codice].valore' ng-disabled='!sintomi[s.codice].checked'> <span>{{s.unita_misura}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+	  		<div class="form-group" >
+		    	<label class="col-sm-2  control-label"  for="diarioNote" translate >DIARIO_altri_sintomi</label>
+					<div class="col-sm-9">
+						<textarea rows='5'  class="form-control " id="diarioNote" 
+							ng-model="dettaglio.note" maxlength="500"></textarea>
+					</div>
+			</div>
+	</form>
+	<alert-panel content='feedback'></alert-panel>
+		
+	</div>
+	<div class='modal-footer '>
+		<div class='toolbar-left'>
+			<a href ng-click='cancel()' class='btn btn-default' translate>CANCEL</a>
+		</div>
+		<div class='toolbar-right'>
+			<a href ng-click='saveDettaglio()' class='btn btn-primary' translate  ng-if='!loading'>SAVE_DIARIO</a>
+			<span translate ng-if='loading'>LOADING</span>
+			
+		</div>
+	</div>
+	
+</div>

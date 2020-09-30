@@ -1,0 +1,32 @@
+<div class='modal-compact' id="edit-paziente-modal">
+	<div class='modal-header' ng-click='debug()'>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+		<h4 ><span>{{'INTERVENTO_USCA_DETTAGLIO_MODAL_TITLE'|translate}}</span> <small>{{paziente.nome}} {{paziente.cognome}}</small></h4>
+	</div>
+	<div class="modal-body">
+		<div class='tab-menu' >
+			<a href ng-click='interventoUscaTab.selected ="richiesta"' class='tab-menu-item' ng-class="{active: interventoUscaTab.selected == 'richiesta'}" translate>INTERVENTO_USCA_RICHIESTA</a>
+			<a href ng-click='interventoUscaTab.selected ="intervento"' class='tab-menu-item' ng-class="{active: interventoUscaTab.selected == 'intervento'}" translate >INTERVENTO_USCA_INTERVENTO</a>
+			<a href ng-click='interventoUscaTab.selected ="cronologia"' class='tab-menu-item' ng-class="{active: interventoUscaTab.selected == 'cronologia'}" translate>INTERVENTO_USCA_CRONOLOGIA</a>
+			<span class='tab-menu-empty'>&nbsp</span>
+		</div>
+		
+		<div class='tab-content'>
+			<div ng-if='interventoUscaTab.selected=="richiesta"'  class='panel-main-content'>
+				<ng-include src="'partials/interventiusca/richiesta.html'" class='panel-main-content'></ng-include>
+			</div>
+			<div ng-if='interventoUscaTab.selected=="intervento"' class='panel-main-content'>
+				<ng-include src="'partials/interventiusca/intervento.html'" class='panel-main-content'></ng-include>
+			</div>
+			<div ng-if='interventoUscaTab.selected=="cronologia"' class='panel-main-content'>
+				<ng-include src="'partials/interventiusca/cronologia.html'" class='panel-main-content'></ng-include>
+			</div>
+		</div>
+	</div>
+	<div class='modal-footer '>
+		<div class='toolbar-right'>
+			<a href ng-click='cancel()' class='btn btn-default' translate>CLOSE</a>
+		</div>
+	</div>
+	
+</div>

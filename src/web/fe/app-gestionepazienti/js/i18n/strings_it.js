@@ -1,0 +1,487 @@
+var translations_it = {
+
+	LANG_KEY : 'it',
+
+	FEEDBACK_SERVER_ERROR: 'Errore durante la richiesta',
+	FEEDBACK_OPERAZIONE_NON_EFFETTUATA: 'Operazione non effettuata',
+	SAVE : 'Salva',
+	SAVE_AND_CLOSE: 'Salva e chiudi',	
+	UNDO : 'Annulla',
+	DELETE : 'Elimina',
+	EDIT : 'Modifica',
+	SAVE_DRAFT : 'Salva bozza',
+	COMING_SOON : 'Coming soon...',
+	SUCCESS_TITLE : 'Operazione avvenuta correttamente',
+	ERROR_TITLE : 'Si è verificato un errore',
+	WARNING : 'Attenzione',
+	WARNING_TITLE : 'Attenzione',
+	WARNING_SUBTITLE : 'Per proseguire &egrave; necessario correggere le seguenti segnalazioni',
+	QUESTION_TITLE : 'Richiesta conferma',
+	LOADING : 'Attendere prego...',
+	YES : 'Si',
+	NO : 'No',
+	OK : 'Ok',
+	CANCEL: 'Annulla',
+	BACK : 'Indietro',
+	CHOOSE : 'Scegli...',
+	CLOSE : 'Chiudi',
+	WAIT : 'Attendere...',
+	REFRESH : 'Aggiorna',
+	ADD : 'Aggiungi',
+	REMOVE : 'Elimina',
+	BROWSE: 'Sfoglia...',
+	LEGEND: 'Legenda',
+	DIAGRAM_TOOLS: 'Strumenti',
+	LASTUPDATE:'Data ultima modifica',
+	LOGOUT: 'Esci',
+	GO_TO_NEXT_STEP:'Conferma e prosegui con lo step successivo',
+	BACK_TO_PREV_STEP:'Indietro',
+	
+	DOMAIN: 'Dominio',
+	SUBDOMAIN: 'Sottodominio',
+	
+	NOT_DISCLOSABLE: 'Non divulgabile',
+	
+	RELEASENOTES_TITLE: 'Novità della versione ',
+	RELEASENOTES_INFO_CLOSE: 'Per visualizzare nuovamente le novità di questa versione cliccare sul numero di versione a fondo pagina',
+	
+	SELECT_EMPTY_OPTION: '-- Seleziona un valore...',
+
+	DATE_DAY_PLACEHOLDER : 'gg',
+	DATE_MONTH_PLACEHOLDER : 'mm',
+	DATE_YEAR_PLACEHOLDER : 'aaaa',
+
+	UNEXPECTED_ERROR : 'Si è verificato un errore inaspettato',
+
+	SESSION_EXPIRING_DIALOG_TITLE : 'Sessione in scadenza',
+	SESSION_EXPIRING_DIALOG_MESSAGE : 'Fra un minuto scadrà la sessione e sarà necessario autenticarsi nuovamente. Vuoi restare autenticato?',
+
+	SHOW_DELETED_ITEM: 'Mostra cancellati',
+	
+	MENU_HOME : 'Home',
+	MENU_PAZIENTI : 'Pazienti',
+	MENU_PAZIENTI_SEARCH: 'Cerca',
+	MENU_TAMPONI: 'Richieste Tamponi',
+	MENU_TAMPONI_1: 'Richieste',
+	MENU_TAMPONI_2: 'tamponi',
+	MENU_TRASFERIMENTI_ESTERNI: 'Trasferimento pazienti',
+	MENU_TRASFERIMENTI_ESTERNI_1: 'Trasferimento ',
+	MENU_TRASFERIMENTI_ESTERNI_2: 'pazienti',
+	MENU_CITTADINI_QUARANTENA: 'Cittadini in quarantena',
+	MENU_CITTADINI_QUARANTENA_1: 'Cittadini',
+	MENU_CITTADINI_QUARANTENA_2: 'in quarantena',
+	MENU_SEGNALATI: 'Segnalazioni MMG',
+	MENU_NOTIFICHE: 'Notifiche',
+
+	MENU_COMUNICAZIONI_MMG_1: 'COMUNICAZIONI',
+	MENU_COMUNICAZIONI_MMG_2: 'MMG',
+	MENU_NOTIFICHE_ISOLAMENTO: 'ISOLAMENTO', 
+	
+	PAZIENTI_TITLE: 'Pazienti',
+	PAZIENTI_SEARCH_TITLE: 'Ricerca pazienti', 
+	PAZIENTE_NEW : 'Inserimento Nuovo Paziente',
+	PAZIENTE_VIEW_SELECTED: 'Visualizza dettaglio paziente selezionato',
+	PAZIENTE_EDIT: 'Modifica Dati Paziente',
+	
+	PAZIENTE_NEW_TITLE:'Nuovo Paziente',
+	PAZIENTE_EDIT_TITLE: 'Modifica Paziente',
+	
+	PAZIENTE_NEW_INTRO:'',
+	PAZIENTE_EDIT_INTRO:'',
+	
+	
+	PAZIENTE_TITLE:'Paziente ',
+	PAZIENTE_LISTA_DECORSO_BTN :'Lista decorso',
+	PAZIENTE_ELENCO_TAMPONI_BTN :'Elenco Tamponi',
+	PAZIENTE_RICHIEDI_TAMPONE_BTN :'Richiedi Tampone',
+	PAZIENTE_BACK_ELENCO_PAZIENTI_BTN :'Ritorna a Elenco Pazienti',
+	PAZIENTE_AGGIUNGI_DIARIO_BTN: 'Aggiungi diario',
+	PAZIENTE_AGGIUNGI_DECORSO_BTN: 'Aggiungi decorso',
+	PAZIENTE_AGGIUNGI_QUARANTENA_BTN: 'Aggiungi quarantena',
+	PAZIENTI_NO_PAZIENTI: 'Non sono presenti pazienti',
+	PAZIENTE_MODIFICA_BTN: 'Modifica Paziente',
+	PAZIENTE_INTRO_NO_CERCATO_SU_AURA: 'Effettuare la ricerca su Aura per proseguire con l\'inserimento del paziente',
+	PAZIENTE_ENABLE_MODIFICA_LABEL: '',
+	PAZIENTE_ENABLE_MODIFICA: 'Abilita modifica dati', 
+	PAZIENTE_ENABLE_MODIFICA_WARNING: 'Opzione consigliata solo se non sono presenti i dati su Aura',
+	PAZIENTE_ENABLE_MODIFICA_WARNING_2:'Compiliare ASL domicilio ed eventualmente utilizzare EXTRA-REGIONE',
+	PAZIENTE_ASL_RICERCA_OK_NO_ASL: 'Inserire le asl di residenza e domicilio',
+	
+	FEEDBACK_NEW_PAZIENTE_SAVED:'Inserimento dati paziente eseguito', 
+	FEEDBACK_EDIT_PAZIENTE_SAVED: 'Aggiornamento dati paziente eseguito',
+	FEEDBACK_PAZIENTE_DUPLICATO_MULTI: 'Sono presenti più paziente con lo stesso codice fiscale. Selezionare il paziente da utilizzare da elenco pazienti, \
+		si possono poi eventualmente modificare i dati anagrafici',
+	FEEDBACK_PAZIENTE_DUPLICATO_TITLE: 'Paziente già presente',
+	FEEDBACK_PAZIENTE_DUPLICATO_MESSAGE: 'Il codice fiscale del paziente è già presente a sistema. Caricare la pagina di dettaglio del paziente?',
+	FEEDBACK_PAZIENTE_CF_PRESENTE: 'Il paziente con questo codice fiscale è già presente a sistema. Contattare l\' assistenza per la riunificazione dell anagrafica.',
+	
+	FEEDBACK_PAZIENTE_NOT_FOUND: 'Paziente non trovato',
+	FEEDBACK_NEW_PAZIENTE_INVALID: 'Per proseguire con l\'inserimento di un nuovo paziente è necessario correggere le seguenti anomalie',
+	FEEDBACK_NEW_TAMPONE_INVALID: 'Per proseguire è necessario correggere le seguenti anomalie',
+	
+	FEEDBACK_UTENTE_NON_ABILITATO_A_DECORSI: 'Utente autenticato non abilitato all\'inserimento del decorso, nessuna struttura associata', 
+
+	PAZIENTE_DETAIL:'Informazioni anagrafiche',
+	PAZIENTE_DECORSI: 'Decorsi',
+	PAZIENTE_TAMPONI: 'Tamponi',
+	PAZIENTE_DIARI: 'Diario',
+	PAZIENTE_INTERVENTI_USCA: 'Interventi Usca',
+	
+	PAZIENTI_TAMPONI_NO_TAMPONI: 'Non sono presenti tamponi',
+	
+	PAZIENTI_DIARI_NO_DIARI: 'Non sono presenti diari',
+	PAZIENTI_INTERVENTI_USCA_NO_INTERVENTI_USCA: 'Non sono presenti interventi usca',
+
+	DIARIO_NEW_TITLE:'Nuovo monitoraggio',
+	
+	DIARIO_giorno:'Giorno',
+	DIARIO_ora:'Ora',
+	DIARIO_autore:'Autore',
+	DIARIO_sintomi: 'Sintomi',
+	DIARIO_altri_sintomi: 'Altri sintomi',
+	
+	PAZIENTI_DOWNLOAD_CSV_BTN: 'Scarica tutti i pazienti dell\'asr per Excel',
+	QUARANTENA_DOWNLOAD_CSV_BTN:  'Scarica i pazienti in quarantena dell\'asr per Excel',
+	
+	AURA_SEARCH_BY_CF_BTN: 'Cerca su Aura',
+	AURA_SEARCH_BY_COGNOME_BTN: 'Cerca su Aura',
+	AURA_SEARCH_BY_CF_BTN_HINT: 'Cerca su Aura tramite Codice Fiscale',
+	AURA_SEARCH_BY_COGNOME_BTN_HINT: 'Cerca su Aura tramite Nome Cognome e Data di Nascita',
+	
+	AURA_SEARCH_MODAL_TITLE: 'Seleziona il paziente',
+	AURA_SEARCH_SELECT_SINGLE_BTN: 'Scegli',
+	AURA_SEARCH_SELECT_BTN: 'Scegli il paziente selezionato',
+	
+	SOGGETTO_AURA_CODICEFISCALE: 'Codice Fiscale',
+	SOGGETTO_AURA_COGNOME: 'Cognome',
+	SOGGETTO_AURA_NOME: 'Nome',
+	SOGGETTO_AURA_SESSO: 'Sesso',
+	SOGGETTO_AURA_DATANASCITA: 'Data di Nascita',
+	SOGGETTO_AURA_LUOGONASCITA: 'Luogo di Nascita',
+	SOGGETTO_AURA_STATONASCITA: 'Stato Nascita',
+	SOGGETTO_AURA_COMUNENASCITA: 'Comune Nascita',
+	SOGGETTO_AURA_PROVINCIANASCITA: 'Provincia Nascita',
+	SOGGETTO_AURA_DATADECESSO: 'Data Decesso',
+	
+	FEEDBACK_AURA_SEARCH_CF_INVALID_WARNING: 'Inserire un codice fiscale valido',
+	FEEDBACK_AURA_SEARCH_COGNOME_INVALID_WARNING:'Inserire Nome Cognome e Data di Nascita',
+	
+	PAZIENTI_id_soggetto:'Id soggetto',
+	PAZIENTI_codice_fiscale:'Codice Fiscale',
+	PAZIENTI_id_asr:'Ars',
+	PAZIENTI_cognome:'Cognome',
+	PAZIENTI_nome:'Nome',
+	PAZIENTI_data_nascita:'Data di nascita',
+	PAZIENTI_comune_residenza_istat:'Comune di residenza',
+	PAZIENTI_comune_domicilio_istat:'Comune di domicilio',
+	PAZIENTI_indirizzo_domicilio:'Indirizzo domicilio',
+	PAZIENTI_telefono_recapito:'Telefono mobile',
+	PAZIENTI_email_recapito:'Recapito email',
+	PAZIENTI_nr_tamponi_richiesti:'Nr tamponi richiesti',
+	PAZIENTI_asr_descrizone: 'ASR',
+	PAZIENTI_asl_domicilio: 'Asl domicilio',
+	PAZIENTI_asl_residenza: 'Asl residenza',
+	PAZIENTI_tipo_soggetto: 'Tipo paziente',
+	
+	TAMPONI_id_tampone: 'Id tampone',
+	TAMPONI_id_soggetto: 'Paziente',
+	TAMPONI_id_laboratorio: 'Laboratorio',
+	TAMPONI_criterio_epidemiologico_covid19: 'Criterio epidemiologico',
+	TAMPONI_criterio_epidemiologico_covid19_short: 'Criterio epid.',
+	TAMPONI_id_test_covid: 'Tipologia test covid',
+	TAMPONI_data_test: 'Data test',
+	TAMPONI_data_inserimento: 'Data richiesta',
+	TAMPONI_id_ris_tamp: 'Risultato tampone',
+	TAMPONI_tampone_autorizzato: 'Tampone autorizzato',
+	TAMPONI_tampone_autorizzato_proposta: 'Proposta tampone',
+	TAMPONI_ris_tampone:'Esito tampone', 
+	TAMPONI_medico_richiedente: 'Medico richiedente',
+	TAMPONI_contatto_richiedente: 'Contatto richiedente',
+	TAMPONI_richiedente: 'Richiedente',
+	TAMPONI_cancella: 'Cancella',
+
+	
+	
+	TAMPONE_NEW_TITLE: 'Richiedi tampone',
+	TAMPONE_EDIT_TITLE: 'Integra criterio epidemiologico ',
+	TAMPONE_INTEGRA_CRITERI:'Integra criterio epidemiologico',
+	
+	
+	SAVE_TAMPONE: 'Conferma richiesta nuovo tampone', 
+	SAVE_INTEGRA_TAMPONE: 'Reinoltra richiesta tampone', 
+	FEEDBACK_NEW_TAMPONE_SAVED:'Richiesta nuovo tampone inserita', 
+
+	FEEDBACK_AURA_SERVER_ERROR:'La ricerca dei dati del paziente non è andata a buon fine',
+	FEEDBACK_AURA_SERVER_ERROR_DETAIL: 'Riprovare fra qualche minuto, o inserire i dati',
+	DECORSO_NEW_TITLE: 'Aggiungi decorso',
+	DECORSO_NEW_TITLE_inStruttura: 'Aggiungi decorso',
+	DECORSO_NEW_TITLE_inQuarantena: 'Aggiungi quarantena',
+	DECORSO_NEW_TITLE_inTrasferimento: 'Aggiungi decorso',
+	PAZIENTI_DECORSI_NO_DECORSI: 'Non sono presenti decorsi',
+	
+	SAVE_DECORSO: 'Conferma inserimento decorso', 
+	FEEDBACK_NEW_DECORSO_SAVED:'Inserimento decorso effettuato', 
+	FEEDBACK_NEW_DECORSO_INVALID: 'Per proseguire con l\'inserimento della richiesta di decorso è necessario correggere le seguenti anomalie',
+
+	FEEDBACK_PRESO_IN_CARICO: 'Presa in carico effettuata',
+	FEEDBACK_INFO_DA_INTEGRARE: 'Segnalazione rifiutata',
+
+	DECORSO_id_decorso  : 'Id decorso',
+	DECORSO_id_soggetto  : 'Paziente',
+	DECORSO_comune_isolamento_istat  : 'Comune di isolamento',	
+	DECORSO_indirizzo_ecorso : 'Indirizzo isolamento',
+	DECORSO_indirizzo_decorso: 'Indirizzo isolamento',
+	DECORSO_decorso_presso : 'Isolamento presso',
+	DECORSO_domicilio: 'Indirizzo Isolamento (Comune, indirizzo e presso)',
+	DECORSO_comune_isolamento_istat2  : 'se paziente a casa',
+	DECORSO_id_rep_ricovero  : 'Reparto ricovero',
+	DECORSO_condizioni_cliniche  : 'Condizioni cliniche',
+	DECORSO_data_dimissioni  : 'Data dimissioni',
+	DECORSO_data_evento  : 'Data evento',
+	DECORSO_id_dimiss  : 'Evento',
+	DECORSO_data_inizio_sint  : 'Data esordio sintomi malattia',
+	DECORSO_sintomi  : 'Sintomi',
+	DECORSO_ospedale_ricovero: 'Ospedale ricovero',
+	DECORSO_isolamento_domiciliare: 'Isolamento domiciliare',
+	DECORSO_isolamento_fiduciario: 'Isolamento fiduciario',
+	DECORSO_disposta_quarantena_domic: 'Disposta quarantena a domicilio',
+	DECORSO_disposta_quarantena_extra_domic: 'Disposta quarantena in struttura extra-domiciliare',
+	DECORSO_ente: 'Ente',
+	DECORSO_struttura: 'Struttura',
+	DECORSO_area: 'Area',
+	DECORSO_POSTI_DISPONIBILI_BTN:'Disponibilità posti',
+	DECORSO_note:'Note',
+	DECORSO_cancella:'Cancella',
+	DECORSO_data_prev_fine_evento: 'Data fine quarantena',
+	DECORSO_data_fine_quarantena: 'Data fine quarantena',
+	DECORSO_inizio_quarantena: 'Data inizio quarantena',
+	DECORSO_descrizione_contesto: 'Contesto - Contatto',
+	DECORSO_luogo_paziente: 'Luogo paziente',
+
+	DECORSI_VIEW_SINTOMI: 'Leggi segnalazione',
+	SINTOMI_TITLE: 'INFO SEGNALAZIONE',
+	SEGNALAZIONE_PRENDI_IN_CARICO: 'Prendi in carico segnalazione',
+	SEGNALAZIONE_INCOGRUA: 'Segnalazione da completare',
+	
+	SEGNALAZIONE_PRENDI_IN_CARICO_INTRO: 'Indica eventuali note da aggiungere alla presa in carico',
+	SEGNALAZIONE_PRENDI_IN_CARICO_CONFIRM: 'Conferma presa in carico',
+
+	SEGNALAZIONE_INCOGRUA_INTRO: 'Indica note su informazioni mancanti',
+	SEGNALAZIONE_INCOGRUA_CONFIRM: 'Invia richiesta informazioni',
+
+	ISOLAMENTO_DOMICILIARE_INTRO: 'Indicare presso chi e dove si svolgerà l\'isolamento domiciliare',
+	ASSEGNAZIONE_DOMICILIO_INTRO:'Indicare la struttura presso cui verrà assegnato il paziente',
+	DISPOSTA_QUARANTENA_DOMIC_INTRO: 'Indicare presso chi e dove si svolgerà l\'isolamento domiciliare',
+	DISPOSTA_QUARANTENA_EXTRA_DOMIC_INTRO: 'Indicare la struttura presso cui verrà assegnato il paziente',
+	STRUTTURA_INTRO:'Indicare struttura e area',
+	POST_RICOVERO_INTRO: 'Il paziente verrà assegnato all\'Als di domicilio',
+	COPIA_INDIRIZZO_DA_DOMICILIO_HINT: 'Se si svolge presso il propio domicilio',
+	COPIA_INDIRIZZO_DA_DOMICILIO_BTN:'Copia da indirizzo domicilio da anagrafica paziente',
+	DECORSO_DATI_VISIBILI_HINT: 'I dati inseriti nelle note saranno visibili anche da applicativi esterni',
+	
+	FEEDBACK_DECORSO_POST_RICOVERO_ASL_NON_VALIDA: 'Si prega di modificare/aggiornare l\'ASL di DOMICILIO utilizzando la funzione \
+		Modifica Paziente, indicando se necessario EXTRA-REGIONE. Si ricorda che in caso di EXTRA-REGIONE il processo di POSTRICOVERO è \
+		gestito fuori linea. Contattare il servizio assistenza COVID per informazioni.  ',
+		
+	FEEDBACK_DECORSO_POST_RICOVERO_ASL_EXTRA_REGIONE: 'Si ricorda che in caso di EXTRA-REGIONE il processo di POSTRICOVERO è \
+		gestito fuori linea. Contattare il servizio assistenza COVID per informazioni.  ',
+		
+	SHOW_ONLY_ISOLAMENTO_DOMICILIARE:'Quarantena a domicilio',
+	SHOW_ONLY_ISOLAMENTO_DOMICILIARE_HINT:'Mostra solo pazienti in isolamento domiciliare',
+	SHOW_ONLY_ISOLAMENTO_FIDUCIARIO:'Isolamento fiduciario',
+	SHOW_ONLY_ISOLAMENTO_FIDUCIARIO_HINT:'Mostra solo pazienti in isolamento fiduciario',
+	SHOW_ONLY_DISPOSTA_QUARANTENA_DOMIC:'Disposta quarantena a domicilio',
+	SHOW_ONLY_DISPOSTA_QUARANTENA_DOMIC_HINT:'Mostra solo pazienti disposti in quarantena a domicilio',
+	SHOW_ONLY_DISPOSTA_QUARANTENA_EXTRA_DOMIC:'Disposta quarantena in struttura extra-domiciliare',
+	SHOW_ONLY_DISPOSTA_QUARANTENA_EXTRA_DOMIC_HINT:'Mostra solo pazienti disposti in quarantena in struttura extra-domiciliare',
+	SHOW_ONLY_POST_RICOVERO: 'Post ricovero',
+	SHOW_ONLY_POST_RICOVERO_HINT:'Mostra solo pazienti in post ricovero',
+	SHOW_ONLY_ASSEGNAZIONE_DOMICILIO: 'Quarantena extradomiciliare',
+	SHOW_ONLY_ASSEGNAZIONE_DOMICILIO_HINT:'Mostra solo pazienti in assegnazione domicilio',
+	SHOW_ONLY_SEGNALAZIONE: 'Segnalati da MMG ai SISP',
+	SHOW_ONLY_SEGNALAZIONE_HINT: 'Mostra solo pazienti segnalati da MMG (e senza altri decorsi)',
+	
+	SHOW_ONLY_STRUTTURA: 'Ricovero',
+	SHOW_ONLY_STRUTTURA_HINT:'Mostra solo pazienti ricoverati struttura ospedaliera',
+	SHOW_ONLY_DECEDUTO: 'Deceduti',
+	SHOW_ONLY_DECEDUTO_HINT:'Mostra solo pazienti deceduti',
+	SHOW_ONLY_GUARITO: 'Guariti',
+	SHOW_ONLY_GUARITO_HINT:'Mostra solo pazienti guariti',
+
+	
+	RICHIESTE_TAMPONE_TITLE: 'Richieste Tampone', 
+	RICHIESTE_TAMPONE_DOWNLOAD_CSV_BTN: 'Scarica tutte le richieste di tampone dell\'asr per Excel',
+	TAMPONI_NO_TAMPONI:'Non sono presenti richieste di tampone', 
+	SHOW_ONLY_TAMPONI_NO_INFO:'<span>Mostra solo le richieste con informazioni insufficienti</span>',
+	
+	/* page title */
+	PAGE_TITLE_HOME : 'Gestione Pazienti - Beta',
+
+	
+	DECORSO_INTRO_SINTOMI: 'Indicare se presenti sintomi COVID, e data inzio sintomatologia',
+	
+	
+	/* Validation */
+	VALIDATION_REQUIRED: 'Campo obbligatorio',
+	VALIDATION_COLLECTION_NOTES_REQUIRED: 'Per i dataset non divulgabili è necessario indicarne il motivo',
+	VALIDATION_COLLECTION_NAME_UNIQUE: 'Il nome dell\'insieme di dataset deve essere univoco all\'interno di un progetto',
+	VALIDATION_USAGE_NAME_UNIQUE: 'Il nome della fruizione deve essere univoco all\'interno di un progetto',
+
+	/* tables */
+	TABLE_FILTERS: 'Filtri',
+	
+	
+	TRASFERIMENTI_ESTERNI_TITLE: 'Pazienti in arrivo da altra struttura',
+	TRASFERIMENTI_ESTERNI_NEW_DECORSO_BTN: 'Crea decorso',
+	TRASFERIMENTI_ESTERNI_NEW_DECORSO_SELECTED_BTN: 'Crea decorso per il paziente selezionato',
+	
+	PAZIENTI_QUARANTENA_TITLE: 'Pazienti in quarantena',
+	PAZIENTI_SEGNALATI_TITLE: 'Pazienti segnalati',
+	
+	POSTIDISPONIBILI_TITLE: 'Situazione posti disponibili',
+	SITUAZIONE_LEGEND_INTRO:'Posti letto occupati',
+	SITUAZIONE_LEGEND_RED: 'più dell\'80%',
+	SITUAZIONE_LEGEND_ORANGE: 'fra l\'80% e il 70%',
+	SITUAZIONE_LEGEND_YELLOW: 'fra l\'70% e il 60%',
+	SITUAZIONE_LEGEND_GREEN: 'meno del 60%',
+
+	SITUAZIONE_TOTALE_POSTI_TARGET_ENTE: 'Posti target',
+	SITUAZIONE_TOTALE_POSTI_DISPONIBILI_ENTE:'Posti attivati',
+	SITUAZIONE_TOTALE_POSTI_OCCUPATI_ENTE:'Posti occupati',
+	SITUAZIONE_TOTALE_POSTI_DISPONIBILI_VERI_ENTE:'Posti disponibili',
+
+	SITUAZIONE_SHOW_ELENCO_BTN:'Mostra situazione come elenco',
+	SITUAZIONE_SHOW_AGGREGATI_BTN:'Mostra situazione aggregata per ente',
+	
+	SITUAZIONE_TOTALE_POSTI:'Totale',
+	POSTIDISPONIBILI_MOSTRA_STRUTTURE_VUOTE:'Mostra anche strutture senza posti disponibili',
+	
+	TER_INT: 'Terapia Intensiva',
+	TER_SEMI_INT: 'Terapia Semi - Intensiva',
+	NIV: 'NIV in letti ordinari',
+	PNEUMO: 'Pneumologia',
+	INFETT: 'Infettivologia',
+	MED_INT: 'Media Intensità',
+	IN_ATTESA: 'In attesa',
+	ALTRO: 'Altro',
+	D: 'Attivati',
+	P: 'Occupati',
+	
+	/* search */
+	PAZIENTI_SEARCH_INTRO: 'Inserire il codice fiscale o il cognome da ricercare',
+	PAZIENTI_SEARCH_INTRO_DETAIL: 'Per cercare un paziente è necessario specificare il codice fiscale completo, o almeno 4 caratteri del cognome. \
+		Se il cognome fosse da meno di tre caratteri, verrà effettuata una ricerca esatta sul cognome',
+	PAZIENTI_SEARCH_COGNOME_EXACT: 'Cognome esatto',
+	PAZIENTI_SEARCH_COGNOME_EXACT_TITLE: '',
+	PAZIENTI_SEARCH_BTN: 'Cerca pazienti',
+	PAZIENTI_NEW_SEARCH_BTN: 'Nuova ricerca',
+	
+	FEEDBACK_SEARCH_PARAM_REQUIRED: 'Inserire il codice fiscale completo o il cognome',
+	FEEDBACK_SEARCH_PARAM_CF: 'Inserire un codice fiscale completo',
+	FEEDBACK_SEARCH_NO_PAZIENTI: 'Non sono stati trovati pazienti', 
+	PAZIENTI_SEARCH_FILTER_HEADER: 'Filtri ricerca',
+
+	FEEDBACK_NEW_DIARIO_INVALID: 'Per proseguire è necessario correggere le seguenti anomalie',
+	FEEDBACK_NEW_DIARIO_SAVED:'Nuovo monitoraggio inserito', 
+	SAVE_DIARIO:'Salva',
+	
+	INTERVENTO_USCA_DETTAGLIO_BTN:'Dettaglio',
+	
+	INTERVENTO_USCA_data_richiesta :'Data richiesta',
+	INTERVENTO_USCA_medico_richiesta :'Medico richiedente',
+	INTERVENTO_USCA_stato :'Stato richiesta',
+	INTERVENTO_USCA_destinatario :'Destinatario',
+	INTERVENTO_USCA_telefono: 'Telefono',
+	INTERVENTO_USCA_descrizione: 'Descrizione',
+
+	INTERVENTO_USCA_data_intervento: 'Data intervento',
+	INTERVENTO_USCA_medico_intervento: 'Medico intervento',	
+	INTERVENTO_USCA_tipo_intervento: 'Tipo intervento',
+	INTERVENTO_USCA_azione_intervento: 'Azione intrapresa',
+	INTERVENTO_USCA_descrizione_azione_intervento: 'Descrizione azione intrapresa',
+	INTERVENTO_USCA_descrizione_intervento: 'Descrizione', 
+	
+	INTERVENTO_USCA_DETTAGLIO_MODAL_TITLE: 'Dettaglio rischieta di intervento per ',
+	INTERVENTO_USCA_RICHIESTA: 'Richiesta',
+	INTERVENTO_USCA_INTERVENTO: 'Intervento',
+	INTERVENTO_USCA_CRONOLOGIA: 'Cronologia',
+	
+	INTERVENTO_USCA_DETTAGLIO_NO_INTERVENTO: 'Non è stato ancora generato un intervento per questa richiesta',
+	
+	INTERVENTO_USCA_DETTAGLIO_NO_CRONOLOGIA: 'Per questa richiesta non esiste una cronologia',
+    INTERVENTO_USCA_cronologia_data: 'Data',
+    INTERVENTO_USCA_cronologia_stato: 'Stato',
+    INTERVENTO_USCA_cronologia_operatore: 'Operatore',
+    INTERVENTO_USCA_cronologia_telefono: 'Telefono',
+
+    STATO_INTERVENTO_USCA_B: 'BOZZA',
+    STATO_INTERVENTO_USCA_I: 'INVIATA',
+    STATO_INTERVENTO_USCA_R: 'RIFIUTATA',
+    STATO_INTERVENTO_USCA_P: 'ACCETTATA',
+	  STATO_INTERVENTO_USCA_E: 'EVASA',	
+	
+
+	NOTIFICHE_TITLE: 'Notifiche isolamento fiduciario',
+	NOTIFICHE_soggetto: 'Paziente',
+	NOTIFICHE_medico: 'Medico',
+	NOTIFICHE_tipo_evento: 'Tipo Evento',
+	NOTIFICHE_presa_visione: 'Presa visione',
+	NOTIFICHE_priorita: 'Priorità',
+	NOTIFICHE_not_id: 'Id Notifica',
+	NOTIFICHE_not_data_notifica: 'Data notifica',
+	NOTIFICHE_not_data_presa_visione: 'Presa visione',
+	NOTIFICHE_not_testo_request: 'Richiesta',
+	NOTIFICHE_not_testo_response: 'Risposta',
+	NOTIFICHE_id_soggetto: 'Id Soggetto',
+	NOTIFICHE_cf_utente_richiesta: 'C.F. utente richiesta',
+	NOTIFICHE_cf_utente_presa_vis: 'C.F. utente presa visione',
+	NOTIFICHE_cf_utente_dest: 'C.F. destinatario',
+	NOTIFICHE_id_ente: 'Id ente',
+	NOTIFICHE_id_struttura: 'Id struttura',
+	NOTIFICHE_priorita_id: 'Priorità',
+	NOTIFICHE_not_tipo_id: 'Tipo id',
+	NOTIFICHE_not_ev_id: '',
+	NOTIFICHE_not_az_id: '',
+	NOTIFICHE_not_ut_tipo_id: 'Tipo id utente',
+	NOTIFICHE_utente_operazione: '',
+	NOTIFICHE_data_creazione: 'Data creazione',
+	NOTIFICHE_data_modifica: 'Data modifica',
+	NOTIFICHE_not_ut_tipo_id_dest: 'Tipo utente destinatario',
+	NOTIFICHE_da_visionare: 'Da prendere in visione',
+	NOTIFICHE_esito_tampone: 'Esito tampone',
+	SHOW_ONLY_TAMPONE_DA_RICHIEDERE: 'Tamponi da richiedere',
+	SHOW_ONLY_TAMPONE_DA_RICHIEDERE_HINT: 'Mostra solo tamponi da richiedere',
+
+	SHOW_ONLY_NOTIFICHE_DA_VISIONARE:'Notifiche da visionare',
+	SHOW_ONLY_NOTIFICHE_DA_VISIONARE_HINT: 'Mostra solo le notifiche da visionare',
+
+	SHOW_ONLY_ISOLAMENTO_HINT:'Mostra solo notifiche di pazienti in isolamento',
+	SHOW_ONLY_ISOLAMENTO:'Isolamento',
+	
+	SHOW_ONLY_AGGRAVAMENTO_HINT:'Mostra solo notifiche di pazienti in aggravamento',
+	SHOW_ONLY_AGGRAVAMENTO:'Aggravamento',
+	
+	PRESA_VISIONE_TITLE: 'Prendi visione',
+	PRESA_VISIONE_TESTO: 'Prendi visione della notifica selezionata. Puoi inserire un testo di risposta.',
+	PRENDI_VISIONE: 'Prendi visione',
+	COMUNICAZIONI_MMG_TITLE: 'Comunicazioni MMG',
+	PAZIENTE_AGGIUNGI_CONTATTO: 'Aggiungi contatto',
+	NUOVO_CONTATTO_TITLE: 'Aggiungi contatto',
+	NUOVO_CONTATTO_INSERISCI: 'Inserisci nuovo contatto',
+	NUOVO_CONTATTO_TESTO: 'Inserimento di un nuovo contatto tra pazienti',
+	NUOVO_CONTATTO_INSERISCI_SOGGETTO: 'Inserisci nuovo',
+	PAZIENTE_CONTATTI_DA: 'Contatti a rischio',
+	PAZIENTE_CONTATTI_A : 'Segnalato come<br>contatto di',
+	
+	PAZIENTI_CONTATTI_A_NO_CONTATTI: 'Non ci sono \"segnalati come contatto di\" per questo paziente.',
+	PAZIENTI_CONTATTI_DA_NO_CONTATTI: 'Non ci sono contatti a rischio per questo paziente.',
+	CONTATTO_id_contatto: 'id contatto',
+	CONTATTO_tipo: 'Tipo contatto',
+	CONTATTO_id_soggetto_da: 'Paziente da',
+	CONTATTO_id_soggetto_a: 'Paziente a',
+	CONTATTO_note: 'Note',
+	NOTIFICHE_NO_NOTIFICHE: 'Non sono presenti notifiche.',
+	COMUNICAZIONI_NO_COMUNICAZIONI: 'Non sono presenti comunicazioni.'
+
+
+};

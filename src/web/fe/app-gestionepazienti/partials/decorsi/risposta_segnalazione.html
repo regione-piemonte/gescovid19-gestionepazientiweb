@@ -1,0 +1,98 @@
+<div class='modal-compact' id="sintomi-modal">
+	<div class='modal-header' ng-click='debugCollection()'>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+		<h4 ><span>{{'SINTOMI_TITLE'|translate}}</span></h4>
+	</div>
+	
+	<div class='modal-intro-data'>
+		<div class="detail-row">
+	    	<div class="detail-label"  translate>PAZIENTI_id_soggetto</div>
+			<div class="detail-content">
+				{{paziente.idSoggetto}}
+			</div>
+  		</div>	
+		<div class="detail-row">
+	    	<div class="detail-label"  translate>PAZIENTI_codice_fiscale</div>
+			<div class="detail-content">
+				{{paziente.codiceFiscale}}
+			</div>
+  		</div>	
+	    <div class="detail-row">
+	    	<div class="detail-label" translate>PAZIENTI_cognome</div>
+			<div class="detail-content">
+					{{paziente.cognome}}
+			</div>
+  		</div>	
+	    <div class="detail-row">
+	    	<div class="detail-label "translate>PAZIENTI_nome</div>
+			<div class="detail-content">
+					{{paziente.nome}}
+			</div>
+  		</div>	
+  	<!-- 
+  		<div class="detail-row">
+	    	<div class="detail-label  "  for="pazienteDatanascita" translate>PAZIENTI_data_nascita</div>
+			<div class="detail-content">
+					{{paziente.dataNascita|date:'dd/MM/yyyy'}}
+			</div>
+		</div>
+		<div class="detail-row">
+	    	<div class="detail-label"  translate>DECORSO_data_evento</div>
+			<div class="detail-content">
+				{{decorso.dataDimissioni|date:'dd/MM/yyyy'}}
+			</div>
+		</div>
+		<div class="detail-row">
+	    	<div class="detail-label"  translate>DECORSO_condizioni_cliniche</div>
+			<div class="detail-content">
+				{{decorso.condizioniCliniche}}
+			</div>
+		  </div>
+		  <div class="detail-row">
+	    	<div class="detail-label"  translate>DECORSO_descrizione_contesto</div>
+			<div class="detail-content">
+				{{decorso.descrizioneContesto}}
+			</div>
+		  </div>
+		  <div class="detail-row">
+	    	<div class="detail-label"  translate>DECORSO_luogo_paziente</div>
+			<div class="detail-content">
+				{{decorso.luogoPaziente}}
+			</div>
+  		</div>
+  		 -->
+		  <div class="detail-row">
+	    	<div class="detail-label"  translate>DECORSO_note</div>
+			<div class="detail-content">
+				{{decorso.note}}
+			</div>
+  		</div>
+  	</div>
+	<div class="modal-body">
+		<loading size='big'ng-if='loading' />
+		<p> 
+			<span translate ng-if='isPresoInCarico'>SEGNALAZIONE_PRENDI_IN_CARICO_INTRO</span>
+			<span translate ng-if='!isPresoInCarico'>SEGNALAZIONE_INCOGRUA_INTRO</span>
+		</p>
+		<form class='form' ng-if='!loading'  >
+			<div class="form-group">
+			   <label for="noteRisposta" translate >DECORSO_note</label>
+				<textarea rows='5' type="text" class="form-control "  id="noteRisposta" 
+					ng-model="decorsoPresaInCarico.note" maxlength="500"></textarea>
+				</div>
+		</form>
+	<alert-panel content='feedback'></alert-panel>
+	</div>
+
+	<div class='modal-footer '>
+		<div class='toolbar-left'>
+			<a href ng-click='cancel()' class='btn btn-default' translate>CANCEL</a>
+		</div>
+		<div class='toolbar-right'>
+			<a href ng-click='save(true)' class='btn btn-primary' translate ng-if='isPresoInCarico && !loading'>SEGNALAZIONE_PRENDI_IN_CARICO_CONFIRM</a>
+			<a href ng-click='save(false)' class='btn btn-primary' translate ng-if='!isPresoInCarico && !loading'>SEGNALAZIONE_INCOGRUA_CONFIRM</a>
+			<span translate ng-if='loading'>LOADING</span>
+		</div>
+	</div>
+	
+</div>

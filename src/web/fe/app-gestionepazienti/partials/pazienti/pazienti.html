@@ -1,0 +1,266 @@
+<div class='container panel-main-content' >
+	<div class='panel-header panel-header-toolbar'>
+		<h1 class='panel-header-item-left panel-header-main-content' ng-click='debugCollection()'>
+			<strong translate>PAZIENTI_TITLE</strong>
+		</h1>
+		<div class="panel-header-item-right">
+			<a href="/gestionepazientiweb/api/soggetto/report/xlsx?codiceFiscale={{filter.codicefiscaleFilter}}&cognome={{filter.cognomeFilter}}&nome={{filter.nomeFilter}}&idTipoEvento={{idTipoEventoSelected()}}&idTipoSoggettoStr={{filter.tipoSoggettoFilter}}&comuneDomicilio={{filter.domicilioComuneFilter}}" class="btn btn-default ng-scope">
+				<i class='fa fa-file-excel-o'></i>&nbsp;
+				<span translate>PAZIENTI_DOWNLOAD_CSV_BTN</span>
+			</a>
+		</div>
+		
+	</div>
+	<div class='panel-main-content' >
+	
+		<alert-panel content='feedback'></alert-panel>	
+		
+		<div class='panel-main-content'>
+			
+			<loading size='big'ng-if='loading' />
+				
+			<div ng-if='!loading' >
+				<div class='toolbar table-toolbar' ng-if="pazienti.length>0">
+					
+					<div class='table-toolbar-filter'>
+						<label><i class='fa fa-filter'></i> <span translate>TABLE_FILTERS</span></label> 
+					</div>
+					
+					<div class='table-toolbar-filter'  >
+						<div class="checkbox inline-checkbox " title='{{"SHOW_ONLY_SEGNALAZIONE_HINT"|translate}}'>
+							<label><input type="checkbox" ng-model='filter.tipiDecorso.SEGNALAZIONE' name='checkboxTipoDecorso' ng-change='selectTipoDecorso("SEGNALAZIONE")'/>
+								<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+								<i class='fa-lg fa fa-exclamation-circle icon-tipo-decorso icon-tipo-decorso-SEGNALAZIONE'></i>
+								<small class='nowrap' translate>SHOW_ONLY_SEGNALAZIONE</small>
+							</label>
+						</div>
+					</div>
+					<div class='table-toolbar-filter'  >
+						<div class="checkbox inline-checkbox " title='{{"SHOW_ONLY_STRUTTURA_HINT"|translate}}'>
+							<label><input type="checkbox" ng-model='filter.tipiDecorso.STRUTTURA' name='checkboxTipoDecorso' ng-change='selectTipoDecorso("STRUTTURA")'/>
+								<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+								<span class="icon-hospital"><i class="fa-lg fa fa-building-o icon-tipo-decorso icon-tipo-decorso-'+tipoDecorso+'"></i>
+									<small><i class="fa fa-plus icon-hospital-cross"></i></small>	</span>
+								<small class='nowrap' translate>SHOW_ONLY_STRUTTURA</small>
+							</label>
+						</div>
+					</div>
+					<div class='table-toolbar-filter'  >
+						<div class="checkbox inline-checkbox " title='{{"SHOW_ONLY_POST_RICOVERO_HINT"|translate}}'>
+							<label><input type="checkbox" ng-model='filter.tipiDecorso.POST_RICOVERO' name='checkboxTipoDecorso' ng-change='selectTipoDecorso("POST_RICOVERO")'/>
+								<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+								<i class='fa-lg fa fa-home icon-tipo-decorso icon-tipo-decorso-POST_RICOVERO'></i>
+								<small class='nowrap' translate>SHOW_ONLY_POST_RICOVERO</small>
+							</label>
+						</div>
+					</div>
+					<div class='table-toolbar-filter'  >
+						<div class="checkbox inline-checkbox " title='{{"SHOW_ONLY_ISOLAMENTO_DOMICILIARE_HINT"|translate}}'>
+							<label><input type="checkbox" ng-model='filter.tipiDecorso.ISOLAMENTO_DOMICILIARE' name='checkboxTipoDecorso' ng-change='selectTipoDecorso("ISOLAMENTO_DOMICILIARE")'/>	
+								<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+								<i class='fa-lg fa fa-home icon-tipo-decorso icon-tipo-decorso-ISOLAMENTO_DOMICILIARE'></i>
+								<small class='nowrap' translate>SHOW_ONLY_ISOLAMENTO_DOMICILIARE</small>
+							</label>
+						</div>
+					</div>
+					<div class='table-toolbar-filter'  >
+						<div class="checkbox inline-checkbox " title='{{"SHOW_ONLY_ISOLAMENTO_FIDUCIARIO_HINT"|translate}}'>
+							<label><input type="checkbox" ng-model='filter.tipiDecorso.ISOLAMENTO_FIDUCIARIO' name='checkboxTipoDecorso' ng-change='selectTipoDecorso("ISOLAMENTO_FIDUCIARIO")'/>	
+								<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+								<i class='fa-lg fa fa-home icon-tipo-decorso icon-tipo-decorso-ISOLAMENTO_FIDUCIARIO'></i>
+								<small class='nowrap' translate>SHOW_ONLY_ISOLAMENTO_FIDUCIARIO</small>
+							</label>
+						</div>
+					</div>
+					<div class='table-toolbar-filter'  >
+						<div class="checkbox  " title='{{"SHOW_ONLY_ASSEGNAZIONE_DOMICILIO_HINT"|translate}}'>
+							<label><input type="checkbox" ng-model='filter.tipiDecorso.ASSEGNAZIONE_DOMICILIO' name='checkboxTipoDecorso' ng-change='selectTipoDecorso("ASSEGNAZIONE_DOMICILIO")'/> 			
+								<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+								<i class='fa-lg fa fa-building icon-tipo-decorso icon-tipo-decorso-ASSEGNAZIONE_DOMICILIO'></i>
+								<small class='nowrap' translate>SHOW_ONLY_ASSEGNAZIONE_DOMICILIO</small>
+							</label>
+						</div>
+					</div>
+					<div class='table-toolbar-filter'  >
+						<div class="checkbox inline-checkbox " title='{{"SHOW_ONLY_DECEDUTO_HINT"|translate}}'>
+							<label><input type="checkbox" ng-model='filter.tipiDecorso.DECEDUTO' name='checkboxTipoDecorso' ng-change='selectTipoDecorso("DECEDUTO")'/>
+								<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+								<span class="icon-deceduto">D</span>
+								<small class='nowrap' translate>SHOW_ONLY_DECEDUTO</small>
+							</label>
+						</div>
+					</div>
+					<div class='table-toolbar-filter'  >
+						<div class="checkbox inline-checkbox " title='{{"SHOW_ONLY_GUARITO_HINT"|translate}}'>
+							<label><input type="checkbox" ng-model='filter.tipiDecorso.GUARITO' name='checkboxTipoDecorso' ng-change='selectTipoDecorso("GUARITO")'/>
+								<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+								<span class="icon-guarito">G</span>
+								<small class='nowrap' translate>SHOW_ONLY_GUARITO</small>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class='toolbar table-toolbar'>
+					<div class='table-toolbar-filter nowrap'>
+						<input type='text' ng-model="filter.codicefiscaleFilter" placeholder='{{"PAZIENTI_codice_fiscale"|translate}}'/>
+						<input type='text' ng-model="filter.cognomeFilter" placeholder='{{"PAZIENTI_cognome"|translate}}'/>
+						<input type='text' ng-model="filter.nomeFilter" placeholder='{{"PAZIENTI_nome"|translate}}'/>
+						<input type='text' ng-model="filter.domicilioComuneFilter" placeholder='{{"PAZIENTI_comune_domicilio_istat"|translate}}' />
+						<select ng-model='filter.tipoSoggettoFilter'
+								ng-options="o.idTipoSoggetto as o.descTipoSoggetto for o in tipisoggetto| orderBy:'idTipoSoggetto'">
+						</select>
+					</div>
+				</div>
+				
+				<div class='div-table' role="table"  ng-init='reverse=false'>
+					<div class="div-table-row div-table-header" role="rowgroup">
+						<div class="div-table-cell" role="columnheader" translate>&nbsp;</div>
+						<div class="div-table-cell" role="columnheader" translate>&nbsp;</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'codiceFiscale'; reverse=!reverse">
+								<span translate-cloak translate>PAZIENTI_codice_fiscale</span>&nbsp;
+								<span ng-show="predicate=='codiceFiscale' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='codiceFiscale' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'cognome'; reverse=!reverse">
+								<span translate-cloak translate>PAZIENTI_cognome</span>&nbsp;
+								<span ng-show="predicate=='cognome' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='cognome' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'nome'; reverse=!reverse">
+								<span translate-cloak translate>PAZIENTI_nome</span>&nbsp;
+								<span ng-show="predicate=='nome' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='nome' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'dataNascita'; reverse=!reverse">
+								<span translate-cloak translate>PAZIENTI_data_nascita</span>&nbsp;
+								<span ng-show="predicate=='dataNascita' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='dataNascita' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'aslResidenza'; reverse=!reverse">
+								<span translate-cloak translate>PAZIENTI_asl_residenza</span>&nbsp;
+								<span ng-show="predicate=='aslResidenza' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='aslResidenza' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'aslDomicilio'; reverse=!reverse">
+								<span translate-cloak translate>PAZIENTI_asl_domicilio</span>&nbsp;
+								<span ng-show="predicate=='aslDomicilio' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='aslDomicilio' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'comuneResidenza.nomeComune'; reverse=!reverse">
+								<span translate-cloak translate>PAZIENTI_comune_residenza_istat</span>&nbsp;
+								<span ng-show="predicate=='comuneResidenza.nomeComune' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='comuneResidenza.nomeComune' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'comuneDomicilio.nomeComune'; reverse=!reverse">
+								<span translate-cloak translate>PAZIENTI_comune_domicilio_istat</span>&nbsp;
+								<span ng-show="predicate=='comuneDomicilio.nomeComune' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='comuneDomicilio.nomeComune' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'indirizzoDomicilio'; reverse=!reverse">
+								<span translate-cloak translate>PAZIENTI_indirizzo_domicilio</span>&nbsp;
+								<span ng-show="predicate=='indirizzoDomicilio' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='indirizzoDomicilio' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'telefonoRecapito'; reverse=!reverse">
+								<span translate-cloak translate>PAZIENTI_telefono_recapito</span>&nbsp;
+								<span ng-show="predicate=='telefonoRecapito' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='telefonoRecapito' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'numeroCampioni'; reverse=!reverse">
+								<span translate-cloak translate>PAZIENTI_nr_tamponi_richiesti</span>&nbsp;
+								<span ng-show="predicate=='numeroCampioni' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='numeroCampioni' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'asr.descrizione'; reverse=!reverse">
+								<span translate-cloak translate>PAZIENTI_asr_descrizone</span>&nbsp;
+								<span ng-show="predicate=='asr.descrizione' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='asr.descrizione' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+						<div class="div-table-cell first" role="columnheader">
+							<a href="" ng-click="predicate  = 'tipoSoggetto.descTipoSoggetto'; reverse=!reverse">
+								<span translate-cloak translate>PAZIENTI_tipo_soggetto</span>&nbsp;
+								<span ng-show="predicate=='tipoSoggetto.descTipoSoggetto' && !reverse" class="fa fa-angle-up small"></span>
+								<span ng-show="predicate=='tipoSoggetto.descTipoSoggetto' && reverse" class="fa fa-angle-down  small"></span>
+							</a>
+						</div>
+					</div>
+					<div class="div-table-row div-table-row-linkable table-pazienti" role="rowgroup"
+						ng-repeat="p in filtered.pazienti = (
+						pazienti | 
+						filter: pazienteNomeFilter | 
+						filter:pazienteCognomeFilter | 
+						filter: tipoDecorsoFilter |
+						filter:pazienteCodicefiscaleFilter |
+						filter:pazienteDomicilioComuneFilter | 
+						filter:pazienteTipoSoggettoFilter |
+						orderBy:predicate:reverse) | 
+						startFrom:(filtered.currentPage-1)*pageSize |
+						limitTo:pageSize">
+						<div class="div-table-cell" role="cell" ng-click='showPaziente(p)' >
+							<div ng-bind-html='decorsoIcon(p.ultimoIdTipoEvento)'></div>
+							<!-- 
+								 <i class='{{decorsoIcon(p.ultimoIdTipoEvento)}}'></i>
+							 -->
+						</div>
+						<div class="div-table-cell first" role="cell" >
+							<div class="checkbox inline-checkbox">
+								<label><input id = 'checkPaziente__{{paziente.idSoggetto}}' type="checkbox" ng-model='p.selected' ng-change = 'selectPaziente(p.idSoggetto)' />
+								<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span></label>
+							</div>
+						</div>
+						<div class="div-table-cell" role="cell" ng-click='showPaziente(p)' >{{p.codiceFiscale}} </div>
+						<div class="div-table-cell" role="cell" ng-click='showPaziente(p)' >{{p.cognome}}</div>		
+						<div class="div-table-cell" role="cell" ng-click='showPaziente(p)' >{{p.nome}}</div>		
+						<div class="div-table-cell" role="cell" ng-click='showPaziente(p)' >{{p.dataNascita | date: 'dd/MM/yyyy'}}</div>		
+						<div class="div-table-cell" role="cell" ng-click='showPaziente(p)' >{{p.aslResidenza}}</div>		
+						<div class="div-table-cell" role="cell" ng-click='showPaziente(p)' >{{p.aslDomicilio}}</div>		
+						<div class="div-table-cell" role="cell" ng-click='showPaziente(p)' >{{p.comuneResidenza.nomeComune}}</div>		
+						<div class="div-table-cell" role="cell" ng-click='showPaziente(p)' >{{p.comuneDomicilio.nomeComune}}</div>		
+						<div class="div-table-cell" role="cell" ng-click='showPaziente(p)' >{{p.indirizzoDomicilio}}</div>		
+						<div class="div-table-cell" role="cell" ng-click='showPaziente(p)' >{{p.telefonoRecapito}}</div>		
+						<div class="div-table-cell" role="cell" ng-click='showPaziente(p)' >{{p.numeroCampioni}}</div>	
+						<div class="div-table-cell" role="cell" ng-click='showPaziente(p)' >{{p.asr.descrizione}}</div>							
+						<div class="div-table-cell" role="cell" ng-click='showPaziente(p)' >{{p.tipoSoggetto.descTipoSoggetto|nvl:'cittadino'}}</div>							
+					</div>
+				</div>
+				<div class='pagination-container' ng-if="pazienti.length>0">
+				 	<ul uib-pagination total-items="filtered.pazienti.length" ng-model="filtered.currentPage" items-per-page="pageSize" class="pagination-sm"
+				 	 	previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" boundary-links="true" force-ellipses="true" rotate="true" max-size="10"></ul>
+				</div>
+
+		  		<alert-panel message='PAZIENTI_NO_PAZIENTI' type='info' closable='false' ng-if="pazienti.length==0"></alert-panel>
+			</div>
+		</div>
+		<div class='toolbar'>
+			<div class='toolbar-right'>
+				<a href ng-click='showNewPazienteModal()' class='btn btn-primary'><span translate>PAZIENTE_NEW</span></a>
+				<a href ng-click='showPaziente()' class='btn btn-primary' ng-disabled='!selectedPaziente.idSoggetto'><span translate>PAZIENTE_VIEW_SELECTED</span></a>
+			</div>
+		</div>
+	</div>
+</div>
+

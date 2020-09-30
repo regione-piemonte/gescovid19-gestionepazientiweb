@@ -1,0 +1,98 @@
+@font-face {
+    font-family: 'Titillium Web';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Titillium Web Light'), local('Titillium Web-Light'), url(~@/assets/font/google/TitilliumWeb/titillium-web-v6-latin-300.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Titillium Web';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Titillium Web'), local('Titillium Web-Regular'), url(~@/assets/font/google/TitilliumWeb/titillium-web-v6-latin-regular.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Titillium Web';
+    font-style: normal;
+    font-weight: 600;
+    src: local('Titillium Web Medium'), local('Titillium Web-Medium'), url(~@/assets/font/google/TitilliumWeb/titillium-web-v6-latin-600.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Titillium Web';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Titillium Web Bold'), local('Titillium Web-Bold'), url(~@/assets/font/google/TitilliumWeb/titillium-web-v6-latin-700.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Titillium Web';
+    font-style: normal;
+    font-weight: 900;
+    src: local('Titillium Web Black'), local('Titillium Web-Black'), url(~@/assets/font/google/TitilliumWeb/titillium-web-v6-latin-900.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Titillium Web';
+    font-style: italic;
+    font-weight: 300;
+    src: local('Titillium Web Light Italic'), local('Titillium Web-LightItalic'), url(~@/assets/font/google/TitilliumWeb/titillium-web-v6-latin-300italic.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Titillium Web';
+    font-style: italic;
+    font-weight: 600;
+    src: local('Titillium Web Medium Italic'), local('Titillium Web-MediumItalic'), url(~@/assets/font/google/TitilliumWeb/titillium-web-v6-latin-600italic.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Titillium Web';
+    font-style: italic;
+    font-weight: 700;
+    src: local('Titillium Web Bold Italic'), local('Titillium Web-BoldItalic'), url(~@/assets/font/google/TitilliumWeb/titillium-web-v6-latin-700italic.ttf) format('truetype');
+  }
+  body{margin: 0;}
+
+  .icon-isolamento-domiciliare{color: #e30613;}
+  .tampone-icon{display: inline-block; background-color: #333;font-size : .7rem; padding: 0.3rem 0.15rem 0 0.15rem;  width: 1rem; height: 1rem;text-align: center; color: white; border-radius: 1em;}
+  .toolbar{display: flex; align-items: center;}
+  .toolbar-separator{display: block;width: 12px;}
+  .toolbar-btn{border: solid 1px #ccc; background-color: #eee; font-size: 1em; padding: .5em 1em .5em .5em ; border-radius: 2em; white-space:nowrap}
+  .toolbar-btn:hover{cursor: pointer;}
+  .toolbar-btn a{color: #333; text-decoration: none;}
+  .toolbar-btn-label{margin-left: .5em; text-decoration: none;}
+  .table {margin: 0; padding: 0; border-collapse: collapse; width: 100%;font-size: 14px;}
+  .table-header th, td {
+    border-bottom: 1px solid #ddd;
+  }
+  .table tr:nth-child(even) {background-color: #d8f4ff;}
+  .table-row td:after {font-weight: bold;text-align: left; padding: 8px; vertical-align: top;}
+  .table-header th {border-bottom: 2px solid #ddd;}
+  .table-header th p{margin:0;}
+  .table tr:hover {background-color: #f5f5f5;}
+  .table-header th:last-child p {border: 0;}
+  .table-header p {padding: 0;}
+  .table-row td {padding: 8px; text-align: left;display: table-cell;}
+  .table-row td p{margin: 0;padding:0;}
+  .table-row td:last-child p {border: 0;}
+  .table-row p { padding: 0 15px;}
+
+  .modal-content{position: relative; background-color: white; width: 100%;padding: 12px; box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);}
+  .v--modal-box .close{position: absolute; top: 4px; right: 10px; font-size: 1.5em;}
+  .v--modal-box .close:hover{cursor: pointer;}
+  .modal-footer {padding-top: 12px; border-top: solid 1px #ccc; margin-top: 12px; display: flex;}
+  .modal-footer .toolbar-left{flex-grow: 1;}
+  @media only screen and (max-width: 768px) {
+    .toolbar-btn-label{display: none;}
+    .toolbar-btn {padding:.4em; width: 2em;height: 1em;text-align: center;}
+    .toolbar-btn-div{padding-top: .25em; padding-bottom: .55em;}
+    .toolbar-btn-checkbox{width: 3em;}
+
+    .table-responsive .table-header {display: none;}
+
+    .table-responsive .table-row { border-top: 1px solid #ddd;}
+    .table-responsive .table-row p { border: 0; display: inline; padding: 0;}
+    .table-responsive .table-row td { display: block; position: relative;padding: 8px 0 8px 7.5rem; height: 1.2em;}
+    .table-responsive .table-row td:last-child { border-bottom: 0px solid #ccc;}
+    .table-responsive .table-row td:before { content: ''; background: #ddd; position: absolute; 
+      top: 0; bottom: 0; left: 0; width: 6.5rem;}
+    .table-responsive .table-row td:after {content: attr(data-th);position: absolute;
+      top: 0;left: 0; display: inline-block; padding-left: 10px;max-width: 6rem;}
+ 
+ 
+  }

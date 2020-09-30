@@ -1,0 +1,52 @@
+<div class="releasenotes-modal">
+      	<div class="modal-header">
+		<!-- 
+		 <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+		 -->
+ 	       		<h2 class="releasenotes-title">
+ 	       			<span class='releasenotes-title-text'><span translate>{{'RELEASENOTES_TITLE'}}</span> {{v}}</span>
+ 					<small class='releasenotes-title-date'>{{releasenotes.releasedate}}</small>	       		
+ 	       		</h2>
+     		</div>
+      	<div class="modal-body">
+		<!-- 
+			 <div class='left-panel'>
+				<div ng-repeat="v in rnList track by $index" ng-class="{'active': v == releasenotes.version}" >
+					<a ng-click='showReleasenotes(v)' href>{{v}}</a>
+				</div>
+				<div class='filler'>&nbsp;</div>
+			</div>
+		 -->
+		<div >
+			<!-- 
+			 <h3><div class='version'><span translate>VERSION</span> {{releasenotes.version}}</div><div class='releasedate'>{{releasenotes.releasedate}}</div></h3>
+			 -->
+			<div ng-if='releasenotes.improvements.length>0'>
+				<!--  <h4 translate>NEW_VERSION_IMPROVEMENTS</h4>-->
+				<ul>
+					<li class='releasenotes-item' ng-repeat='item in releasenotes.improvements track by $index'>
+						<span ng-bind-html='item'></span>
+					</li>
+				</ul>
+			</div>
+<!-- 
+ 			<div ng-if='releasenotes.fixes.length>0'>
+				<h4 translate>NEW_VERSION_FIX</h4>
+				<ul>
+					<li class='releasenotes-item' ng-repeat='item in releasenotes.fixes track by $index'><span ng-bind-html='item'></span></li>
+				</ul>
+			</div>
+ -->
+		</div>
+	</div>
+	<div class="modal-footer">
+		<div class='row'>
+			<div class='col-sm-6 col-sm-offset-4 release-notes-info-close'>
+				<i><small translate>RELEASENOTES_INFO_CLOSE</small></i>
+			</div>
+			<div class='col-sm-2 text-right'>
+				<a href ng-click="cancel()" class='btn btn-default' translate>CLOSE</a>
+			</div>
+		</div>
+	</div>
+</div>

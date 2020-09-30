@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <context id="context1" targetRuntime="MyBatis3Simple">
+	<commentGenerator><property name="suppressDate" value="true" /></commentGenerator>
+    <jdbcConnection connectionURL="jdbc:postgresql://@@url_db@@" driverClass="org.postgresql.Driver" password="@@pwd_db@@" userId="@@user_db@@" />
+    <javaModelGenerator targetPackage="it.csi.gestionepazienti.gestionepazientiweb.dto" targetProject="gestionepazientiweb" >	
+    	<property name="rootClass" value="it.csi.gestionepazienti.gestionepazientiweb.dto.AbstractDto" />
+    </javaModelGenerator>
+    <javaClientGenerator targetPackage="it.csi.gestionepazienti.gestionepazientiweb.mapper.generated" targetProject="gestionepazientiweb" type="ANNOTATEDMAPPER" />
+
+	<table  tableName="istituti_scolastici" mapperName="BaseIstitutiScolasticiMapper" domainObjectName="IstitutoScolastico" ></table>
+
+  </context>
+</generatorConfiguration>
+

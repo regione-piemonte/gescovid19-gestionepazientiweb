@@ -1,0 +1,113 @@
+<div class='container panel-main-content'>
+	<alert-panel content='feedback'></alert-panel>
+	<div class='panel-header'>
+		<h1 class='panel-header-item-left panel-header-main-content'>
+			<span translate>PAZIENTE_TITLE</span> <small>{{paziente.nome}} {{paziente.cognome}}</small>
+		</h1>
+		<div class='main-info-panel'>
+			<div class="detail-info">
+		    	<div class="detail-info-label"  translate>PAZIENTI_id_soggetto</div>
+				<div class="detail-info-content">
+					{{paziente.idSoggetto}}
+				</div>
+	  		</div>	
+			<div class="detail-info">
+		    	<div class="detail-info-label"  translate>PAZIENTI_codice_fiscale</div>
+				<div class="detail-info-content">
+					{{paziente.codiceFiscale}}
+				</div>
+	  		</div>	
+	  		<div class="detail-info">
+		    	<div class="detail-info-label  "  for="pazienteDatanascita" translate>PAZIENTI_data_nascita</div>
+				<div class="detail-info-content">
+						{{paziente.dataNascita|date:'dd/MM/yyyy'}}
+				</div>
+	  		</div>
+			
+		</div>
+	</div>
+	<div class='tab-menu' >
+		<a href ng-click='showTabDetail()' class='tab-menu-item' ng-class="{active: pazienteTab.selected == 'pazienteDetail'}" translate>PAZIENTE_DETAIL</a>
+		<a href ng-click='showTabDecorsi()' class='tab-menu-item' ng-class="{active: pazienteTab.selected == 'pazienteDecorsi'}" translate >PAZIENTE_DECORSI</a>
+		<a href ng-click='showTabTamponi()' class='tab-menu-item' ng-class="{active: pazienteTab.selected == 'pazienteTamponi'}" translate>PAZIENTE_TAMPONI</a>
+		<a href ng-click='showTabInterventiUsca()' class='tab-menu-item' ng-class="{active: pazienteTab.selected == 'pazienteInterventiUsca'}" translate>PAZIENTE_INTERVENTI_USCA</a>
+		<a href ng-click='showTabDiari()' class='tab-menu-item' ng-class="{active: pazienteTab.selected == 'pazienteDiari'}" translate>PAZIENTE_DIARI</a>
+		<a href ng-click='showTabContattiDa()' class='tab-menu-item' ng-class="{active: pazienteTab.selected == 'pazienteContattiDa'}" translate>PAZIENTE_CONTATTI_DA</a>
+		<a href ng-click='showTabContattiA()' class='tab-menu-item' ng-class="{active: pazienteTab.selected == 'pazienteContattiA'}"translate>PAZIENTE_CONTATTI_A</a>
+		<span class='tab-menu-empty'>&nbsp</span>
+		<!-- 
+		<div class='tab-toolbar'>
+			<div ng-if ='!enableNewCollectionButton(paziente)' usecase='COLLECTION_CREATE' paziente_id='{{idSoggetto}}'>
+				<a href ng-disabled = '!enableNewCollectionButton(paziente)' class='btn btn-primary' title ="{{'COLLECTION_NO_CREATE'|translate}}" ng-if='paziente.idSoggetto && pazienteTab.selected=="pazienteCollections"' >
+					<span translate>MENU_COLLECTION_NEW</span>
+				</a>
+			</div>
+			<div ng-if ='enableNewCollectionButton(paziente)' usecase='COLLECTION_CREATE' paziente_id='{{idSoggetto}}'>
+				<a href ng-click='showEditCollectionModal(paziente.idSoggetto)' class='btn btn-primary' ng-if='paziente.idSoggetto && pazienteTab.selected=="pazienteCollections"' >
+					<span translate>MENU_COLLECTION_NEW</span>
+				</a>
+			</div>
+			<a href ng-click='showEditProjectModal(paziente.idSoggetto)' class='btn btn-primary' ng-if='paziente.idSoggetto && pazienteTab.selected=="pazienteDetail" '
+				usecase='PROJECT_INFO_EDIT' paziente_id='{{idSoggetto}}'>
+				<i class='fa fa-pencil'></i> <span translate>GO_TO_PROJECT_EDIT</span> 
+			</a>
+			<a href ng-click='showDeleteProjectModal(paziente)' class='btn btn-primary' ng-if='paziente.idSoggetto && pazienteTab.selected=="pazienteDetail" && isProjectToDelete(paziente)' usecase='PROJECT_DELETE' paziente_id='{{idSoggetto}}'>
+				<i class='fa fa-trash'></i> <span translate>GO_TO_PROJECT_DELETE</span>
+			</a>
+			<a href ng-click='showEditUsersProjectModal(paziente.idSoggetto)' class='btn btn-primary' ng-if='pazienteTab.selected=="pazienteUsers"' usecase='PROJECT_USERS_EDIT' paziente_id='{{idSoggetto}}' >
+				<span translate>GO_TO_PROJECT_EDIT_USERS</span>
+			</a>
+			<a href ng-click='showRelationDiagramModal(paziente.idSoggetto)' class='btn btn-primary' ng-if='paziente.idSoggetto && pazienteTab.selected=="pazienteRelations"' usecase='RELATION_GRAPH' paziente_id='{{idSoggetto}}'>
+				<span translate>MENU_RELATION_DIAGRAM</span>
+			</a>
+			<div>&nbsp;</div>
+			<a href ng-click='showNewRelationModal(paziente.idSoggetto)' class='btn btn-primary' ng-if='paziente.idSoggetto && pazienteTab.selected=="pazienteRelations"' usecase='RELATION_CREATE' paziente_id='{{idSoggetto}}'>
+				<span translate>MENU_RELATION_NEW</span>
+			</a>
+			<a href ng-click='showEditUsageModal(paziente.idSoggetto)'  usecase='USAGE_CREATE' class='btn btn-primary' ng-if='paziente.idSoggetto && pazienteTab.selected=="pazienteUsages"'  paziente_id='{{idSoggetto}}' >
+				<span translate>MENU_USAGE_NEW</span>
+			</a>
+		</div>-->
+	</div>
+	
+	<div class='tab-content'>
+		<div ng-if='pazienteTab.selected=="pazienteDetail"'  class='panel-main-content'>
+			<ng-include src="'partials/pazienti/detail.html'" class='panel-main-content'></ng-include>
+		</div>
+		<div ng-if='pazienteTab.selected=="pazienteDecorsi"' class='panel-main-content'>
+			<ng-include src="'partials/pazienti/decorsi.html'" class='panel-main-content'></ng-include>
+		</div>
+		<div ng-if='pazienteTab.selected=="pazienteTamponi"' class='panel-main-content'>
+			<ng-include src="'partials/pazienti/tamponi.html'" class='panel-main-content'></ng-include>
+		</div>
+		<div ng-if='pazienteTab.selected=="pazienteDiari"' class='panel-main-content'>
+			<ng-include src="'partials/pazienti/diari.html'" class='panel-main-content'></ng-include>
+		</div>
+		<div ng-if='pazienteTab.selected=="pazienteInterventiUsca"' class='panel-main-content'>
+			<ng-include src="'partials/pazienti/interventi_usca.html'" class='panel-main-content'></ng-include>
+		</div>
+		<div ng-if='pazienteTab.selected=="pazienteContattiDa"' class='panel-main-content'>
+			<ng-include src="'partials/pazienti/contatti_da.html'" class='panel-main-content'></ng-include>
+		</div>
+		<div ng-if='pazienteTab.selected=="pazienteContattiA"' class='panel-main-content'>
+			<ng-include src="'partials/pazienti/contatti_a.html'" class='panel-main-content'></ng-include>
+		</div>
+	</div>
+	<div class='toolbar'>
+		<div class='toolbar-left'>
+			<a href='#/pazienti' class='btn btn-default'><span translate>PAZIENTE_BACK_ELENCO_PAZIENTI_BTN</span></a>
+		</div>
+		<div class='toolbar-right'>
+		<!-- <a href ng-click='showNewPazienteModal()' class='btn btn-default'><span translate>PAZIENTE_LISTA_DECORSO_BTN</span></a>
+			<a href ng-click='showNewPazienteModal()' class='btn btn-default'><span translate>PAZIENTE_ELENCO_TAMPONI_BTN</span></a>-->
+			<a href ng-click='showEditPazienteModal()' class='btn btn-default'><span translate>PAZIENTE_MODIFICA_BTN</span></a>
+			<a href ng-if='paziente.elencoDecorso[0].idTipoEvento==Constants.ID_SEGNALAZIONE' ng-click='showSintomiFromDecorsoModal(paziente, paziente.elencoDecorso[0], paziente.elencoDecorso[0].sintomo)' class='btn btn-default'><span translate>SEGNALAZIONE_PRENDI_IN_CARICO</span></a>
+			<a href ng-click='showNewDecorsoModal("inQuarantena")' class='btn btn-default'><span translate>PAZIENTE_AGGIUNGI_QUARANTENA_BTN</span></a>
+			<a href ng-click='showNewDecorsoModal("inStruttura")' class='btn btn-default'><span translate>PAZIENTE_AGGIUNGI_DECORSO_BTN</span></a>
+			<a href ng-click='showNewTamponeModal()' class='btn btn-default'><span translate>PAZIENTE_RICHIEDI_TAMPONE_BTN</span></a>
+			<a href ng-click='showNewDiarioModal()' class='btn btn-default'><span translate>PAZIENTE_AGGIUNGI_DIARIO_BTN</span></a>
+			<a href ng-click='showNewNewContattoModal()' class='btn btn-default'><span translate>PAZIENTE_AGGIUNGI_CONTATTO</span></a>
+
+		</div>
+	</div>
+</div>

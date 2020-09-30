@@ -1,0 +1,17 @@
+{
+"java8": true,
+"useBeanValidation": true,
+"hideGenerationTimestamp": true,
+"apiPackage": "it.csi.gestionepazienti.gestionepazientiweb.business.be",
+"modelPackage":  "it.csi.gestionepazienti.gestionepazientiweb.dto",
+"invokerPackage": "it.csi.gestionepazienti.gestionepazientiweb.business.be",
+"implFolder": "implfolder",
+"sourceFolder": "src/java",
+"useSwaggerFeature": false,
+"generateJbossDeploymentDescriptor": false,
+"generateImplArtifacts": true,
+"generateSwaggerMetadata": true,
+"attributeSerializationStrategy": "implicit-camel-case", 
+"accessHttpHeaders": true,
+"accessHttpRequest": true
+}

@@ -1,0 +1,123 @@
+<div class='modal-compact' id="edit-paziente-modal">
+	<div class='modal-header' ng-click='debug()'>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+		<h4 ><span translate ng-if='!idTampone'>TAMPONE_NEW_TITLE</span></h4>
+		<h4 ><span translate ng-if='idTampone'>TAMPONE_EDIT_TITLE</span></h4>
+	</div>
+	<div class='modal-intro-data'>
+		<div class="detail-row">
+	    	<div class="detail-label"  translate>PAZIENTI_id_soggetto</div>
+			<div class="detail-content">
+				{{paziente.idSoggetto}}
+			</div>
+  		</div>	
+		<div class="detail-row">
+	    	<div class="detail-label"  translate>PAZIENTI_codice_fiscale</div>
+			<div class="detail-content">
+				{{paziente.codiceFiscale}}
+			</div>
+  		</div>	
+	    <div class="detail-row">
+	    	<div class="detail-label" translate>PAZIENTI_cognome</div>
+			<div class="detail-content">
+					{{paziente.cognome}}
+			</div>
+  		</div>	
+	    <div class="detail-row">
+	    	<div class="detail-label "translate>PAZIENTI_nome</div>
+			<div class="detail-content">
+					{{paziente.nome}}
+			</div>
+  		</div>	
+  		<div class="detail-row">
+	    	<div class="detail-label  "  for="pazienteDatanascita" translate>PAZIENTI_data_nascita</div>
+			<div class="detail-content">
+					{{paziente.dataNascita | date: 'dd/MM/yyyy'}}
+			</div>
+  		</div>
+  	</div>
+  	<div class="modal-body">
+		<alert-panel content='feedback'></alert-panel>
+		<form class='form-horizontal' >
+			<div class="form-group">
+				<div class='col-sm-4'>
+			    	<strong class=""  for="tamponeCriterio" translate>TAMPONI_criterio_epidemiologico_covid19</strong><br>
+					<p class='small'>Specificare nel campo le seguenti informazioni:</p>
+					<ul class='list-small small '>
+						<li>presenta sintomi respiratori/temperatura</li>
+						<li>reparto richiedente</li>
+			<!-- 		
+						<li>nominativo del medico richiedente</li>
+						<li>numero di telefono del medico</li>
+			-->
+						<li>tampone autorizzato da infettivologo interno</li>
+					</ul>
+
+
+					
+				</div>
+				<div class="col-sm-8">
+					<textarea rows='8' type="text" class="form-control " id="tamponeCriterio" placeholder="{{'TAMPONI_criterio_epidemiologico_covid19'|translate}}"  
+						ng-model="tampone.criterioEpidemiologicoCovid19" maxlength="500"></textarea>
+				</div>
+	  		</div>	
+		    <div class="form-group">
+		    	<label class="col-sm-4 control-label"  for="pazienteDomicilio" translate>TAMPONI_id_test_covid</label>
+			  	<div class="col-sm-8">
+						<select id='testCovid' class="form-control "  
+						 ng-model='tampone.idTestCovid' ng-disabled='idTampone' 
+						ng-options="t.idTestCovid as t.testCovid for t in tipologieTest | orderBy:'testCovid'"  >
+							<!-- <option style='font-style: italic' translate>SELECT_EMPTY_OPTION</option> -->
+						</select>
+				</div>
+	  		</div>	
+	  		<!-- 
+			    <div class="form-group">
+			    	<label class="col-sm-4 control-label"  for="tamponeAutorizzato" translate>TAMPONI_tampone_autorizzato_proposta</label>
+					<div class="col-sm-8  inline-controls">
+						<div class="checkbox inline-checkbox">
+							<label><input type="checkbox" ng-model='tampone.tamponeAutorizzato' ng-disabled='idTampone' />
+							<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span></label>
+						</div>
+					</div>
+		  		</div>	
+	  		 -->
+	  		<div class="form-group">
+		    	<label class="col-sm-4 control-label"  for="tamponeLaboratorio" translate>TAMPONI_id_laboratorio</label>
+				<div class="col-sm-8">
+						<select id='laboratori' class="form-control "   ng-model='tampone.idLaboratorio' ng-change='selectLaboratorio()'
+						ng-options="l.idLaboratorio as l.label for l in laboratori | orderBy:'descrizione'"  >
+						</select>
+					<!-- <div class='icon-{{feedback.laboratorio.style}}'><i class='{{feedback.laboratorio.icon}}'></i> <span class='text-{{feedback.laboratorio.style}}'>{{feedback.laboratorio.message}}</span></div>  -->	
+				</div>
+	  		</div>	 
+		    <div class="form-group">
+		    	<label class="col-sm-4 control-label"  for="medicoRichiedente" translate>TAMPONI_medico_richiedente</label>
+				<div class="col-sm-8  inline-controls">
+					<input type='text' type="text" class="form-control " id="medicoRichiedente" placeholder="{{'TAMPONI_medico_richiedente'|translate}}"  
+						ng-model="tampone.medicoRichiedente" maxlength="100"></textarea>
+				</div>
+	  		</div>	
+		    <div class="form-group">
+		    	<label class="col-sm-4 control-label"  for="contattoRichiedente" translate>TAMPONI_contatto_richiedente</label>
+				<div class="col-sm-8  inline-controls">
+					<input type='text' type="text" class="form-control " id="contattoRichiedente" placeholder="{{'TAMPONI_contatto_richiedente'|translate}}"  
+						ng-model="tampone.contattoRichiedente" maxlength="100"></textarea>
+				</div>
+	  		</div>	
+	</form>
+	<alert-panel content='feedback'></alert-panel>
+		
+	</div>
+	<div class='modal-footer '>
+		<div class='toolbar-left'>
+			<a href ng-click='cancel()' class='btn btn-default' translate>CANCEL</a>
+		</div> 
+		<div class='toolbar-right'>
+			<a href ng-click='saveTampone(true)' class='btn btn-primary' translate ng-if='!idTampone && !loading' >SAVE_TAMPONE</a>
+			<a href ng-click='saveTampone(true)' class='btn btn-primary' translate ng-if='idTampone && !loading'  >SAVE_INTEGRA_TAMPONE</a>
+			<span translate ng-if='loading'>LOADING</span>
+		</div>
+	</div>
+	
+</div>

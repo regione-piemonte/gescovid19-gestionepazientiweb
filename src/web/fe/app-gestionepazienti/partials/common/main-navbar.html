@@ -1,0 +1,144 @@
+
+<div id='main-header' ng-cloak class='nav-bar-compact'>
+	<nav class="navbar ">
+		<div class="container-fluid">
+			<div class="navbar-header">
+			    <button type="button" class="navbar-toggle" ng-click="navbarCollapsed = !navbarCollapsed" ng-init="navbarCollapsed=true">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+				<a href="#/" class="navbar-brand" ><span class="hidden">Gestione Pazienti - beta</span>
+					<logo />
+				</a>
+			</div>
+
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" collapse="navbarCollapsed">
+				<ul class="nav navbar-nav action-navbar">
+				<!-- 
+				 	<li>
+						<a href="#/home" ng-class="{active: $route.current.$$route.activetab == 'home'}" class='main-menu-item '>
+							<span translate-cloak translate>MENU_HOME</span>
+						</a>
+					</li>
+				 -->	
+					<li class='border-left'>
+						<a ng-href="#/pazienti"  ng-class="{active: $route.current.$$route.activetab == 'pazienti'}" class='main-menu-item '>
+							<span translate-cloak translate>MENU_PAZIENTI</span><br><span>&nbsp;</span>
+						</a>
+					</li>
+					<li class='border-left'>
+						<a ng-href="#/pazienti/search"  ng-class="{active: $route.current.$$route.activetab == 'pazientisearch'}" class='main-menu-item '>
+							<span translate-cloak translate>MENU_PAZIENTI_SEARCH</span><br><span>&nbsp;</span>
+						</a>
+					</li>
+					<li class='border-left'>
+						<a ng-href="#/richiestetamponi"  ng-class="{active: $route.current.$$route.activetab == 'richiestetamponi'}" class='main-menu-item '>
+							<span translate-cloak translate>MENU_TAMPONI_1</span><br>
+							<span translate-cloak translate>MENU_TAMPONI_2</span> 
+						</a>
+					</li>
+					<li class='border-left' >
+						<a ng-href="#/pazienti/list/quarantena"  ng-class="{active: $route.current.$$route.activetab == 'quarantena'}" class='main-menu-item '>
+							<span translate-cloak translate>MENU_CITTADINI_QUARANTENA_1</span><br>
+							<span translate-cloak translate>MENU_CITTADINI_QUARANTENA_2</span>
+						</a>
+					</li>  
+					<li class='border-left' ng-if='hasProfilo(6)'>
+						<a ng-href="#/pazienti/list/trasferimenti"  ng-class="{active: $route.current.$$route.activetab == 'trasferimenti'}" class='main-menu-item '>
+							<span translate-cloak translate>MENU_TRASFERIMENTI_ESTERNI_1</span><br>
+							<span translate-cloak translate>MENU_TRASFERIMENTI_ESTERNI_2</span>
+						</a>
+					</li>
+					<li class='border-left'>
+						<a ng-href="#/notifiche"  ng-class="{active: $route.current.$$route.activetab == 'notifiche'}" class='main-menu-item '>
+							<span translate-cloak translate>MENU_NOTIFICHE</span><br>
+							<span translate-cloak translate>MENU_NOTIFICHE_ISOLAMENTO</span>
+						</a>
+					</li>
+					<li class='border-left'>
+						<a ng-href="#/comunicazioni_mmg" ng-class="{active: $route.current.$$route.activetab == 'comunicazioni_mmg'}" class='main-menu-item '>
+							<span translate-cloak translate>MENU_COMUNICAZIONI_MMG_1</span><br>
+							<span translate-cloak translate>MENU_COMUNICAZIONI_MMG_2</span>
+						</a>
+					</li>
+					<!--
+					<li class='border-left' >
+						<a ng-href="#/pazienti/list/segnalati"  ng-class="{active: $route.current.$$route.activetab == 'segnalati'}" class='main-menu-item '>
+							<span translate-cloak translate>MENU_SEGNALATI</span>
+						</a>
+					</li>
+					-->
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<!-- 
+						<li>
+							<p class="navbar-text">
+								<small><i>{{currentDate|date:'dd/MM/yyyy HH:mm:ss'}}</i></small>
+							</p>
+						</li>
+						<li>
+							<p class="navbar-text" ng-class='{superadmin: currentUser.superadmin}'>
+								<strong>ASR</strong>  {{currentUser.asr.descrizione}}
+							</p>
+						</li>
+					 -->
+					<li>
+						<div class="navbar-text" >
+						</div>
+					</li>
+					<li>
+						<div class="navbar-text navbar-user" >
+							<div class='helpicon'>
+								<a href='/manualigescovid/gestionepazientiweb/Manuale_Utente_ASR_Applicativo_Gestione_Pazienti_COVID.pdf' target='_blank'>
+									<i class='fa fa-question-circle-o'></i> 
+								</a>
+							</div>
+							<div class='usericon'>
+								<i class='fa fa-user-circle-o'></i> 
+							</div>
+							<div class='userdata'>
+								<div>{{currentUser.nome}} {{currentUser.cognome}}</div>
+								<div><small><strong>ASR</strong>  {{currentUser.asr.descrizione}}</small></div>
+							</div> 
+						</div>
+					</li>
+					<!-- <li>
+						<a href  title="{{'HELP'|translate}}"><i class='fa fa-question'></i> </a>
+					</li>-->
+					<li>
+						<div class='logout-menu'>
+							<a class='text-right' href ng-click='logout()' title="{{'LOGOUT'|translate}}"><i class='fa fa-sign-out'></i> <span translate>LOGOUT</span></a>
+						</div>
+						<div class='time-menu'>
+							<small><i><digital-clock></digital-clock></i></small>
+						</div>
+						
+					</li>
+				</ul>
+				
+				<!-- <ul class="nav navbar-nav navbar-right navbar-with-caret lang-menu" ng-cloak>
+					<li class='main-menu-item main-menu-item-caret' class="dropdown" dropdown >
+			           	<a href class="dropdown-toggle main-menu-profile-caret"  id="dropdownMenuLang" data-toggle="dropdown" dropdown-toggle>
+							<span ng-if="currentLang() == 'it'">ITA</span>
+							<span ng-if="currentLang() == 'en'">ENG</span>
+							<span class="fa fa-chevron-down caret-icon"></span>
+					  	</a>
+		             	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuLang">
+						 	<li>
+						 		<a ng-click="changeLanguage('it')"  href title="{{'MENU_LANG_IT'|translate}}" ng-class="{'indent-dropdownitem-noicon':currentLang() != 'it'}" >
+						 			<i class='glyphicon glyphicon-ok indent-dropdownitem-icon' ng-show="currentLang() == 'it'"></i>&nbsp;&nbsp;<span translate>MENU_LANG_IT</span>
+						 		</a>
+						 	</li>
+						 	<li>
+						 		<a ng-click="changeLanguage('en')"  href title="{{'MENU_LANG_EN'|translate}}" ng-class="{'indent-dropdownitem-noicon':currentLang() != 'en'}" >
+						 			<i class='glyphicon glyphicon-ok indent-dropdownitem-icon' ng-show="currentLang() == 'en'"></i>&nbsp;&nbsp;<span translate>MENU_LANG_EN</span>
+						 		</a>
+						 	</li>	
+				  		</ul>
+				  	</li>
+	            </ul>-->
+			</div>
+		</div>
+	</nav>
+
+</div>
+

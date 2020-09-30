@@ -1,0 +1,42 @@
+ <div class='intervento-usca-dettaglio'>
+    <div ng-if="!iu.intervento">
+      	<span translate>INTERVENTO_USCA_DETTAGLIO_NO_INTERVENTO</span>
+    </div>
+    <div ng-if="iu.intervento">
+    	<div class="detail-row">
+			<div class="detail-label"  translate>INTERVENTO_USCA_data_intervento</div>
+			<div class="detail-content">{{iu.intervento.data | date:'dd/MM/yyyy HH:mm'}}</div>
+	  	</div>	
+		<div class="detail-row">
+			<div class="detail-label"  translate>INTERVENTO_USCA_destinatario</div>
+			<div class="detail-content">{{iu.usca.nome}} </div>
+	  	</div>
+		<div class="detail-row">
+			<div class="detail-label"  translate>INTERVENTO_USCA_medico_intervento</div>
+			<div class="detail-content">
+				<div class='cell-row'>{{medicoIntervento.nome}} {{medicoIntervento.cognome}}</div>
+				<div class='cell-row' ng-if='medicoIntervento.telefono' ><span translate>INTERVENTO_USCA_telefono</span> {{medicoIntervento.telefono}}</div>
+			</div>
+	  	</div>
+		<div class="detail-row">
+			<div class="detail-label"  translate>INTERVENTO_USCA_tipo_intervento</div>
+			<div class="detail-content">{{iu.intervento.tipo.nome}} </div>
+	  	</div>
+		<div class="detail-row">
+			<div class="detail-label"  translate>INTERVENTO_USCA_azione_intervento</div>
+			<div class="detail-content">{{iu.intervento.azione.nome}} </div>
+	  	</div>
+		<div class="detail-row">
+			<div class="detail-label"  translate>INTERVENTO_USCA_descrizione_azione_intervento</div>
+			<div class="detail-content">{{iu.intervento.azione_descrizione}} </div>
+	  	</div>
+		<div class="detail-row">
+			<div class="detail-label"  translate>INTERVENTO_USCA_descrizione_intervento</div>
+			<div class="detail-content">{{iu.intervento.descrizione}} </div>
+	  	</div>
+     	<div ng-repeat='p in iu.intervento.prescrizioni'class="detail-row">
+			<div class="detail-label  text-capitalize ">{{p.tipo.nome}}</div>
+			<div class="detail-content">{{p.prescrizione}} </div>
+	  	</div>
+    </div>
+</div>
